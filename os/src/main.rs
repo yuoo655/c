@@ -64,22 +64,11 @@ pub fn rust_main() -> ! {
     
 
     // scheduler::init();
-    // scheduler::thread::init();
-
-
-    // println!("[kernel] init scheduler mem");
-    // unsafe {
-        //     llvm_asm!("auipc ra, 0");
-        //     llvm_asm!("jalr ra, $0" :: "r"(0x86000462 as usize));
-        // }
-        
+    scheduler::thread::init();        
     // lkm::init();
     task::add_user_test();
     
     // let entry = get_symbol_addr_from_elf("tiny_kernel", "init_payload_environment");
-
-    
-    
     // let init_payload_environment_addr = lkm::get_symbol_addr_from_elf("basic_rt", "init_payload_environment");
     // println!("init_payload_environment at {:#x?}", init_payload_environment_addr);
     

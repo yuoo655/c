@@ -66,7 +66,7 @@ pub fn thread_init() {
 
 
     let mut queue = crate::scheduler::task::USER_TASK_QUEUE.lock();
-    for i in 0..100 {
+    for i in 0..10 {
         queue.add_task(crate::scheduler::task::runtime::UserTask::spawn(Mutex::new(Box::pin( foo(i) ))) );
     }
     drop(queue);

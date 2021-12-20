@@ -62,7 +62,7 @@ impl Processor {
         
     }
 
-    pub fn idle_main(&self) -> ! {
+    pub fn idle_main(&self){
 
         let inner = self.inner();
         // 在 idle 线程刚进来时禁用异步中断
@@ -71,7 +71,6 @@ impl Processor {
         println!("\n>>>> idle_main");
 
         loop {
-            // println!("\n>>>> loop");
             // 如果从线程池中获取到一个可运行线程
             if let Some(thread) = inner.pool.acquire() {
 
@@ -111,6 +110,7 @@ impl Processor {
                 drop(queue);
                 // enable_and_wfi();
                 // disable_and_store();
+                break;
             }
         }
     }
