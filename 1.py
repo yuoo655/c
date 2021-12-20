@@ -7,11 +7,9 @@ import os
 os.system("cd user && cargo clean")
 os.system("cd user && cargo build --release")
 
-# os.system("cd basic_rt && cargo clean")
-# os.system("cd basic_rt && python build.py")
 
-# os.system('cd basic_rt && cargo clean')
-# os.system('cd basic_rt && cargo build')
+os.system('cd basic_rt && cargo clean')
+os.system('cd basic_rt && cargo build')
 
 os.system("cd easy-fs-fuse && cargo run --release -- -s ../user/src/bin/ -t ../user/target/riscv64gc-unknown-none-elf/release/")
 
