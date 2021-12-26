@@ -47,16 +47,14 @@ pub struct ThreadPool {
 
 //立即可以开始运行的线程池.(初始化完毕的)
 impl ThreadPool {
-    pub fn new(size: usize, scheduler: Box<dyn Scheduler>) -> ThreadPool {
+    pub fn new(size: usize ,scheduler: impl Scheduler) -> Self {
         ThreadPool {
-            threads: {
-                let mut v = Vec::new();
-                v.resize_with(size, Default::default);
-                v
-            },
-            scheduler,
+            threads: new_vec_default(size),
+            scheduler: Box::new(scheduler),
+            // timer: Mutex::new(Timer::new()),
         }
     }
+
     fn alloc_tid(&self) -> Tid {
         for (i, info) in self.threads.iter().enumerate() {
             if info.is_none() {
@@ -118,3 +116,11 @@ impl ThreadPool {
     }
 }
 
+
+
+
+fn new_vec_default<T: Default>(size: usize) -> Vec<T> {
+    let mut vec = Vec::new();
+    vec.resize_with(size, Default::default);
+    vec
+}

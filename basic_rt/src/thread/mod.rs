@@ -21,7 +21,7 @@ pub mod thread_pool;
 pub mod processor;
 
 use processor::Processor;
-use scheduler::FifoScheduler;
+use scheduler::{FifoScheduler, RRScheduler};
 use scheduler::*;
 use thread_pool::ThreadPool;
 
@@ -36,7 +36,7 @@ pub fn init() {
     // 使用 Fifo Scheduler
     let scheduler = FifoScheduler::new();
     // 新建线程池
-    let thread_pool = ThreadPool::new(100, Box::new(scheduler));
+    let thread_pool = ThreadPool::new(100, scheduler);
 
     // 新建idle ，其入口为 Processor::idle_main
     let idle = Thread::new_box_thread(Processor::idle_main as usize, &CPU as *const Processor as usize);
@@ -69,23 +69,24 @@ pub fn add_to_thread_pool(addr: usize, space_id:usize) {
 
 
 #[no_mangle]
-pub fn init_cpu(){
+pub fn init_cpu_test(){
     // 使用 Fifo Scheduler
+    // let scheduler = RRScheduler::new(50);
     let scheduler = FifoScheduler::new();
     // 新建线程池
-    let thread_pool = ThreadPool::new(100, Box::new(scheduler));
+    let thread_pool = Arc::new(ThreadPool::new(50, scheduler));
 
     // 新建idle ，其入口为 Processor::idle_main
-    let idle = Thread::new_box_thread(Processor::idle_main as usize, &CPU as *const Processor as usize);
+    // let idle = Thread::new_box_thread(Processor::idle_main as usize, &CPU as *const Processor as usize);
 
-    CPU.init(idle, Box::new(thread_pool));
+    // CPU.init(idle, Box::new(thread_pool));
 
-    CPU.add_thread(
-        {
-            let thread = Thread::new_box_thread(thread_main as usize, 1);
-            thread
-        }
-    );
+    // CPU.add_thread(
+    //     {
+    //         let thread = Thread::new_box_thread(thread_main as usize, 1);
+    //         thread
+    //     }
+    // );
 }
 
 #[no_mangle]
