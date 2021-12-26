@@ -54,14 +54,9 @@ pub fn thread(){
 
 
 fn main(){
-    // task();
-    // thread();
     crate::thread::init();
     panic!("!!");
 }
-
-
-
 
 
 use core::{mem::MaybeUninit, ptr::NonNull};

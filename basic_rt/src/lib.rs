@@ -23,20 +23,20 @@ pub use scheduler::*;
 extern crate alloc;
 
 
-// #[no_mangle]
-// #[link_section = ".text.entry"]
-// pub extern "C" fn _start() -> ! {
+#[no_mangle]
+#[link_section = ".text.entry"]
+pub extern "C" fn _start() -> ! {
 
-//     let mut space_id :usize;
-//     // unsafe {
-//     //     HEAP.lock()
-//     //         .init(HEAP_SPACE.as_ptr() as usize, USER_HEAP_SIZE);
-//     // }
-//     // unsafe{asm!("mv {}, tp", out(reg) space_id, options(nomem, nostack));}
+    let mut space_id :usize;
+    // unsafe {
+    //     HEAP.lock()
+    //         .init(HEAP_SPACE.as_ptr() as usize, USER_HEAP_SIZE);
+    // }
+    // unsafe{asm!("mv {}, tp", out(reg) space_id, options(nomem, nostack));}
 
-//     // println!(" space_id : {:#x}", space_id);
-//     exit( main());
-// }
+    // println!(" space_id : {:#x}", space_id);
+    exit( main());
+}
 
 #[linkage = "weak"]
 #[no_mangle]

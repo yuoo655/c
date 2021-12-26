@@ -66,3 +66,29 @@ pub fn add_to_thread_pool(addr: usize, space_id:usize) {
 }
 
 
+
+
+#[no_mangle]
+pub fn init_cpu(){
+    // 使用 Fifo Scheduler
+    let scheduler = FifoScheduler::new();
+    // 新建线程池
+    let thread_pool = ThreadPool::new(100, Box::new(scheduler));
+
+    // 新建idle ，其入口为 Processor::idle_main
+    let idle = Thread::new_box_thread(Processor::idle_main as usize, &CPU as *const Processor as usize);
+
+    CPU.init(idle, Box::new(thread_pool));
+
+    CPU.add_thread(
+        {
+            let thread = Thread::new_box_thread(thread_main as usize, 1);
+            thread
+        }
+    );
+}
+
+#[no_mangle]
+pub fn cpu_run(){
+    CPU.run();
+}

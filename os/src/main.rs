@@ -64,66 +64,79 @@ pub fn rust_main() -> ! {
     
 
     // scheduler::init();
-    scheduler::thread::init();        
-    // lkm::init();
-    task::add_user_test();
+    // scheduler::thread::init();        
+    lkm::init();
+
+    // task::add_user_test();
     
-    // let entry = get_symbol_addr_from_elf("tiny_kernel", "init_payload_environment");
-    // let init_payload_environment_addr = lkm::get_symbol_addr_from_elf("basic_rt", "init_payload_environment");
-    // println!("init_payload_environment at {:#x?}", init_payload_environment_addr);
+    let init_environment_addr = lkm::get_symbol_addr_from_elf("basic_rt", "init_environment");
+    println!("init_environment at {:#x?}", init_environment_addr);
     
 
-    // let init_cpu_addr = lkm::get_symbol_addr_from_elf("basic_rt", "init_cpu");
-    // println!("init_cpu at {:#x?}", init_cpu_addr);
+    let init_cpu_addr = lkm::get_symbol_addr_from_elf("basic_rt", "init_cpu");
+    println!("init_cpu at {:#x?}", init_cpu_addr);
 
-    // let cpu_run_addr = lkm::get_symbol_addr_from_elf("basic_rt", "cpu_run");
-    // println!("cpu_run at {:#x?}", cpu_run_addr);
+    let cpu_run_addr = lkm::get_symbol_addr_from_elf("basic_rt", "cpu_run");
+    println!("cpu_run at {:#x?}", cpu_run_addr);
 
-    // let add_user_task_addr = lkm::get_symbol_addr_from_elf("basic_rt", "add_user_task");
-    // println!("add_user_task at {:#x?}", add_user_task_addr);
+    let add_user_task_addr = lkm::get_symbol_addr_from_elf("basic_rt", "add_user_task");
+    println!("add_user_task at {:#x?}", add_user_task_addr);
 
 
     // unsafe{
-    //     let init_payload_environment: fn() = core::mem::transmute(init_payload_environment_addr as usize + 0x86000000);
+    //     let init_environment: fn() = core::mem::transmute(init_environment_addr as usize + 0x86000000);
     // }
 
-    // use spin::Mutex;
-    // use woke::waker_ref;
-    // use core::future::Future;
-    // use core::pin::Pin;
-    // use alloc::boxed::Box;
+    use spin::Mutex;
+    use woke::waker_ref;
+    use core::future::Future;
+    use core::pin::Pin;
+    use alloc::boxed::Box;
 
 
-    // unsafe{
+    unsafe{
         
-    //     let init_payload_environment: fn() = core::mem::transmute(init_payload_environment_addr as usize + 0x86000000);
+        let init_environment: fn() = core::mem::transmute(init_environment_addr as usize + 0x86000000);
         
-    //     let init_cpu: fn() = core::mem::transmute(init_cpu_addr as usize + 0x86000000);
+        let init_cpu: fn()= core::mem::transmute(init_cpu_addr as usize + 0x86000000);
         
-    //     // let add_user_task: fn() = core::mem::transmute(add_user_task_addr as usize + 0x86000000);
-    //     let cpu_run: fn() = core::mem::transmute(cpu_run_addr as usize + 0x86000000);
+        // let add_user_task: fn() = core::mem::transmute(add_user_task_addr as usize + 0x86000000);
+        let cpu_run: fn() = core::mem::transmute(cpu_run_addr as usize + 0x86000000);
 
-    //     let add_task: fn(future: Mutex<Pin<Box<dyn Future<Output=()> + 'static + Send + Sync>>>) -> () = unsafe {
-    //         core::mem::transmute(add_user_task_addr as usize + 0x86000000)
-    //     };
+        let add_task: fn(future: Mutex<Pin<Box<dyn Future<Output=()> + 'static + Send + Sync>>>) -> () = unsafe {
+            core::mem::transmute(add_user_task_addr as usize + 0x86000000)
+        };
 
-    //     async fn test(x: i32) {
-    //         crate::println!("{}", x);
-    //     }
+        init_environment();
+        println!("init_environment done");
 
-    //     println!("add_task");
-    //     add_task(Mutex::new(Box::pin(test(2))));
 
-    //     println!("cpu_run");
-    //     cpu_run();
-    // }
+
+        async fn test(x: i32) {
+            crate::println!("{}", x);
+        }
+        println!("test addr :{:#x?}", test as usize);
+
+        println!("add_task");
+        add_task(Mutex::new(Box::pin(test(2))));
+        println!("add_task done");
+
+        
+        println!("init_cpu");
+        init_cpu();
+        println!("init_cpu done");
+
+
+        println!("cpu_run");
+        cpu_run();
+    }
 
     // let add_task: fn(future: Mutex<Pin<Box<dyn Future<Output=()> + 'static + Send + Sync>>>) -> () = unsafe {
     //     core::mem::transmute(0x8600000 as usize)
     // };
 
 
-    task::run_tasks();
+    // task::run_tasks();
     panic!("Unreachable in rust_main!");
 }
 
