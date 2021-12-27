@@ -126,7 +126,7 @@ impl MemorySet {
 
     pub fn push_shared_kernel(&mut self) {
         let start_addr = 0x87000000 as usize;
-        for i in 0..1024 {
+        for i in 0..512 {
             self.page_table.map(
                 VirtAddr::from(start_addr + PAGE_SIZE*i).into(),  
                 PhysAddr::from(start_addr + PAGE_SIZE*i).into(),  
