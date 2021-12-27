@@ -1,0 +1,40 @@
+000000008700e904 <.LBB0_84>:
+        let mut queue = USER_TASK_QUEUE.lock();
+    8700e904:	000c3517          	auipc	a0,0xc3
+    8700e908:	edc50513          	addi	a0,a0,-292 # 870d17e0 <_ZN8basic_rt4task15USER_TASK_QUEUE17h93f9cfdd52e978bdE>
+    8700e90c:	00001097          	auipc	ra,0x1
+    8700e910:	fa4080e7          	jalr	-92(ra) # 8700f8b0 <_ZN75_$LT$basic_rt..task..USER_TASK_QUEUE$u20$as$u20$core..ops..deref..Deref$GT$5deref17h8206a796c405a361E>
+    8700e914:	e2a43823          	sd	a0,-464(s0)
+
+
+
+
+000000008700f8bc <.LBB5_2>:
+    8700f8bc:	000de517          	auipc	a0,0xde
+    8700f8c0:	86c50513          	addi	a0,a0,-1940 # 870ed128 <_ZN75_$LT$basic_rt..task..USER_TASK_QUEUE$u20$as$u20$core..ops..deref..Deref$GT$5deref11__stability4LAZY17h5d34a38e019cef8cE>
+    8700f8c4:	fea43423          	sd	a0,-24(s0)
+
+    #[inline(always)]
+    pub fn get<F>(&'static self, builder: F) -> &T
+        where F: FnOnce() -> T
+    {
+        self.0.call_once(builder)
+    8700f8c8:	00000097          	auipc	ra,0x0
+    8700f8cc:	2ae080e7          	jalr	686(ra) # 8700fb76 <_ZN4spin4once13Once$LT$T$GT$9call_once17hb3de2f77ffeb4473E>
+                #[inline(always)]
+                fn __stability() -> &'static $T {
+                    __lazy_static_create!(LAZY, $T);
+                    LAZY.get(__static_ref_initialize)
+                }
+                __stability()
+    8700f8d0:	fca43c23          	sd	a0,-40(s0)
+    8700f8d4:	a009                	j	8700f8d6 <.LBB5_2+0x1a>
+            }
+    8700f8d6:	fd843503          	ld	a0,-40(s0)
+    8700f8da:	7402                	ld	s0,32(sp)
+    8700f8dc:	70a2                	ld	ra,40(sp)
+    8700f8de:	6145                	addi	sp,sp,48
+    8700f8e0:	8082                	ret
+
+
+8701c96a

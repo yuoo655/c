@@ -85,29 +85,16 @@ pub fn add_user_task(future: Mutex<Pin<Box<dyn Future<Output=()> + 'static + Sen
     let mut queue = USER_TASK_QUEUE.lock();
     let task = UserTask::spawn(future);
     queue.add_task(task);
-
     drop(queue);
-
 }
 
 
-pub fn demo_for_user(){
-
-    async fn test(x: i32) {
-        crate::println!("{}", x);
-    }
-    let add_task: fn(future: Mutex<Pin<Box<dyn Future<Output=()> + 'static + Send + Sync>>>) -> () = unsafe {
-        core::mem::transmute(0x8600000 as usize)
-    };
-
-    add_task(Mutex::new(Box::pin(test(2))));
-
-}
 //执行器
 pub fn run() {
     loop {
         let mut queue = USER_TASK_QUEUE.lock();
         let task = queue.peek_task();
+        drop(queue);
         match task {
             // have any task
             Some(task) => {

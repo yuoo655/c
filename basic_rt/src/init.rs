@@ -55,16 +55,17 @@ pub fn thread(){
 
 fn main(){
     crate::thread::init();
+    crate::thread::init_cpu_test();
     panic!("!!");
 }
 
 
 use core::{mem::MaybeUninit, ptr::NonNull};
-const USER_HEAP_SIZE: usize = 32768;
+const USER_HEAP_SIZE: usize = 65536;
 
 static mut HEAP_SPACE: [u8; USER_HEAP_SIZE] = [0; USER_HEAP_SIZE];
 
-const HEAP_SIZE: usize = 128 * 1024;
+const HEAP_SIZE: usize = 512 * 1024;
 static HEAP_MEMORY: MaybeUninit<[u8; HEAP_SIZE]> = core::mem::MaybeUninit::uninit();
 
 use buddy_system_allocator::LockedHeap;

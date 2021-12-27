@@ -65,10 +65,18 @@ pub fn rust_main() -> ! {
 
     // scheduler::init();
     // scheduler::thread::init();        
-    lkm::init();
+    // lkm::init();
 
 
-    test2();
+    test2(0);
+
+    let cpu_run_addr = lkm::get_symbol_addr_from_elf("basic_rt", "cpu_run");
+    unsafe{
+        let cpu_run: fn() = core::mem::transmute(cpu_run_addr as usize);
+        println!("cpu_run");
+        cpu_run();
+        println!("cpu_run done");
+    }
     
     // task::run_tasks();
     panic!("Unreachable in rust_main!");
@@ -142,7 +150,7 @@ pub fn test1(){
 
 
 
-pub fn test2(){
+pub fn test2(base: usize){
     let init_environment_addr = lkm::get_symbol_addr_from_elf("basic_rt", "init_environment");
     println!("init_environment at {:#x?}", init_environment_addr);
     
@@ -165,21 +173,25 @@ pub fn test2(){
 
     unsafe{
         
-        let init_environment: fn() = core::mem::transmute(init_environment_addr as usize + 0x87000000);
+        let init_environment: fn() = core::mem::transmute(init_environment_addr as usize + base);
         
-        let init_cpu: fn()= core::mem::transmute(init_cpu_addr as usize + 0x87000000);
+        let init_cpu: fn()= core::mem::transmute(init_cpu_addr as usize + base);
         
         // let add_user_task: fn() = core::mem::transmute(add_user_task_addr as usize + 0x87);
-        let cpu_run: fn() = core::mem::transmute(cpu_run_addr as usize + 0x87000000);
+        let cpu_run: fn() = core::mem::transmute(cpu_run_addr as usize + base);
 
         let add_task: fn(future: Mutex<Pin<Box<dyn Future<Output=()> + 'static + Send + Sync>>>) -> () = unsafe {
-            core::mem::transmute(add_user_task_addr as usize + 0x87000000)
+            core::mem::transmute(add_user_task_addr as usize + base)
         };
 
         init_environment();
         println!("init_environment done");
-
-
+        
+        llvm_asm!("sfence.vma" :::: "volatile");
+        
+        println!("init_cpu");
+        init_cpu();
+        println!("init_cpu done");
 
         async fn test(x: i32) {
             crate::println!("{}", x);
@@ -188,12 +200,8 @@ pub fn test2(){
 
         println!("add_task");
         add_task(Mutex::new(Box::pin(test(2))));
+        drop(add_task);
         println!("add_task done");
-
-        
-        println!("init_cpu");
-        init_cpu();
-        println!("init_cpu done");
 
     }
 }

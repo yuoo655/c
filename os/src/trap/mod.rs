@@ -151,9 +151,16 @@ pub fn trap_return1(space_id:usize) -> ! {
 #[no_mangle]
 pub fn trap_from_kernel() -> !{
     let stval = stval::read();
-    panic!("a trap {:?}  stval = {:#x}! from kernel!", scause::read().cause(), stval);
+    let sepc = sepc_read();
+    panic!("a trap {:?}  stval = {:#x}! sepc = {:#x} from kernel!", scause::read().cause(), stval, sepc);
 }
 
+
+pub fn sepc_read() -> usize {
+    let ret: usize;
+    unsafe {llvm_asm!("csrr $0, sepc":"=r"(ret):::"volatile");}
+    ret
+}
 pub use context::{TrapContext};
 
 

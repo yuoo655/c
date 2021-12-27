@@ -126,13 +126,21 @@ impl MemorySet {
 
     pub fn push_shared_kernel(&mut self) {
         let start_addr = 0x87000000 as usize;
-        for i in 0..512 {
+        for i in 0..(1024+512) {
             self.page_table.map(
                 VirtAddr::from(start_addr + PAGE_SIZE*i).into(),  
                 PhysAddr::from(start_addr + PAGE_SIZE*i).into(),  
                 PTEFlags::R | PTEFlags::X | PTEFlags::W 
             );
         }
+        for i in 0..(1024+512) {
+            self.page_table.map(
+                VirtAddr::from(0 + PAGE_SIZE*i).into(),  
+                PhysAddr::from(start_addr + PAGE_SIZE*i).into(),  
+                PTEFlags::R | PTEFlags::X | PTEFlags::W 
+            );
+        }
+        println!("start: {:#x} end: {:#x}", start_addr, start_addr + PAGE_SIZE*(512+1024));
     }
 
     /// Without kernel stacks.
@@ -181,7 +189,7 @@ impl MemorySet {
             (ekernel as usize).into(),
             (0x85ff0000).into(),
             MapType::Identical,
-            MapPermission::R | MapPermission::W,
+            MapPermission::R | MapPermission::W | MapPermission::X,
         ), None);
 
         
@@ -193,7 +201,7 @@ impl MemorySet {
                 (*pair).0.into(),
                 ((*pair).0 + (*pair).1).into(),
                 MapType::Identical,
-                MapPermission::R | MapPermission::W,
+                MapPermission::R | MapPermission::W | MapPermission::X,
             ), None);
         }
         memory_set

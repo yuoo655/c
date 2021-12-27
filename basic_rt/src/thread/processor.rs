@@ -15,10 +15,10 @@ use crate::task::thread_main;
 
 unsafe impl Sync for Processor {}
 pub struct Processor {
-    inner: UnsafeCell<Option<ProcessorInner>>,
+    pub inner: UnsafeCell<Option<ProcessorInner>>,
 }
 pub struct ProcessorInner {
-    pool: Box<ThreadPool>,
+    pub pool: Box<ThreadPool>,
     idle: Box<Thread>,
     current: Option<(Tid, Box<Thread>)>,
 }
@@ -53,6 +53,10 @@ impl Processor {
             .expect("Processor is not initialized!")
     }
 
+    pub fn thread_pool(&self) -> &mut ThreadPool {
+        &mut *self.inner().pool
+    }
+
     // 通过线程池新增线程
     pub fn add_thread(&self, thread: Box<Thread>) {
         self.inner().pool.add(thread);
@@ -73,6 +77,7 @@ impl Processor {
                 // 从正在运行的线程 idle 切换到刚刚获取到的线程
                 println!("\n>>>> will switch_to thread {} in idle_main!", inner.current.as_mut().unwrap().0);
 
+                // 切换到刚刚获取到的线程
                 inner.idle.switch_to(
                     &mut *inner.current.as_mut().unwrap().1
                 );
@@ -88,21 +93,22 @@ impl Processor {
             }
             // 如果现在并无任何可运行线程.则检查协程队列是否为空
             else {
-                let mut queue = USER_TASK_QUEUE.lock();
-                if queue.is_empty() {
-                    println!("finish task");
-                } else {
+                // let mut queue = USER_TASK_QUEUE.lock();
+                // if queue.is_empty() {
+                //     println!("finish task");
+                // } else {
 
-                    //如果线程列表为空，但任务队列不空，创建一个线程
-                    self.add_thread(        
-                        {
-                            let thread = Thread::new_box_thread(crate::task::thread_main as usize, 1);
-                            thread
-                        }
-                    )
-                }
-                drop(queue);
-
+                //     //如果线程列表为空，但任务队列不空，创建一个线程
+                //     self.add_thread(        
+                //         {
+                //             let thread = Thread::new_box_thread(crate::task::thread_main as usize, 1);
+                //             thread
+                //         }
+                //     )
+                // }
+                // drop(queue);
+                
+                crate::syscall::sys_exit(0);
             }
         }
     }
