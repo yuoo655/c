@@ -150,11 +150,7 @@ pub fn test1(){
 
 
 
-<<<<<<< Updated upstream
 pub fn test2(base: usize){
-=======
-pub fn test2(base:usize){
->>>>>>> Stashed changes
     let init_environment_addr = lkm::get_symbol_addr_from_elf("basic_rt", "init_environment");
     println!("init_environment at {:#x?}", init_environment_addr);
     
