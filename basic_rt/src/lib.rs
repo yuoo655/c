@@ -13,7 +13,7 @@ pub mod lang_items;
 pub mod syscall;
 pub mod init;
 pub mod task;
-
+pub mod sbi;
 
 pub use thread::*;
 pub use runtime::*;

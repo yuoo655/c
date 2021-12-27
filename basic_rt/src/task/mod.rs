@@ -18,7 +18,7 @@ use spin::Mutex;
 use woke::waker_ref;
 use lazy_static::*;
 
-
+use crate::println;
 
 lazy_static! {
     pub static ref USER_TASK_QUEUE: Arc<Mutex<Box<UserTaskQueue>>> =
@@ -36,6 +36,7 @@ lazy_static! {
 
 pub fn thread_main() {
     loop {
+        println!("hello world form thread_main!");
         let mut queue = USER_TASK_QUEUE.lock();
         let task = queue.peek_task();
         match task {
@@ -49,6 +50,7 @@ pub fn thread_main() {
                 let mut r = r.lock();
 
                 if r.is_ready(task.id) {
+                    println!("r.is_ready!");
                     let mut future = task.future.lock();
                     match future.as_mut().poll(&mut context) {
                         Poll::Ready(_) => {
@@ -59,10 +61,14 @@ pub fn thread_main() {
                             r.add_task(task.id);
                         }
                     }
+                    drop(future)
                 } else if r.contains_task(task.id) {
                     r.add_task(task.id);
                 } else {
+                    println!("r.not_ready!");
+                    println!("task.future.lock()");
                     let mut future = task.future.lock();
+                    println!("task.future.lock() done");
                     match future.as_mut().poll(&mut context) {
                         Poll::Ready(_) => {
                             // // 任务完成
@@ -71,8 +77,10 @@ pub fn thread_main() {
                         Poll::Pending => {
                             r.register(task.id);
                         }
-                    }
+                    }   
+                    drop(future)                 
                 }
+                drop(r)
             }
             None => return
         }
@@ -111,27 +119,30 @@ pub fn run() {
                         Poll::Ready(_) => {
                             // 任务完成
                             r.finish_task(task.id);
+                            return
                         }
                         Poll::Pending => {
                             r.add_task(task.id);
                         }
                     }
+                    drop(future)
                 } else if r.contains_task(task.id) {
                     r.add_task(task.id);
                 } else {
                     let mut future = task.future.lock();
                     match future.as_mut().poll(&mut context) {
                         Poll::Ready(_) => {
-                            // // 任务完成
-                            // println!("task completed");
+                            return
                         }
                         Poll::Pending => {
                             r.register(task.id);
                         }
                     }
+                    drop(future)
                 }
+                drop(r)
             }
-            None => return
+            None => {return}
         }
     }
 }
