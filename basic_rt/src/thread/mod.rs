@@ -70,26 +70,74 @@ pub fn add_to_thread_pool(addr: usize, space_id:usize) {
 
 #[no_mangle]
 pub fn init_cpu_test(){
-    // 使用 Fifo Scheduler
+    println!("init_cpu_test");
     let scheduler = RRScheduler::new(50);
-    // let scheduler = FifoScheduler::new();
+    
     // 新建线程池
-    let thread_pool = Box::new(ThreadPool::new(50, scheduler));
+    let thread_pool = Box::new(ThreadPool::new(10, scheduler));
 
     // 新建idle ，其入口为 Processor::idle_main
     let idle = Thread::new_box_thread(Processor::idle_main as usize, &CPU as *const Processor as usize);
 
+
     CPU.init(idle, thread_pool);
 
-    let box_thread = Thread::new_box_thread(thread_main as usize, 1);
-    let thread = Box::new(Thread::new_thread(thread_main as usize, 1));
+    CPU.add_thread(
+        {
+            let thread = Thread::new_box_thread(thread_main as usize, 1);
+            thread
+        }
+    );
 
-    let mut pool = CPU.thread_pool();
-    pool.add(thread);
-    // CPU.add_thread(thread);
+    println!("add thread_main done");
+
 }
 
 #[no_mangle]
 pub fn cpu_run(){
+    CPU.run();
+}
+
+
+
+
+#[no_mangle]
+pub fn thread_init() {
+    println!("scheduler init");
+
+
+    let scheduler = RRScheduler::new(50);
+    
+    // 新建线程池
+    let thread_pool = Box::new(ThreadPool::new(10, scheduler));
+
+    // 新建idle ，其入口为 Processor::idle_main
+    let idle = Thread::new_box_thread(Processor::idle_main as usize, &CPU as *const Processor as usize);
+
+
+    CPU.init(idle, thread_pool);
+
+    CPU.add_thread(
+        {
+            let thread = Thread::new_box_thread(thread_main as usize, 1);
+            thread
+        }
+    );
+
+    println!("add thread_main done");
+    async fn foo(x:usize){
+        println!("{:?}", x);
+    }
+
+
+    println!("add_task");
+    let mut queue = crate::task::USER_TASK_QUEUE.lock();
+    for i in 0..10 {
+        queue.add_task(crate::task::runtime::UserTask::spawn(Mutex::new(Box::pin( foo(i)))) );
+    }
+
+    drop(queue);
+    
+    println!("scheduler cpu run");
     CPU.run();
 }

@@ -34,11 +34,15 @@ lazy_static! {
 }
 
 
+#[no_mangle]
 pub fn thread_main() {
+
+    println!("thread_main-------------------");
     loop {
-        println!("hello world form thread_main!");
         let mut queue = USER_TASK_QUEUE.lock();
         let task = queue.peek_task();
+        // println!("running, queue len: {}, task: {:?}", queue.queue.len(), task.is_none());
+
         match task {
             // have any task
             Some(task) => {
@@ -50,7 +54,6 @@ pub fn thread_main() {
                 let mut r = r.lock();
 
                 if r.is_ready(task.id) {
-                    println!("r.is_ready!");
                     let mut future = task.future.lock();
                     match future.as_mut().poll(&mut context) {
                         Poll::Ready(_) => {
@@ -61,14 +64,10 @@ pub fn thread_main() {
                             r.add_task(task.id);
                         }
                     }
-                    drop(future)
                 } else if r.contains_task(task.id) {
                     r.add_task(task.id);
                 } else {
-                    println!("r.not_ready!");
-                    println!("task.future.lock()");
                     let mut future = task.future.lock();
-                    println!("task.future.lock() done");
                     match future.as_mut().poll(&mut context) {
                         Poll::Ready(_) => {
                             // // 任务完成
@@ -77,12 +76,14 @@ pub fn thread_main() {
                         Poll::Pending => {
                             r.register(task.id);
                         }
-                    }   
-                    drop(future)                 
+                    }
                 }
-                drop(r)
             }
-            None => return
+            None => {
+                return
+                // crate::scheduler::thread::CPU.exit(0);
+            }
+                
         }
     }
 }
@@ -97,52 +98,10 @@ pub fn add_user_task(future: Mutex<Pin<Box<dyn Future<Output=()> + 'static + Sen
 }
 
 
-//执行器
-pub fn run() {
-    loop {
-        let mut queue = USER_TASK_QUEUE.lock();
-        let task = queue.peek_task();
-        drop(queue);
-        match task {
-            // have any task
-            Some(task) => {
-                let mywaker = task.clone();
-                let waker = waker_ref(&mywaker);
-                let mut context = Context::from_waker(&*waker);
-
-                let r = task.reactor.clone();
-                let mut r = r.lock();
-
-                if r.is_ready(task.id) {
-                    let mut future = task.future.lock();
-                    match future.as_mut().poll(&mut context) {
-                        Poll::Ready(_) => {
-                            // 任务完成
-                            r.finish_task(task.id);
-                            return
-                        }
-                        Poll::Pending => {
-                            r.add_task(task.id);
-                        }
-                    }
-                    drop(future)
-                } else if r.contains_task(task.id) {
-                    r.add_task(task.id);
-                } else {
-                    let mut future = task.future.lock();
-                    match future.as_mut().poll(&mut context) {
-                        Poll::Ready(_) => {
-                            return
-                        }
-                        Poll::Pending => {
-                            r.register(task.id);
-                        }
-                    }
-                    drop(future)
-                }
-                drop(r)
-            }
-            None => {return}
-        }
-    }
+#[no_mangle]
+pub fn add_user_task_1(future: Pin<Box<dyn Future<Output=()> + 'static + Send + Sync>>){
+    let mut queue = USER_TASK_QUEUE.lock();
+    let task = UserTask::spawn(Mutex::new(future));
+    queue.add_task(task);
+    drop(queue);
 }
