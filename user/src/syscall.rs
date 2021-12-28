@@ -12,7 +12,7 @@ const SYSCALL_FORK: usize = 220;
 const SYSCALL_EXEC: usize = 221;
 const SYSCALL_WAITPID: usize = 260;
 const SYSCALL_V1: usize = 300;
-
+const SYSCALL_GET_SYMBOL_ADDR: usize = 301;
 
 fn syscall(id: usize, args: [usize; 3]) -> isize {
     let mut ret: isize;
@@ -80,3 +80,8 @@ pub fn sys_waitpid(pid: isize, exit_code: *mut i32) -> isize {
     syscall(SYSCALL_WAITPID, [pid as usize, exit_code as usize, 0])
 }
 
+
+
+pub fn sys_get_symbol_addr(name: &str) -> isize {
+    syscall(SYSCALL_GET_SYMBOL_ADDR, [name.as_ptr() as usize, 0, 0])
+}

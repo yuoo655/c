@@ -8,7 +8,7 @@ use user_lib::console::print;
 
 use core::mem;
 
-use user_lib::{exit};
+use user_lib::{exit, get_symbol_addr};
 
 
 
@@ -18,28 +18,100 @@ pub fn main() -> i32 {
 
     println!("[user2] Hello world from user mode program!");
 
-    thread_init();
+    // thread_init();
+    test_for_user();
+
+    
+
+
+
     
 
 
-    // unsafe {
-    //     let init_payload_environment: unsafe extern "C" fn() = unsafe {core::mem::transmute(0x8600048e as usize)};
-    //     println!("calling init_payload_environment at {:?}", init_payload_environment);
-    //     init_payload_environment();
-    // }
 
-    
-    // let addr = test as usize;
-    // println!("[user2] add thread to scheduler  entry addr {:#x} space_id {:#x}", addr, 2);
-    // let add_to_thread_pool: unsafe extern "C" fn(usize, usize) = unsafe { core::mem::transmute(0x86001ea8 as usize) };
-    // unsafe { add_to_thread_pool(addr, 2 as usize) };
-
-
-    // yield_();
-    // let run_: unsafe extern "C" fn() = unsafe { core::mem::transmute(0x86001caa as usize) };
-    // unsafe { run_() };
     exit(0);
 }
+
+
+
+
+pub fn test_for_user(){
+
+    let base = 0;
+    let init_environment_addr = get_symbol_addr("init_environment\0") as usize;
+    println!("init_environment at {:#x?}", init_environment_addr);
+    
+
+    let init_cpu_addr = get_symbol_addr("init_cpu_test\0") as usize;
+    println!("init_cpu at {:#x?}", init_cpu_addr);
+
+    let cpu_run_addr = get_symbol_addr("cpu_run\0") as usize;
+    println!("cpu_run at {:#x?}", cpu_run_addr);
+
+
+    let add_user_task_1_addr = get_symbol_addr("add_user_task_1\0") as usize;
+    println!("add_user_task at {:#x?}", add_user_task_1_addr);
+
+    use spin::Mutex;
+    use woke::waker_ref;
+    use core::future::Future;
+    use core::pin::Pin;
+    use alloc::boxed::Box;
+
+
+    unsafe{
+        
+        let init_environment: fn() = core::mem::transmute(init_environment_addr as usize + base);
+        
+        let init_cpu: fn()= core::mem::transmute(init_cpu_addr as usize + base);
+        
+        let cpu_run: fn() = core::mem::transmute(cpu_run_addr as usize + base);
+
+
+        let add_task_1 : fn(future: Pin<Box<dyn Future<Output=()> + 'static + Send + Sync>>) -> () = unsafe {
+            core::mem::transmute(add_user_task_1_addr as usize + base)
+        };
+
+        println!("init_environment");
+        init_environment();
+        
+        
+        println!("init_cpu");
+        init_cpu();
+
+        async fn test(x: i32) {
+            println!("{}", x);
+        }
+        println!("test task addr :{:#x?}", test as usize);
+        println!("add_task");
+        add_task_1(Box::pin(test(666)));
+
+        println!("cpu_run");
+        cpu_run();
+
+    }
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 pub fn test(){

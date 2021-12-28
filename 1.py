@@ -4,7 +4,7 @@ import os
 # os.system("cd basic_rt && cargo install cargo-binutils --vers ~0.2")
 # os.system("cd basic_rt && rustup component add llvm-tools-preview")
 # os.system("cd basic_rt && rustup component add rust-src")
-# os.system("cd user && cargo clean")
+os.system("cd user && cargo clean")
 os.system("cd user && cargo build --release")
 
 

@@ -121,3 +121,8 @@ pub fn sleep(period_ms: usize) {
 }
 
 
+pub fn get_symbol_addr(name: &str) -> usize{
+
+    sys_get_symbol_addr(name) as usize
+}
+

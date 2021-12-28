@@ -73,15 +73,13 @@ pub fn rust_main() -> ! {
 
     // test1();
     // scheduler::thread_init();
-    test2(0);
-    let cpu_run_addr = lkm::get_symbol_addr_from_elf("basic_rt", "cpu_run");
-    unsafe{
-        let cpu_run: fn() = core::mem::transmute(cpu_run_addr as usize);
-        println!("cpu_run");
-        cpu_run();
-    }
-    
-    // task::run_tasks();
+    // test_for_kernel(0);
+
+
+    task::add_user_test();
+
+    println!("run user task");
+    task::run_tasks();
     panic!("Unreachable in rust_main!");
 }
 
@@ -102,7 +100,7 @@ pub fn test1(){
 }
 
 
-pub fn test2(base: usize){
+pub fn test_for_kernel(base: usize){
     let init_environment_addr = lkm::get_symbol_addr_from_elf("basic_rt", "init_environment");
     println!("init_environment at {:#x?}", init_environment_addr);
     
@@ -161,11 +159,20 @@ pub fn test2(base: usize){
         };
 
         add_task_1(Box::pin(test(666)));
+
+
+        let cpu_run_addr = lkm::get_symbol_addr_from_elf("basic_rt", "cpu_run");
+        unsafe{
+            let cpu_run: fn() = core::mem::transmute(cpu_run_addr as usize);
+            println!("cpu_run");
+            cpu_run();
+        }
     }
+
 }
 
 
-pub fn test3(base: usize){
+pub fn test_odd(base: usize){
     let init_environment_addr = lkm::get_symbol_addr_from_elf("basic_rt", "init_environment");
     println!("init_environment at {:#x?}", init_environment_addr);
     
@@ -199,7 +206,6 @@ pub fn test3(base: usize){
         let add_task: fn(future: Mutex<Pin<Box<dyn Future<Output=()> + 'static + Send + Sync>>>) -> () = unsafe {
             core::mem::transmute(add_user_task_addr as usize + base)
         };
-
         async fn test(x: i32) {
             println!("{}", x);
         }
@@ -222,33 +228,6 @@ pub fn test3(base: usize){
     }
 }
 
-
-// pub unsafe fn add_task(
-//     &self,
-//     hart_id: usize,
-//     address_space_id: AddressSpaceId,
-//     task_repr: usize,
-// ) -> bool {
-//     let f = self.shared_add_task;
-//     f(self.shared_scheduler, hart_id, address_space_id, task_repr)
-// }
-
-
-
-// pub fn spawn(future: impl Future<Output = ()> + Send + Sync + 'static) {
-//     let shared_payload = unsafe { task::shared::SharedPayload::new(SHARED_PAYLOAD_BASE) };
-//     let asid = unsafe { task::shared::AddressSpaceId::from_raw(ADDRESS_SPACE_ID) };
-
-//     let task = task::new_user(
-//         future,
-//         shared_payload.shared_scheduler,
-//         shared_payload.shared_set_task_state,
-//     );
-
-//     unsafe {
-//         shared_payload.add_task(0 /* todo */, asid, task.task_repr());
-//     }
-// }
 
 
 
