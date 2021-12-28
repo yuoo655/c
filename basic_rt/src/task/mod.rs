@@ -80,7 +80,7 @@ pub fn thread_main() {
                 }
             }
             None => {
-                return
+                crate::sys_exit(0);
                 // crate::scheduler::thread::CPU.exit(0);
             }
                 

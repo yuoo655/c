@@ -107,8 +107,8 @@ impl Processor {
                 //     )
                 // }
                 // drop(queue);
+                crate::sys_exit(0);
                 
-                crate::syscall::sys_exit(0);
             }
         }
     }
