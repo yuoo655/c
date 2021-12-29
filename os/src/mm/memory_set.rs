@@ -241,8 +241,8 @@ impl MemorySet {
                 if (ph.virtual_addr() + ph.mem_size()) as usize + base <= last_end_va {
                     continue;
                 }
-                let mut start = (ph.virtual_addr() ) as usize + base;
-                let mut end = (ph.virtual_addr() + ph.mem_size()) as usize + base;
+                let mut start = (ph.virtual_addr() ) as usize + base - 0x87000000;
+                let mut end = (ph.virtual_addr() + ph.mem_size()) as usize + base - 0x87000000;
                 let mut size = 0 as usize;
 
                 if start < last_end_va &&  end > last_end_va {
