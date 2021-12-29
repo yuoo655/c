@@ -80,8 +80,14 @@ pub fn thread_main() {
                 }
             }
             None => {
+                let mut queue_len = USER_TASK_QUEUE.lock().queue.len();
+
+                if queue_len == 0 {
+                    println!("queue len 0 no task, exit");
+                    crate::sys_exit(0);
+                }
+
                 return;
-                // crate::sys_exit(0);
                 // crate::scheduler::thread::CPU.exit(0);
             }
                 
