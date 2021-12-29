@@ -37,7 +37,7 @@ lazy_static! {
 #[no_mangle]
 pub fn thread_main() {
 
-    println!("thread_main-------------------");
+    // println!("thread_main-------------------");
     loop {
         let mut queue = USER_TASK_QUEUE.lock();
         let task = queue.peek_task();
