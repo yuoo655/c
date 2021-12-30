@@ -6,6 +6,7 @@ use runtime::*;
 
 use alloc::sync::Arc;
 use alloc::boxed::Box;
+use alloc::vec::Vec;
 use core::future::Future;
 use core::pin::Pin;
 use core::sync::atomic::{AtomicUsize, Ordering};
@@ -25,9 +26,7 @@ lazy_static! {
         Arc::new(
             Mutex::new(
                 Box::new(
-                    UserTaskQueue {
-                        queue: VecDeque::new()
-                    }
+                    UserTaskQueue::new(),
                 )
             )
         );
@@ -80,15 +79,12 @@ pub fn thread_main() {
                 }
             }
             None => {
-                let mut queue_len = USER_TASK_QUEUE.lock().queue.len();
+                let mut queue = USER_TASK_QUEUE.lock();
 
-                if queue_len == 0 {
-                    println!("queue len 0 no task, exit");
+                if queue.is_all_empty(){
                     crate::sys_exit(0);
                 }
 
-                return;
-                // crate::scheduler::thread::CPU.exit(0);
             }
                 
         }
@@ -97,20 +93,19 @@ pub fn thread_main() {
     }
 }
 
-
 #[no_mangle]
-pub fn add_user_task(future: Mutex<Pin<Box<dyn Future<Output=()> + 'static + Send + Sync>>>){
+pub fn add_user_task(future: Pin<Box<dyn Future<Output=()> + 'static + Send + Sync>>){
     let mut queue = USER_TASK_QUEUE.lock();
-    let task = UserTask::spawn(future);
-    queue.add_task(task);
+    let task = UserTask::spawn(Mutex::new(future));
+    queue.add_task(task, Some(0));
     drop(queue);
 }
 
 
 #[no_mangle]
-pub fn add_user_task_1(future: Pin<Box<dyn Future<Output=()> + 'static + Send + Sync>>){
+pub fn add_user_task_with_priority(future: Pin<Box<dyn Future<Output=()> + 'static + Send + Sync>>, priority: usize){
     let mut queue = USER_TASK_QUEUE.lock();
     let task = UserTask::spawn(Mutex::new(future));
-    queue.add_task(task);
+    queue.add_task(task , Some(priority));
     drop(queue);
 }
