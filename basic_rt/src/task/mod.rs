@@ -3,7 +3,7 @@
 
 pub mod runtime;
 use runtime::*;
-
+use runtime::UserTaskQueue;
 use alloc::sync::Arc;
 use alloc::boxed::Box;
 use alloc::vec::Vec;
@@ -97,7 +97,7 @@ pub fn thread_main() {
 pub fn add_user_task(future: Pin<Box<dyn Future<Output=()> + 'static + Send + Sync>>){
     let mut queue = USER_TASK_QUEUE.lock();
     let task = UserTask::spawn(Mutex::new(future));
-    queue.add_task(task, Some(0));
+    queue.add_task(task , Some(0));
     drop(queue);
 }
 
@@ -109,3 +109,4 @@ pub fn add_user_task_with_priority(future: Pin<Box<dyn Future<Output=()> + 'stat
     queue.add_task(task , Some(priority));
     drop(queue);
 }
+

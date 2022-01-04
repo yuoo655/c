@@ -4,6 +4,7 @@ use alloc::boxed::Box;
 use alloc::sync::Arc;
 use core::future::Future;
 use core::pin::Pin;
+use alloc::vec::Vec;
 use core::sync::atomic::{AtomicUsize, Ordering};
 use alloc::collections::btree_map::BTreeMap;
 use alloc::collections::VecDeque;
@@ -93,16 +94,14 @@ impl Future for UserTask {
     }
 }
 
+pub struct UserTaskQueue {
+    pub queue: Vec<VecDeque<Arc<UserTask>>>,
+}
+
 
 
 //用户协程队列
-pub struct UserTaskQueue {
-    pub queue: VecDeque<Arc<UserTask>>,
-}
-
 impl UserTaskQueue {
-
-
     pub fn new() -> Self {
         let queue = (0..4).map(|_| VecDeque::new() ).collect::<Vec<VecDeque<Arc<UserTask>>>>();
         UserTaskQueue {
@@ -120,20 +119,26 @@ impl UserTaskQueue {
     }
 
     pub fn peek_task(&mut self) -> Option<Arc<UserTask>> {
+
         let mut ret = None;
+
         for i in 0..self.queue.len() {
             if self.queue[i].len() !=0 {
+
                 let x =  self.queue[i].pop_front();
+
                 return x
             }
         }
+
         return ret
     }
 
-    pub fn delete_task(&mut self, id: TaskId, priority: usize) {
-        let index = self.queue[priority].iter().position(|task| task.id == id).unwrap();
-        self.queue.remove(index);
-    }
+
+    // pub fn delete_task(&mut self, id: TaskId, priority: usize) {
+    //     let index = self.queue[priority].iter().position(|task| task.id == id).unwrap();
+    //     self.queue.remove(index);
+    // }
     
     pub fn is_all_empty(&self) -> bool {
 

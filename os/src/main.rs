@@ -112,12 +112,10 @@ pub fn test_for_kernel(base: usize){
     let cpu_run_addr = lkm::get_symbol_addr_from_elf("basic_rt", "cpu_run");
     println!("cpu_run at {:#x?}", cpu_run_addr);
 
-    let add_user_task_addr = lkm::get_symbol_addr_from_elf("basic_rt", "add_user_task");
-    println!("add_user_task at {:#x?}", add_user_task_addr);
-
-    let add_user_task_1_addr = lkm::get_symbol_addr_from_elf("basic_rt", "add_user_task_1");
-    println!("add_user_task at {:#x?}", add_user_task_1_addr);
-
+    
+    let add_user_task_with_priority_addr = lkm::get_symbol_addr_from_elf("basic_rt", "add_user_task_with_priority");
+    println!("add_user_task at {:#x?}", add_user_task_with_priority_addr);
+    
     use spin::Mutex;
     use woke::waker_ref;
     use core::future::Future;
@@ -134,13 +132,7 @@ pub fn test_for_kernel(base: usize){
         // let add_user_task: fn() = core::mem::transmute(add_user_task_addr as usize + 0x87);
         let cpu_run: fn() = core::mem::transmute(cpu_run_addr as usize + base);
 
-        let add_task: fn(future: Mutex<Pin<Box<dyn Future<Output=()> + 'static + Send + Sync>>>) -> () = unsafe {
-            core::mem::transmute(add_user_task_addr as usize + base)
-        };
 
-        let add_task_1: fn(future: Mutex<Pin<Box<dyn Future<Output=()> + 'static + Send + Sync>>>) -> () = unsafe {
-            core::mem::transmute(add_user_task_1_addr as usize + base)
-        };
 
         println!("init_environment");
         init_environment();
@@ -155,11 +147,11 @@ pub fn test_for_kernel(base: usize){
         println!("test task addr :{:#x?}", test as usize);
 
         println!("add_task");
-        let add_task_1 : fn(future: Pin<Box<dyn Future<Output=()> + 'static + Send + Sync>>) -> () = unsafe {
-            core::mem::transmute(add_user_task_1_addr as usize + base)
+        let add_task_with_priority : fn(future: Pin<Box<dyn Future<Output=()> + 'static + Send + Sync>> , Option<usize>) -> () = unsafe {
+            core::mem::transmute(add_user_task_with_priority_addr as usize + base)
         };
 
-        add_task_1(Box::pin(test(666)));
+        add_task_with_priority(Box::pin(test(666)), Some(0));
 
 
         let cpu_run_addr = lkm::get_symbol_addr_from_elf("basic_rt", "cpu_run");

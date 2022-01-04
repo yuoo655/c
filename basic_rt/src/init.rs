@@ -30,7 +30,7 @@ async fn foo(x:usize){
 pub fn task(){
     let mut queue = USER_TASK_QUEUE.lock();
     for i in 0..100_000_000 {
-        queue.add_task(UserTask::spawn(Mutex::new(Box::pin( foo(i) ))) );
+        queue.add_task(UserTask::spawn(Mutex::new(Box::pin( foo(i) ))) , Some(0));
         if i % 10_000_000 == 0 {
             println!("count {:?}", i);
         }

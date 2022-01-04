@@ -29,7 +29,7 @@ pub static CPU : Processor = Processor::new();
 
 
 use crate::task::thread_main;
-
+use crate::task::add_user_task_with_priority;
 use crate::println;
 
 pub fn init() {
@@ -125,18 +125,26 @@ pub fn thread_init() {
     );
 
     println!("add thread_main done");
-    async fn foo(x:usize){
-        println!("{:?}", x);
-    }
-
-
     println!("add_task");
-    let mut queue = crate::task::USER_TASK_QUEUE.lock();
-    for i in 0..10 {
-        queue.add_task(crate::task::runtime::UserTask::spawn(Mutex::new(Box::pin( foo(i)))) );
+    async fn foo_0(x:usize){
+        println!("priority 0 task --- {:?}", x);
     }
 
-    drop(queue);
+    async fn foo_1(x:usize){
+        println!("priority 1 task --- {:?}", x);
+    }
+
+    async fn foo_2(x:usize){
+        println!("priority 2 task --- {:?}", x);
+    }
+
+    add_user_task_with_priority(Box::pin(foo_0(666)), 0);
+    add_user_task_with_priority(Box::pin(foo_1(666)), 1);
+    add_user_task_with_priority(Box::pin(foo_2(666)), 2);
+
+    add_user_task_with_priority(Box::pin(foo_0(777)), 0);
+    add_user_task_with_priority(Box::pin(foo_1(777)), 1);
+    add_user_task_with_priority(Box::pin(foo_2(777)), 2);
     
     println!("scheduler cpu run");
     CPU.run();
