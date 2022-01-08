@@ -25,6 +25,7 @@ use crate::config::{TRAP_CONTEXT, TRAMPOLINE};
 global_asm!(include_str!("trap.S"));
 
 pub fn init() {
+    
     set_kernel_trap_entry();
 }
 
@@ -91,7 +92,7 @@ pub fn trap_handler() -> ! {
         }
         Trap::Interrupt(Interrupt::SupervisorTimer) => {
             set_next_trigger();
-            suspend_current_and_run_next();
+            // suspend_current_and_run_next();
         }
         _ => {
             panic!("Unsupported trap {:?}, stval = {:#x}!", scause.cause(), stval);

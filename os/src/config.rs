@@ -34,7 +34,7 @@ pub const fn swap_contex_va(asid: usize) -> usize {
 }
 
 
-
+pub const CPU_NUM: usize = 4;
 
 
 

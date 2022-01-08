@@ -4,7 +4,7 @@ use crate::task::{
     current_task,
     current_user_token,
     add_task,
-    switch_to_spaceid,
+    // switch_to_spaceid,
 };
 use crate::timer::get_time_ms;
 use crate::mm::{
@@ -32,7 +32,7 @@ pub fn sys_yield() -> isize {
 }
 
 pub fn sys_do_yield(space_id:usize) -> isize {
-    switch_to_spaceid(space_id);
+    // switch_to_spaceid(space_id);
     0
 }
 

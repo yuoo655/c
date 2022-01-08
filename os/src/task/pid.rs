@@ -42,12 +42,19 @@ lazy_static! {
     static ref PID_ALLOCATOR : Mutex<PidAllocator> = Mutex::new(PidAllocator::new());
 }
 
+#[derive(PartialEq, Eq, PartialOrd, Ord, Debug)]
 pub struct PidHandle(pub usize);
 
 impl Drop for PidHandle {
     fn drop(&mut self) {
         //println!("drop pid {}", self.0);
         PID_ALLOCATOR.lock().dealloc(self.0);
+    }
+}
+
+impl PartialEq<usize> for PidHandle {
+    fn eq(&self, other: &usize) -> bool {
+        self.0 == *other
     }
 }
 

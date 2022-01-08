@@ -69,7 +69,12 @@ pub fn rust_main(hart_id: usize) -> ! {
         info!("loader list app");
         fs::list_apps();
         // test_for_kernel(0);
+        debug!("trying to add initproc");
+        task::add_initproc();
+        debug!("initproc added to task manager!");
+        debug!("trying to add add user test");
         task::add_user_test();
+
         send_ipi();
 
         AP_CAN_INIT.store(true, Ordering::Relaxed);
@@ -80,18 +85,13 @@ pub fn rust_main(hart_id: usize) -> ! {
     }
 
     println_hart!("Hello", hart_id);
-
-
-
     
-    
-    
-    if hart_id == 0{
+    // if hart_id == 0{
         println_hart!("run user task", hart_id);
         task::run_tasks();
-    }
+    // }
 
-    loop{}
+    // loop{}
     panic!("Unreachable in rust_main!");
 }
 
@@ -106,20 +106,20 @@ pub fn init_other_cpu(){
         }
 
         others_main();
-
         unsafe {
             let satp: usize;
             let sp: usize;
             asm!("csrr {}, satp", out(reg) satp);
-            println_hart!("satp: {:#x}", hart_id, satp);
+            println_hart!("init done satp: {:#x}", hart_id, satp);
         }
     }
 }
 
 pub fn others_main(){
-
     mm::init_kernel_space();
-    // trap::init();
+    trap::init();
+    trap::enable_timer_interrupt();
+    timer::set_next_trigger();
 }
 
 
