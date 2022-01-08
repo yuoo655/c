@@ -39,7 +39,7 @@ global_asm!(include_str!("link_app.S"));
 
 
 use core::sync::atomic::{AtomicBool, Ordering};
-use core::hint::spin_loop;
+use core::hint::{spin_loop, self};
 
 
 fn clear_bss() {
@@ -52,9 +52,11 @@ fn clear_bss() {
     });
 }
 
+static AP_CAN_INIT: AtomicBool = AtomicBool::new(false);
+
 #[no_mangle]
 pub fn rust_main(hart_id: usize) -> ! {
-    static AP_CAN_INIT: AtomicBool = AtomicBool::new(false);
+    
     if hart_id == 0{
         clear_bss();
         println!("[kernel] Hello, world!");
@@ -68,29 +70,48 @@ pub fn rust_main(hart_id: usize) -> ! {
         fs::list_apps();
         // test_for_kernel(0);
         task::add_user_test();
+        send_ipi();
 
-        // send_ipi();
+        AP_CAN_INIT.store(true, Ordering::Relaxed);
+
     }
 
 
+
     
     
     
-    println!("run user task");
-    task::run_tasks();
+    // println!("run user task");
+    // task::run_tasks();
 
     panic!("Unreachable in rust_main!");
 }
 
+pub fn init_other_cpu(){
 
-// pub fn send_ipi(){
-//     let hart_id = hart_id();
-//     for i in 1..4 {
-//         debug!("[hart {}] Start {}", hart_id, i);
-//         let mask: usize = 1 << i;
-//         sbi::send_ipi(&mask as *const _ as usize);
-//     }
-// }
+    let hart_id = hart_id();
+
+    if hart_id != 0 {
+
+        while !AP_CAN_INIT.load(Ordering::Relaxed) {
+            hint::spin_loop();
+        }
+
+        others_main(hart_id);
+    }
+}
+
+pub fn others_main(hart_id:usize)[
+
+]
+pub fn send_ipi(){
+    let hart_id = hart_id();
+    for i in 1..4 {
+        debug!("[hart {}] Start {}", hart_id, i);
+        let mask: usize = 1 << i;
+        sbi::send_ipi(&mask as *const _ as usize);
+    }
+}
 
 
 pub fn hart_id() -> usize {
