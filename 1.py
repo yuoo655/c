@@ -4,7 +4,7 @@ import os
 # os.system("cd basic_rt && cargo install cargo-binutils --vers ~0.2")
 # os.system("cd basic_rt && rustup component add llvm-tools-preview")
 # os.system("cd basic_rt && rustup component add rust-src")
-os.system("cd user && cargo clean")
+# os.system("cd user && cargo clean")
 os.system("cd user && cargo build --release")
 
 
@@ -15,7 +15,7 @@ os.system("cd basic_rt && python build.py")
 
 os.system("cd easy-fs-fuse && cargo run --release -- -s ../user/src/bin/ -t ../user/target/riscv64gc-unknown-none-elf/release/")
 
-os.system("cd os && cargo clean")
+# os.system("cd os && cargo clean")
 os.system("cd os && cargo build --release")
 
 os.system("qemu-system-riscv64 \
