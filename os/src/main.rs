@@ -74,16 +74,24 @@ pub fn rust_main(hart_id: usize) -> ! {
 
         AP_CAN_INIT.store(true, Ordering::Relaxed);
 
+
+    }else{
+        init_other_cpu();
     }
 
+    println_hart!("Hello", hart_id);
+
 
 
     
     
     
-    // println!("run user task");
-    // task::run_tasks();
+    if hart_id == 0{
+        println_hart!("run user task", hart_id);
+        task::run_tasks();
+    }
 
+    loop{}
     panic!("Unreachable in rust_main!");
 }
 
@@ -97,13 +105,25 @@ pub fn init_other_cpu(){
             hint::spin_loop();
         }
 
-        others_main(hart_id);
+        others_main();
+
+        unsafe {
+            let satp: usize;
+            let sp: usize;
+            asm!("csrr {}, satp", out(reg) satp);
+            println_hart!("satp: {:#x}", hart_id, satp);
+        }
     }
 }
 
-pub fn others_main(hart_id:usize)[
+pub fn others_main(){
 
-]
+    mm::init_kernel_space();
+    // trap::init();
+}
+
+
+
 pub fn send_ipi(){
     let hart_id = hart_id();
     for i in 1..4 {
