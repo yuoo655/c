@@ -17,10 +17,12 @@ os.system("cd easy-fs-fuse && cargo run --release -- -s ../user/src/bin/ -t ../u
 
 # os.system("cd os && cargo clean")
 os.system("cd os && cargo build --release")
+os.system("cd os && cargo build")
 
 os.system("qemu-system-riscv64 \
 -machine virt \
 -nographic \
+-smp cpus=4 \
 -bios bootloader/rustsbi-qemu.bin \
 -device loader,file=os/target/riscv64gc-unknown-none-elf/release/os,addr=0x80200000 \
 -device loader,file=basic_rt/target/riscv64gc-unknown-none-elf/debug/basic_rt.bin,addr=0x87000000 \

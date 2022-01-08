@@ -36,3 +36,9 @@ macro_rules! info {
     ($($arg:tt)*) => ($crate::print!("\x1b[31m{}\x1b[0m\n", format_args!($($arg)*)));
 }
 
+
+#[macro_export]
+macro_rules! debug {
+    () => ($crate::print!("\n"));
+    ($($arg:tt)*) => ($crate::print!("\x1b[31m{}\x1b[0m\n", format_args!($($arg)*)));
+}

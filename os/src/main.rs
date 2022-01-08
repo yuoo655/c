@@ -1,6 +1,7 @@
 #![no_std]
 #![no_main]
 #![feature(global_asm)]
+#![feature(asm)]
 #![feature(llvm_asm)]
 #![feature(panic_info_message)]
 #![feature(naked_functions)]
@@ -37,6 +38,8 @@ global_asm!(include_str!("entry.asm"));
 global_asm!(include_str!("link_app.S"));
 
 
+use core::sync::atomic::{AtomicBool, Ordering};
+use core::hint::spin_loop;
 
 
 fn clear_bss() {
@@ -50,56 +53,53 @@ fn clear_bss() {
 }
 
 #[no_mangle]
-pub fn rust_main() -> ! {
-    clear_bss();
-    println!("[kernel] Hello, world!");
+pub fn rust_main(hart_id: usize) -> ! {
+    static AP_CAN_INIT: AtomicBool = AtomicBool::new(false);
+    if hart_id == 0{
+        clear_bss();
+        println!("[kernel] Hello, world!");
+        
+        mm::init();
+        mm::remap_test();
+        trap::init();
+        trap::enable_timer_interrupt();
+        timer::set_next_trigger();
+        info!("loader list app");
+        fs::list_apps();
+        // test_for_kernel(0);
+        task::add_user_test();
+
+        // send_ipi();
+    }
+
+
     
-    mm::init();
-    mm::remap_test();
-    trap::init();
-    trap::enable_timer_interrupt();
-    timer::set_next_trigger();
-
-
-    info!("loader list app");
-    fs::list_apps();
     
-
-    // scheduler::init();
-    // scheduler::thread::init();        
-    // lkm::init();
-
-
-
-    // test1();
-    // scheduler::thread_init();
     
-    // test_for_kernel(0);
-
-
-    task::add_user_test();
     println!("run user task");
     task::run_tasks();
 
     panic!("Unreachable in rust_main!");
 }
 
-// pub fn test1(){
-//     unsafe{
-//         let init_environment_addr = lkm::get_symbol_addr_from_elf("basic_rt", "init_environment");
-//         let init_environment: fn() = core::mem::transmute(init_environment_addr as usize);
-//         init_environment();
+
+// pub fn send_ipi(){
+//     let hart_id = hart_id();
+//     for i in 1..4 {
+//         debug!("[hart {}] Start {}", hart_id, i);
+//         let mask: usize = 1 << i;
+//         sbi::send_ipi(&mask as *const _ as usize);
 //     }
-//     let thread_init_addr = lkm::get_symbol_addr_from_elf("basic_rt", "thread_init");
-//     unsafe{
-//         let thread_init: fn() = core::mem::transmute(thread_init_addr as usize);
-//         println!("cpu_run");
-//         thread_init();
-//         println!("cpu_run done");
-//     }
-    
 // }
 
+
+pub fn hart_id() -> usize {
+    let hart_id: usize;
+    unsafe {
+        asm!("mv {}, tp", out(reg) hart_id);
+    }
+    hart_id
+}
 
 pub fn test_for_kernel(base: usize){
     let init_environment_addr = lkm::get_symbol_addr_from_elf("basic_rt", "init_environment");
