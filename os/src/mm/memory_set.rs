@@ -43,15 +43,15 @@ lazy_static! {
 
 
 
-lazy_static! {
-    pub static ref SPACE_ID_SATP : Vec<usize> = {
-        let mut v = Vec::new();
-        for i in 0..10{
-            v.push(0);
-        }
-        v
-    };
-}
+// lazy_static! {
+//     pub static ref SPACE_ID_SATP : Vec<usize> = {
+//         let mut v = Vec::new();
+//         for i in 0..10{
+//             v.push(0);
+//         }
+//         v
+//     };
+// }
 
 
 pub fn kernel_token() -> usize {
@@ -214,8 +214,8 @@ impl MemorySet {
 
         let user_satp = memory_set.token();
         // let mut space = SPACE_ID_SATP.unwrap();
-        let mut x = SPACE_ID_SATP[space_id];
-        x = user_satp as usize;
+        // let mut x = SPACE_ID_SATP[space_id];
+        // x = user_satp as usize;
 
         // &SPACE_ID_SATP[space_id] = user_satp;
         // map trampoline

@@ -55,7 +55,6 @@ __restore:
     ld t0, 32*8(sp)
     ld t1, 33*8(sp)
 
-    ld tp, 37*8(sp)
     csrw sstatus, t0
     csrw sepc, t1
     # restore general purpose registers except x0/sp/tp

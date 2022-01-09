@@ -21,7 +21,7 @@ pub use page_table::{
 };
 pub use memory_set::{MemorySet, KERNEL_SPACE, MapPermission, kernel_token};
 pub use memory_set::remap_test;
-pub use memory_set::SPACE_ID_SATP;
+// pub use memory_set::SPACE_ID_SATP;
 
 pub fn init() {
     heap_allocator::init_heap();

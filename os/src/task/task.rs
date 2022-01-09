@@ -121,7 +121,7 @@ impl TaskControlBlock {
         };
 
         // let mut q = SPACE.lock();
-        SPACE.lock().push_context(space_id, task_cx_ptr as usize);
+        // SPACE.lock().push_context(space_id, task_cx_ptr as usize);
 
         let trap_cx = task_control_block.acquire_inner_lock().get_trap_cx();
         *trap_cx = TrapContext::app_init_context(
@@ -130,7 +130,7 @@ impl TaskControlBlock {
             KERNEL_SPACE.lock().token(),
             kernel_stack_top,
             trap_handler as usize,
-            space_id,
+            // space_id,
         );
         task_control_block
     }
@@ -184,7 +184,7 @@ impl TaskControlBlock {
             KERNEL_SPACE.lock().token(),
             self.kernel_stack.get_top(),
             trap_handler as usize,
-            space_id,
+            // space_id,
         );
         trap_cx.x[10] = args.len();
         trap_cx.x[11] = argv_base;
@@ -285,34 +285,34 @@ pub enum TaskStatus {
 }
 
 
-pub struct SpaceidContext{
-    info: Vec<usize>
-}
+// pub struct SpaceidContext{
+//     info: Vec<usize>
+// }
 
 
-impl SpaceidContext{
-    pub fn new() -> Self {
+// impl SpaceidContext{
+//     pub fn new() -> Self {
 
-        let mut zero_vec: Vec<usize> = Vec::with_capacity(100);
-        for i in 0..100 {
-            zero_vec.push(0);
-        }
-        // let mut v:Vec<usize> = Vec::new();
-        Self {
-            info: zero_vec
-        }
-    }
+//         let mut zero_vec: Vec<usize> = Vec::with_capacity(100);
+//         for i in 0..100 {
+//             zero_vec.push(0);
+//         }
+//         // let mut v:Vec<usize> = Vec::new();
+//         Self {
+//             info: zero_vec
+//         }
+//     }
 
-    pub fn push_context(&mut self,space_id:usize, value:usize) {
-        self.info[space_id] = value;
-    }
+//     pub fn push_context(&mut self,space_id:usize, value:usize) {
+//         self.info[space_id] = value;
+//     }
 
-    pub fn get_context_ptr(&self, space_id:usize) -> usize{
-        self.info[space_id]
-    }
-}
+//     pub fn get_context_ptr(&self, space_id:usize) -> usize{
+//         self.info[space_id]
+//     }
+// }
 
 
-lazy_static! {
-    pub static ref SPACE: Mutex<SpaceidContext> = Mutex::new(SpaceidContext::new());
-}
+// lazy_static! {
+//     pub static ref SPACE: Mutex<SpaceidContext> = Mutex::new(SpaceidContext::new());
+// }

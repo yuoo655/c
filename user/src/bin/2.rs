@@ -2,6 +2,7 @@
 #![no_main]
 #![feature(global_asm)]
 #![feature(llvm_asm)]
+#![feature(asm)]
 #[macro_use]
 extern crate user_lib;
 use user_lib::console::print;
@@ -16,6 +17,8 @@ use user_lib::{exit, get_symbol_addr};
 pub fn main() -> i32 {
 
 
+    // let hart_id = hart_id();
+    // println!("[hart {}] [user2] Hello world from user mode program!", hart_id);
     println!("[user2] Hello world from user mode program!");
 
     // thread_init();
@@ -87,7 +90,13 @@ pub fn test_for_user(){
 }
 
 
-
+pub fn hart_id() -> usize {
+    let hart_id: usize;
+    unsafe {
+        asm!("mv {}, tp", out(reg) hart_id);
+    }
+    hart_id
+}
 
 
 

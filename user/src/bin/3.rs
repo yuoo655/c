@@ -5,34 +5,36 @@
 #![feature(asm)]
 #[macro_use]
 extern crate user_lib;
+use user_lib::console::print;
+
+use core::mem;
+
 use user_lib::*;
+
+
 
 extern crate alloc;
 use spin::Mutex;
+use woke::waker_ref;
+use core::future::Future;
+use core::pin::Pin;
+use alloc::boxed::Box;
 
 
 #[no_mangle]
 pub fn main() -> i32 {
 
-    // let hart_id = hart_id();
-    // println!("[hart {}] [user1] Hello world from user mode program!", hart_id);
-    println!("[user1] Hello world from user mode program!");
 
+
+    // let hart_id = hart_id();
+    // println!("[hart {}] [user3] Hello world from user mode program!", hart_id);
+    println!("[user3] Hello world from user mode program!");
 
     test_for_user();
 
-    println!("[user1] end");
+    println!("[user3] end");
 
     0
-}
-
-
-pub fn hart_id() -> usize {
-    let hart_id: usize;
-    unsafe {
-        asm!("mv {}, tp", out(reg) hart_id);
-    }
-    hart_id
 }
 
 
@@ -82,7 +84,7 @@ pub fn test_for_user(){
 
 
         async fn test(x: i32) {
-            println!("[user1] {}", x);
+            println!("[user3] {}", x);
         }
         println!("test task addr :{:#x?}", test as usize);
         println!("add_task");
@@ -96,4 +98,13 @@ pub fn test_for_user(){
         cpu_run();
     }
 
+}
+
+
+pub fn hart_id() -> usize {
+    let hart_id: usize;
+    unsafe {
+        asm!("mv {}, tp", out(reg) hart_id);
+    }
+    hart_id
 }

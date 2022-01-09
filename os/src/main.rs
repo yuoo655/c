@@ -69,9 +69,9 @@ pub fn rust_main(hart_id: usize) -> ! {
         info!("loader list app");
         fs::list_apps();
         // test_for_kernel(0);
-        debug!("trying to add initproc");
-        task::add_initproc();
-        debug!("initproc added to task manager!");
+        // debug!("trying to add initproc");
+        // task::add_initproc();
+        // debug!("initproc added to task manager!");
         debug!("trying to add add user test");
         task::add_user_test();
 
@@ -86,12 +86,10 @@ pub fn rust_main(hart_id: usize) -> ! {
 
     println_hart!("Hello", hart_id);
     
-    // if hart_id == 0{
-        println_hart!("run user task", hart_id);
-        task::run_tasks();
-    // }
-
-    // loop{}
+    
+    println_hart!("run user task", hart_id);
+    task::run_tasks();
+    
     panic!("Unreachable in rust_main!");
 }
 

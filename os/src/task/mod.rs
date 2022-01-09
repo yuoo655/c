@@ -14,7 +14,7 @@ pub use pool::{add_task, fetch_task, prioritize_task};
 use lazy_static::*;
 pub use context::TaskContext;
 
-pub use task::SPACE;
+// pub use task::SPACE;
 
 pub use processor::{
     run_tasks,
@@ -131,6 +131,18 @@ pub fn add_user_test(){
         let v = inode.read_all();
         TaskControlBlock::new(v.as_slice(), 2 as usize)
     });
+    let task3 = Arc::new({
+        let inode = open_file("3", OpenFlags::RDONLY).unwrap();
+        let v = inode.read_all();
+        TaskControlBlock::new(v.as_slice(), 1 as usize)
+    });
+    let task4 = Arc::new({
+        let inode = open_file("4", OpenFlags::RDONLY).unwrap();
+        let v = inode.read_all();
+        TaskControlBlock::new(v.as_slice(), 1 as usize)
+    });
     add_task(task1.clone());
     add_task(task2.clone());
+    add_task(task3.clone());
+    add_task(task4.clone());
 }

@@ -156,10 +156,10 @@ pub fn sys_waitpid(pid: isize, exit_code_ptr: *mut i32) -> isize {
 
 
 pub fn sys_get_symbol_addr(symbol_name: *const u8) -> isize{
+    // println!("sys_get_symbol_addr {:?}", symbol_name);
     let token = current_user_token();
     let name = translated_str(token, symbol_name);
     let name = name.as_str();
-    // println!("sys_get_symbol_addr {:?}", name);
     let addr = crate::lkm::get_symbol_addr_from_elf("basic_rt", name);
 
     addr as isize

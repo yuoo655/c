@@ -49,7 +49,7 @@ impl Processor {
 
     fn get_idle_task_cx_ptr(&self) -> *mut TaskContext {
         let mut inner = self.inner.borrow_mut();
-        &mut inner.idle_task_cx as *mut _
+        &mut inner.idle_task_cx as *mut TaskContext
     }
 
 
@@ -164,3 +164,12 @@ pub fn schedule(switched_task_cx_ptr: *mut TaskContext) {
     }
 }
 
+// pub fn current_trap_cx_user_va() -> usize {
+//     current_task()
+//         .unwrap()
+//         .inner_exclusive_access()
+//         .res
+//         .as_ref()
+//         .unwrap()
+//         .trap_cx_user_va()
+// }
