@@ -18,7 +18,6 @@ pub fn main() -> i32 {
     // println!("[hart {}] [user1] Hello world from user mode program!", hart_id);
     println!("[user1] Hello world from user mode program!");
 
-
     test_for_user();
 
     println!("[user1] end");
@@ -80,9 +79,8 @@ pub fn test_for_user(){
         println!("init_cpu");
         init_cpu();
 
-
         async fn test(x: i32) {
-            println!("[user1] {}", x);
+            println!("[hart {}] [user1] {}", hart_id(),x);
         }
         println!("test task addr :{:#x?}", test as usize);
         println!("add_task");

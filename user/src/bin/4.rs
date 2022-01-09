@@ -93,7 +93,7 @@ pub fn test_for_user(){
 
 
         async fn test(x: i32) {
-            println!("[user4] {}", x);
+            println!("[hart {}] [user4] {}", hart_id(),x);
         }
         println!("test task addr :{:#x?}", test as usize);
         println!("add_task");
