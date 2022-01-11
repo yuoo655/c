@@ -54,7 +54,7 @@ impl TaskPool {
 
 pub fn add_task(task: Arc<TaskControlBlock>) {
     let token = task.acquire_inner_lock().memory_set.token();
-    debug!("task pid: {}, satp: {:#x} added to pool", task.pid.0, token);
+    // debug!("task pid: {}, satp: {:#x} added to pool", task.pid.0, token);
     TASK_POOL.lock().add(task);
 }
 

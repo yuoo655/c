@@ -113,8 +113,9 @@ impl Processor {
 
                     }
                     None => {
-                        info!("all user process finished! run user shell");
-                        super::add_user_shell();
+                        info!("all user process finished! panic!");
+                        panic!("");
+                        // super::add_user_shell();
                         super::add_initproc();
                     }
                 }
