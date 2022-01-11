@@ -42,6 +42,7 @@ pub fn suspend_current_and_run_next() {
     let task_cx_ptr = task_inner.get_task_cx_ptr();
     // let task_cx_ptr = task_inner.gets_task_cx_ptr();
     drop(task_inner);
+
     // jump to scheduling cycle
     // add_task(task);
     schedule(task_cx_ptr);
@@ -67,9 +68,8 @@ pub fn exit_current_and_run_next(exit_code: i32) {
     
     // take from Processor
     let task = take_current_task().unwrap();
-    
+
     // **** hold current PCB lock
-    let wl = WAIT_LOCK.lock();
     let mut inner = task.acquire_inner_lock();
 
     // Change status to Zombie
@@ -77,12 +77,15 @@ pub fn exit_current_and_run_next(exit_code: i32) {
     // Record exit code
     inner.exit_code = exit_code;
 
+    // for child in inner.children.iter() {
+    //     child.acquire_inner_lock().parent = Some(Arc::downgrade(&INITPROC));
+    //     initproc_inner.children.push(child.clone());
+    // }
+
     inner.children.clear();
     // deallocate user space
     inner.memory_set.recycle_data_pages();
     drop(inner);
-
-    drop(wl);
     
     // **** release current PCB lock
     // drop task manually to maintain rc correctly
