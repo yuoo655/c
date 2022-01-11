@@ -63,7 +63,7 @@ impl Processor {
         let idle_task_cx_ptr = self.get_idle_task_cx_ptr();
         // acquire
         let mut task_inner = task.acquire_inner_lock();
-        let next_task_cx_ptr = task_inner.get_task_cx_ptr();
+        let next_task_cx_ptr = &task_inner.task_cx as *const TaskContext;
         task_inner.task_status = TaskStatus::Running(hart_id());
         let task_cx = unsafe { &*next_task_cx_ptr };
 
