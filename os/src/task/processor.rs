@@ -71,7 +71,7 @@ impl Processor {
         drop(task_inner);
         self.inner.borrow_mut().current = Some(task);
 
-        println_hart!("switching", hart_id());
+        println_hart!("switching idle:{:#x?} to:{:#x?}", hart_id(), idle_task_cx_ptr, next_task_cx_ptr );
         unsafe {
             __switch(idle_task_cx_ptr, next_task_cx_ptr);
         }
