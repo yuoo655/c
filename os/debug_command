@@ -9,3 +9,8 @@ riscv64-unknown-elf-objdump -S .\target\riscv64gc-unknown-none-elf\release\os > 
 maintenance packet Qqemu.PhyMemMode:1
 
 #某行处断点
+x/20xg 0xfffffffffffff056
+
+x/100i $*0xfffffffffffff016
+
+p/x $satp

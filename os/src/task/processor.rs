@@ -61,11 +61,23 @@ impl Processor {
     pub fn run_next(&self, task: Arc<TaskControlBlock>){
         
         let idle_task_cx_ptr = self.get_idle_task_cx_ptr();
+        debug!(
+            "[run next] idle task cx ptr: {:x?}, task cx: {:#x?}",
+            idle_task_cx_ptr,
+            unsafe { &*idle_task_cx_ptr }
+        );
+
         // acquire
         let mut task_inner = task.acquire_inner_lock();
         let next_task_cx_ptr = &task_inner.task_cx as *const TaskContext;
         task_inner.task_status = TaskStatus::Running(hart_id());
         let task_cx = unsafe { &*next_task_cx_ptr };
+
+        debug!(
+            "next task cx ptr: {:#x?}, task cx: {:#x?}",
+            next_task_cx_ptr,
+            task_cx
+        );
 
         // release
         drop(task_inner);
@@ -80,7 +92,11 @@ impl Processor {
     #[no_mangle]
     fn suspend_current(&self) {
         
+        info!("[suspend current]");
         if let Some(task) = take_current_task() {
+
+            info!("task pid: {} suspend", task.pid.0);
+
             // ---- hold current PCB lock
             let mut task_inner = task.acquire_inner_lock();
             // Change status to Ready
@@ -98,10 +114,12 @@ impl Processor {
     pub fn run(&self) {
         loop {
             if let Some(task) = fetch_task() {
-                info!("task pid: {} running", task.pid.0);
-                // unsafe { riscv::asm::sfence_vma_all()}
+                // info!("task pid: {} running", task.pid.0);
+                unsafe { riscv::asm::sfence_vma_all()}
                 self.run_next(task);
+
                 println_hart!("idel----", hart_id());
+
                 self.suspend_current();
             }
         }
@@ -158,8 +176,21 @@ pub fn current_trap_cx() -> &'static mut TrapContext {
     current_task().unwrap().acquire_inner_lock().get_trap_cx()
 }
 
+#[no_mangle]
 pub fn schedule(switched_task_cx_ptr: *mut TaskContext) {
     let idle_task_cx_ptr = PROCESSORS[hart_id()].get_idle_task_cx_ptr();
+
+    debug!(
+        "[schedule] switched task cx ptr: {:x?}, task cx: {:x?}",
+        switched_task_cx_ptr,
+        unsafe { &*switched_task_cx_ptr }
+    );
+    debug!(
+        "[schedule] idle task cx ptr: {:x?}, task cx: {:x?}",
+        idle_task_cx_ptr,
+        unsafe { &*idle_task_cx_ptr }
+    );
+
     unsafe {
         __switch(switched_task_cx_ptr, idle_task_cx_ptr);
     }

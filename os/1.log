@@ -1710,3 +1710,3577 @@ Ambiguous info command "t": target, tasks, terminal, threads, tp, tracepoints, t
 Detaching from program: D:\z\2\new\c\os\target\riscv64gc-unknown-none-elf\release\os, process 1
 Ending remote debugging.
 [Inferior 1 (process 1) detached]
+0x0000000000001000 in ?? ()
+=> 0x0000000000001000:	97 02 00 00	auipc	t0,0x0
+Breakpoint 1 at 0x80206f0e
+Continuing.
+
+Thread 1 hit Breakpoint 1, 0x0000000080206f0e in os::task::exit_current_and_run_next ()
+=> 0x0000000080206f0e <_ZN2os4task25exit_current_and_run_next17h540d2a0d1176830cE+20>:	2a 89	mv	s2,a0
+Stack level 0, frame at 0xffffffffffff8e60:
+ pc = 0x80206f0e in os::task::exit_current_and_run_next; saved pc = 0x8020a394
+ called by frame at 0xffffffffffff8e60
+ Arglist at 0xffffffffffff8e60, args: 
+ Locals at 0xffffffffffff8e60, Previous frame's sp is 0xffffffffffff8e60
+Could not fetch register "ustatus"; remote failure reply 'E14'
+ra             0x8020a394	0x8020a394 <os::syscall::process::sys_exit+126>
+sp             0xffffffffffff8d40	0xffffffffffff8d40
+gp             0x0	0x0
+tp             0x0	0x0
+t0             0x1c0000	1835008
+t1             0x110000	1114112
+t2             0xdf	223
+fp             0xffffffffffff8e60	0xffffffffffff8e60
+s1             0x0	0
+a0             0x0	0
+a1             0x8021c052	2149695570
+a2             0x0	0
+a3             0x8021c052	2149695570
+a4             0x1	1
+a5             0x8021c052	2149695570
+a6             0xf0	240
+a7             0x1	1
+s2             0x0	0
+s3             0x0	0
+s4             0x0	0
+s5             0x0	0
+s6             0x0	0
+s7             0x0	0
+s8             0x0	0
+s9             0x0	0
+s10            0x0	0
+s11            0x0	0
+t3             0xffffffffffffffff	-1
+t4             0x4	4
+t5             0x0	0
+t6             0x0	0
+pc             0x80206f0e	0x80206f0e <os::task::exit_current_and_run_next+20>
+Breakpoint 2 at 0x8020b9b0
+Continuing.
+
+Thread 1 hit Breakpoint 2, 0x000000008020b9b0 in os::console::print ()
+=> 0x000000008020b9b0 <_ZN2os7console5print17hb931d4ac4f00f5f7E+12>:	0f 00 30 03	fence	rw,rw
+Continuing.
+
+Thread 1 hit Breakpoint 2, 0x000000008020b9b0 in os::console::print ()
+=> 0x000000008020b9b0 <_ZN2os7console5print17hb931d4ac4f00f5f7E+12>:	0f 00 30 03	fence	rw,rw
+Stack level 0, frame at 0x80231d30:
+ pc = 0x8020b9b0 in os::console::print; saved pc = 0x80204956
+ called by frame at 0x80231d30
+ Arglist at 0x80231d30, args: 
+ Locals at 0x80231d30, Previous frame's sp is 0x80231d30
+Could not fetch register "ustatus"; remote failure reply 'E14'
+  Id   Target Id                    Frame 
+* 1    Thread 1.1 (CPU#0 [running]) 0x000000008020b9b0 in os::console::print ()
+  2    Thread 1.2 (CPU#1 [running]) compiler_builtins::mem::impls::copy_forward () at /cargo/registry/src/github.com-1ecc6299db9ec823/compiler_builtins-0.1.46/src/mem/impls.rs:5
+  3    Thread 1.3 (CPU#2 [running]) 0x0000000080215ff2 in buddy_system_allocator::Heap::dealloc ()
+  4    Thread 1.4 (CPU#3 [running]) 0x00000000802114da in easy_fs::vfs::Inode::read_at ()
+#0  0x000000008020b9b0 in os::console::print ()
+#1  0x0000000080204956 in run.llvm ()
+Backtrace stopped: frame did not save the PC
+0x000000008020b9b4 in os::console::print ()
+=> 0x000000008020b9b4 <_ZN2os7console5print17hb931d4ac4f00f5f7E+16>:	97 74 05 05	auipc	s1,0x5057
+0x000000008020b9b8 in os::console::print ()
+=> 0x000000008020b9b8 <_ZN2os7console5print17hb931d4ac4f00f5f7E+20>:	93 84 44 a0	addi	s1,s1,-1532
+0x000000008020b9bc in os::console::print ()
+=> 0x000000008020b9bc <_ZN2os7console5print17hb931d4ac4f00f5f7E+24>:	8c 60	ld	a1,0(s1)
+0x000000008020b9be in os::console::print ()
+=> 0x000000008020b9be <_ZN2os7console5print17hb931d4ac4f00f5f7E+26>:	2a 89	mv	s2,a0
+0x000000008020b9c0 in os::console::print ()
+=> 0x000000008020b9c0 <_ZN2os7console5print17hb931d4ac4f00f5f7E+28>:	0f 00 30 02	fence	r,rw
+0x000000008020b9c4 in os::console::print ()
+=> 0x000000008020b9c4 <_ZN2os7console5print17hb931d4ac4f00f5f7E+32>:	95 e9	bnez	a1,0x8020b9f8 <_ZN2os7console5print17hb931d4ac4f00f5f7E+84>
+0x000000008020b9f8 in os::console::print ()
+=> 0x000000008020b9f8 <_ZN2os7console5print17hb931d4ac4f00f5f7E+84>:	05 45	li	a0,1
+0x000000008020b9fa in os::console::print ()
+=> 0x000000008020b9fa <_ZN2os7console5print17hb931d4ac4f00f5f7E+86>:	63 99 a5 00	bne	a1,a0,0x8020ba0c <_ZN2os7console5print17hb931d4ac4f00f5f7E+104>
+Undefined info command: "/100i $pc".  Try "help info".
+=> 0x8020b9fa <_ZN2os7console5print17hb931d4ac4f00f5f7E+86>:	bne	a1,a0,0x8020ba0c <_ZN2os7console5print17hb931d4ac4f00f5f7E+104>
+   0x8020b9fe <_ZN2os7console5print17hb931d4ac4f00f5f7E+90>:	fence	rw,rw
+   0x8020ba02 <_ZN2os7console5print17hb931d4ac4f00f5f7E+94>:	ld	a1,0(s1)
+   0x8020ba04 <_ZN2os7console5print17hb931d4ac4f00f5f7E+96>:	fence	r,rw
+   0x8020ba08 <_ZN2os7console5print17hb931d4ac4f00f5f7E+100>:	beq	a1,a0,0x8020b9fe <_ZN2os7console5print17hb931d4ac4f00f5f7E+90>
+   0x8020ba0c <_ZN2os7console5print17hb931d4ac4f00f5f7E+104>:	li	a0,2
+   0x8020ba0e <_ZN2os7console5print17hb931d4ac4f00f5f7E+106>:	bne	a1,a0,0x8020babe <_ZN2os7console5print17hb931d4ac4f00f5f7E+282>
+   0x8020ba12 <_ZN2os7console5print17hb931d4ac4f00f5f7E+110>:	addi	a2,s1,9
+   0x8020ba16 <_ZN2os7console5print17hb931d4ac4f00f5f7E+114>:	andi	a0,a2,3
+   0x8020ba1a <_ZN2os7console5print17hb931d4ac4f00f5f7E+118>:	slli	a1,a0,0x3
+   0x8020ba1e <_ZN2os7console5print17hb931d4ac4f00f5f7E+122>:	li	a0,255
+   0x8020ba22 <_ZN2os7console5print17hb931d4ac4f00f5f7E+126>:	sllw	a0,a0,a1
+   0x8020ba26 <_ZN2os7console5print17hb931d4ac4f00f5f7E+130>:	li	a3,1
+   0x8020ba28 <_ZN2os7console5print17hb931d4ac4f00f5f7E+132>:	sllw	a1,a3,a1
+   0x8020ba2c <_ZN2os7console5print17hb931d4ac4f00f5f7E+136>:	andi	a2,a2,-4
+   0x8020ba2e <_ZN2os7console5print17hb931d4ac4f00f5f7E+138>:	lr.w.aq	a3,(a2)
+   0x8020ba32 <_ZN2os7console5print17hb931d4ac4f00f5f7E+142>:	and	a4,a3,a0
+   0x8020ba36 <_ZN2os7console5print17hb931d4ac4f00f5f7E+146>:	bnez	a4,0x8020ba46 <_ZN2os7console5print17hb931d4ac4f00f5f7E+162>
+   0x8020ba38 <_ZN2os7console5print17hb931d4ac4f00f5f7E+148>:	xor	a4,a3,a1
+   0x8020ba3c <_ZN2os7console5print17hb931d4ac4f00f5f7E+152>:	and	a4,a4,a0
+   0x8020ba3e <_ZN2os7console5print17hb931d4ac4f00f5f7E+154>:	xor	a4,a4,a3
+   0x8020ba40 <_ZN2os7console5print17hb931d4ac4f00f5f7E+156>:	sc.w	a4,a4,(a2)
+   0x8020ba44 <_ZN2os7console5print17hb931d4ac4f00f5f7E+160>:	bnez	a4,0x8020ba2e <_ZN2os7console5print17hb931d4ac4f00f5f7E+138>
+   0x8020ba46 <_ZN2os7console5print17hb931d4ac4f00f5f7E+162>:	and	a3,a3,a0
+   0x8020ba48 <_ZN2os7console5print17hb931d4ac4f00f5f7E+164>:	sext.w	a3,a3
+   0x8020ba4a <_ZN2os7console5print17hb931d4ac4f00f5f7E+166>:	beqz	a3,0x8020ba58 <_ZN2os7console5print17hb931d4ac4f00f5f7E+180>
+   0x8020ba4c <_ZN2os7console5print17hb931d4ac4f00f5f7E+168>:	lb	a3,9(s1)
+   0x8020ba50 <_ZN2os7console5print17hb931d4ac4f00f5f7E+172>:	andi	a3,a3,255
+   0x8020ba54 <_ZN2os7console5print17hb931d4ac4f00f5f7E+176>:	bnez	a3,0x8020ba4c <_ZN2os7console5print17hb931d4ac4f00f5f7E+168>
+   0x8020ba56 <_ZN2os7console5print17hb931d4ac4f00f5f7E+178>:	j	0x8020ba2e <_ZN2os7console5print17hb931d4ac4f00f5f7E+138>
+   0x8020ba58 <_ZN2os7console5print17hb931d4ac4f00f5f7E+180>:	ld	a0,40(s2)
+   0x8020ba5c <_ZN2os7console5print17hb931d4ac4f00f5f7E+184>:	ld	a1,32(s2)
+   0x8020ba60 <_ZN2os7console5print17hb931d4ac4f00f5f7E+188>:	addi	a2,s1,10
+   0x8020ba64 <_ZN2os7console5print17hb931d4ac4f00f5f7E+192>:	sd	a2,-88(s0)
+   0x8020ba68 <_ZN2os7console5print17hb931d4ac4f00f5f7E+196>:	sd	a0,-40(s0)
+   0x8020ba6c <_ZN2os7console5print17hb931d4ac4f00f5f7E+200>:	sd	a1,-48(s0)
+   0x8020ba70 <_ZN2os7console5print17hb931d4ac4f00f5f7E+204>:	ld	a0,24(s2)
+   0x8020ba74 <_ZN2os7console5print17hb931d4ac4f00f5f7E+208>:	ld	a1,16(s2)
+   0x8020ba78 <_ZN2os7console5print17hb931d4ac4f00f5f7E+212>:	ld	a2,8(s2)
+   0x8020ba7c <_ZN2os7console5print17hb931d4ac4f00f5f7E+216>:	ld	a3,0(s2)
+   0x8020ba80 <_ZN2os7console5print17hb931d4ac4f00f5f7E+220>:	sd	a0,-56(s0)
+   0x8020ba84 <_ZN2os7console5print17hb931d4ac4f00f5f7E+224>:	sd	a1,-64(s0)
+   0x8020ba88 <_ZN2os7console5print17hb931d4ac4f00f5f7E+228>:	sd	a2,-72(s0)
+   0x8020ba8c <_ZN2os7console5print17hb931d4ac4f00f5f7E+232>:	sd	a3,-80(s0)
+   0x8020ba90 <_ZN2os7console5print17hb931d4ac4f00f5f7E+236>:	auipc	a1,0x11
+   0x8020ba94 <_ZN2os7console5print17hb931d4ac4f00f5f7E+240>:	addi	a1,a1,-1872
+   0x8020ba98 <_ZN2os7console5print17hb931d4ac4f00f5f7E+244>:	addi	a0,s0,-88
+   0x8020ba9c <_ZN2os7console5print17hb931d4ac4f00f5f7E+248>:	addi	a2,s0,-80
+   0x8020baa0 <_ZN2os7console5print17hb931d4ac4f00f5f7E+252>:	auipc	ra,0xb
+   0x8020baa4 <_ZN2os7console5print17hb931d4ac4f00f5f7E+256>:	jalr	2046(ra)
+   0x8020baa8 <_ZN2os7console5print17hb931d4ac4f00f5f7E+260>:	bnez	a0,0x8020bafa <_ZN2os7console5print17hb931d4ac4f00f5f7E+342>
+   0x8020baaa <_ZN2os7console5print17hb931d4ac4f00f5f7E+262>:	fence	rw,w
+   0x8020baae <_ZN2os7console5print17hb931d4ac4f00f5f7E+266>:	sb	zero,9(s1)
+   0x8020bab2 <_ZN2os7console5print17hb931d4ac4f00f5f7E+270>:	ld	s2,64(sp)
+   0x8020bab4 <_ZN2os7console5print17hb931d4ac4f00f5f7E+272>:	ld	s1,72(sp)
+   0x8020bab6 <_ZN2os7console5print17hb931d4ac4f00f5f7E+274>:	ld	s0,80(sp)
+   0x8020bab8 <_ZN2os7console5print17hb931d4ac4f00f5f7E+276>:	ld	ra,88(sp)
+   0x8020baba <_ZN2os7console5print17hb931d4ac4f00f5f7E+278>:	addi	sp,sp,96
+   0x8020babc <_ZN2os7console5print17hb931d4ac4f00f5f7E+280>:	ret
+   0x8020babe <_ZN2os7console5print17hb931d4ac4f00f5f7E+282>:	bnez	a1,0x8020bade <_ZN2os7console5print17hb931d4ac4f00f5f7E+314>
+   0x8020bac0 <_ZN2os7console5print17hb931d4ac4f00f5f7E+284>:	auipc	a0,0x11
+   0x8020bac4 <_ZN2os7console5print17hb931d4ac4f00f5f7E+288>:	addi	a0,a0,392
+   0x8020bac8 <_ZN2os7console5print17hb931d4ac4f00f5f7E+292>:	auipc	a2,0x11
+   0x8020bacc <_ZN2os7console5print17hb931d4ac4f00f5f7E+296>:	addi	a2,a2,424
+   0x8020bad0 <_ZN2os7console5print17hb931d4ac4f00f5f7E+300>:	li	a1,40
+   0x8020bad4 <_ZN2os7console5print17hb931d4ac4f00f5f7E+304>:	auipc	ra,0xb
+   0x8020bad8 <_ZN2os7console5print17hb931d4ac4f00f5f7E+308>:	jalr	-554(ra)
+   0x8020badc <_ZN2os7console5print17hb931d4ac4f00f5f7E+312>:	unimp
+   0x8020bade <_ZN2os7console5print17hb931d4ac4f00f5f7E+314>:	auipc	a0,0x11
+   0x8020bae2 <_ZN2os7console5print17hb931d4ac4f00f5f7E+318>:	addi	a0,a0,226
+   0x8020bae6 <_ZN2os7console5print17hb931d4ac4f00f5f7E+322>:	auipc	a2,0x11
+   0x8020baea <_ZN2os7console5print17hb931d4ac4f00f5f7E+326>:	addi	a2,a2,330
+   0x8020baee <_ZN2os7console5print17hb931d4ac4f00f5f7E+330>:	li	a1,17
+   0x8020baf0 <_ZN2os7console5print17hb931d4ac4f00f5f7E+332>:	auipc	ra,0xb
+   0x8020baf4 <_ZN2os7console5print17hb931d4ac4f00f5f7E+336>:	jalr	-582(ra)
+   0x8020baf8 <_ZN2os7console5print17hb931d4ac4f00f5f7E+340>:	unimp
+   0x8020bafa <_ZN2os7console5print17hb931d4ac4f00f5f7E+342>:	auipc	a0,0x11
+   0x8020bafe <_ZN2os7console5print17hb931d4ac4f00f5f7E+346>:	addi	a0,a0,-1887
+   0x8020bb02 <_ZN2os7console5print17hb931d4ac4f00f5f7E+350>:	auipc	a3,0x11
+   0x8020bb06 <_ZN2os7console5print17hb931d4ac4f00f5f7E+354>:	addi	a3,a3,-1850
+   0x8020bb0a <_ZN2os7console5print17hb931d4ac4f00f5f7E+358>:	auipc	a4,0x11
+   0x8020bb0e <_ZN2os7console5print17hb931d4ac4f00f5f7E+362>:	addi	a4,a4,-1810
+   0x8020bb12 <_ZN2os7console5print17hb931d4ac4f00f5f7E+366>:	li	a1,43
+   0x8020bb16 <_ZN2os7console5print17hb931d4ac4f00f5f7E+370>:	addi	a2,s0,-80
+   0x8020bb1a <_ZN2os7console5print17hb931d4ac4f00f5f7E+374>:	auipc	ra,0xb
+   0x8020bb1e <_ZN2os7console5print17hb931d4ac4f00f5f7E+378>:	jalr	-240(ra)
+   0x8020bb22 <_ZN2os7console5print17hb931d4ac4f00f5f7E+382>:	unimp
+   0x8020bb24 <_ZN2os7console15print_colorized17hb82f7018da39c8ddE>:	addi	sp,sp,-160
+   0x8020bb26 <_ZN2os7console15print_colorized17hb82f7018da39c8ddE+2>:	sd	ra,152(sp)
+   0x8020bb28 <_ZN2os7console15print_colorized17hb82f7018da39c8ddE+4>:	sd	s0,144(sp)
+   0x8020bb2a <_ZN2os7console15print_colorized17hb82f7018da39c8ddE+6>:	sd	s1,136(sp)
+   0x8020bb2c <_ZN2os7console15print_colorized17hb82f7018da39c8ddE+8>:	sd	s2,128(sp)
+   0x8020bb2e <_ZN2os7console15print_colorized17hb82f7018da39c8ddE+10>:	sd	s3,120(sp)
+   0x8020bb30 <_ZN2os7console15print_colorized17hb82f7018da39c8ddE+12>:	sd	s4,112(sp)
+   0x8020bb32 <_ZN2os7console15print_colorized17hb82f7018da39c8ddE+14>:	addi	s0,sp,160
+   0x8020bb34 <_ZN2os7console15print_colorized17hb82f7018da39c8ddE+16>:	fence	rw,rw
+   0x8020bb38 <_ZN2os7console15print_colorized17hb82f7018da39c8ddE+20>:	auipc	s1,0x5057
+   0x8020bb3c <_ZN2os7console15print_colorized17hb82f7018da39c8ddE+24>:	addi	s1,s1,-1920
+   0x8020bb40 <_ZN2os7console15print_colorized17hb82f7018da39c8ddE+28>:	ld	a3,0(s1)
+   0x8020bb42 <_ZN2os7console15print_colorized17hb82f7018da39c8ddE+30>:	mv	s3,a2
+0x000000008020ba0c in os::console::print ()
+=> 0x000000008020ba0c <_ZN2os7console5print17hb931d4ac4f00f5f7E+104>:	09 45	li	a0,2
+0x000000008020ba0e in os::console::print ()
+=> 0x000000008020ba0e <_ZN2os7console5print17hb931d4ac4f00f5f7E+106>:	63 98 a5 0a	bne	a1,a0,0x8020babe <_ZN2os7console5print17hb931d4ac4f00f5f7E+282>
+0x000000008020ba12 in os::console::print ()
+=> 0x000000008020ba12 <_ZN2os7console5print17hb931d4ac4f00f5f7E+110>:	13 86 94 00	addi	a2,s1,9
+0x000000008020ba16 in os::console::print ()
+=> 0x000000008020ba16 <_ZN2os7console5print17hb931d4ac4f00f5f7E+114>:	13 75 36 00	andi	a0,a2,3
+0x000000008020ba1a in os::console::print ()
+=> 0x000000008020ba1a <_ZN2os7console5print17hb931d4ac4f00f5f7E+118>:	93 15 35 00	slli	a1,a0,0x3
+0x000000008020ba1e in os::console::print ()
+=> 0x000000008020ba1e <_ZN2os7console5print17hb931d4ac4f00f5f7E+122>:	13 05 f0 0f	li	a0,255
+0x000000008020ba22 in os::console::print ()
+=> 0x000000008020ba22 <_ZN2os7console5print17hb931d4ac4f00f5f7E+126>:	3b 15 b5 00	sllw	a0,a0,a1
+0x000000008020ba26 in os::console::print ()
+=> 0x000000008020ba26 <_ZN2os7console5print17hb931d4ac4f00f5f7E+130>:	85 46	li	a3,1
+0x000000008020ba28 in os::console::print ()
+=> 0x000000008020ba28 <_ZN2os7console5print17hb931d4ac4f00f5f7E+132>:	bb 95 b6 00	sllw	a1,a3,a1
+0x000000008020ba2c in os::console::print ()
+=> 0x000000008020ba2c <_ZN2os7console5print17hb931d4ac4f00f5f7E+136>:	71 9a	andi	a2,a2,-4
+0x000000008020ba2e in os::console::print ()
+=> 0x000000008020ba2e <_ZN2os7console5print17hb931d4ac4f00f5f7E+138>:	af 26 06 14	lr.w.aq	a3,(a2)
+0x000000008020ba32 in os::console::print ()
+=> 0x000000008020ba32 <_ZN2os7console5print17hb931d4ac4f00f5f7E+142>:	33 f7 a6 00	and	a4,a3,a0
+0x000000008020ba36 in os::console::print ()
+=> 0x000000008020ba36 <_ZN2os7console5print17hb931d4ac4f00f5f7E+146>:	01 eb	bnez	a4,0x8020ba46 <_ZN2os7console5print17hb931d4ac4f00f5f7E+162>
+0x000000008020ba38 in os::console::print ()
+=> 0x000000008020ba38 <_ZN2os7console5print17hb931d4ac4f00f5f7E+148>:	33 c7 b6 00	xor	a4,a3,a1
+0x000000008020ba3c in os::console::print ()
+=> 0x000000008020ba3c <_ZN2os7console5print17hb931d4ac4f00f5f7E+152>:	69 8f	and	a4,a4,a0
+0x000000008020ba3e in os::console::print ()
+=> 0x000000008020ba3e <_ZN2os7console5print17hb931d4ac4f00f5f7E+154>:	35 8f	xor	a4,a4,a3
+0x000000008020ba40 in os::console::print ()
+=> 0x000000008020ba40 <_ZN2os7console5print17hb931d4ac4f00f5f7E+156>:	2f 27 e6 18	sc.w	a4,a4,(a2)
+0x000000008020ba44 in os::console::print ()
+=> 0x000000008020ba44 <_ZN2os7console5print17hb931d4ac4f00f5f7E+160>:	6d f7	bnez	a4,0x8020ba2e <_ZN2os7console5print17hb931d4ac4f00f5f7E+138>
+0x000000008020ba46 in os::console::print ()
+=> 0x000000008020ba46 <_ZN2os7console5print17hb931d4ac4f00f5f7E+162>:	e9 8e	and	a3,a3,a0
+0x000000008020ba48 in os::console::print ()
+=> 0x000000008020ba48 <_ZN2os7console5print17hb931d4ac4f00f5f7E+164>:	81 26	sext.w	a3,a3
+0x000000008020ba4a in os::console::print ()
+=> 0x000000008020ba4a <_ZN2os7console5print17hb931d4ac4f00f5f7E+166>:	99 c6	beqz	a3,0x8020ba58 <_ZN2os7console5print17hb931d4ac4f00f5f7E+180>
+0x000000008020ba58 in os::console::print ()
+=> 0x000000008020ba58 <_ZN2os7console5print17hb931d4ac4f00f5f7E+180>:	03 35 89 02	ld	a0,40(s2)
+0x000000008020ba5c in os::console::print ()
+=> 0x000000008020ba5c <_ZN2os7console5print17hb931d4ac4f00f5f7E+184>:	83 35 09 02	ld	a1,32(s2)
+0x000000008020ba60 in os::console::print ()
+=> 0x000000008020ba60 <_ZN2os7console5print17hb931d4ac4f00f5f7E+188>:	13 86 a4 00	addi	a2,s1,10
+0x000000008020ba64 in os::console::print ()
+=> 0x000000008020ba64 <_ZN2os7console5print17hb931d4ac4f00f5f7E+192>:	23 34 c4 fa	sd	a2,-88(s0)
+0x000000008020ba68 in os::console::print ()
+=> 0x000000008020ba68 <_ZN2os7console5print17hb931d4ac4f00f5f7E+196>:	23 3c a4 fc	sd	a0,-40(s0)
+0x000000008020ba6c in os::console::print ()
+=> 0x000000008020ba6c <_ZN2os7console5print17hb931d4ac4f00f5f7E+200>:	23 38 b4 fc	sd	a1,-48(s0)
+0x000000008020ba70 in os::console::print ()
+=> 0x000000008020ba70 <_ZN2os7console5print17hb931d4ac4f00f5f7E+204>:	03 35 89 01	ld	a0,24(s2)
+0x000000008020ba74 in os::console::print ()
+=> 0x000000008020ba74 <_ZN2os7console5print17hb931d4ac4f00f5f7E+208>:	83 35 09 01	ld	a1,16(s2)
+0x000000008020ba78 in os::console::print ()
+=> 0x000000008020ba78 <_ZN2os7console5print17hb931d4ac4f00f5f7E+212>:	03 36 89 00	ld	a2,8(s2)
+0x000000008020ba7c in os::console::print ()
+=> 0x000000008020ba7c <_ZN2os7console5print17hb931d4ac4f00f5f7E+216>:	83 36 09 00	ld	a3,0(s2)
+0x000000008020ba80 in os::console::print ()
+=> 0x000000008020ba80 <_ZN2os7console5print17hb931d4ac4f00f5f7E+220>:	23 34 a4 fc	sd	a0,-56(s0)
+0x000000008020ba84 in os::console::print ()
+=> 0x000000008020ba84 <_ZN2os7console5print17hb931d4ac4f00f5f7E+224>:	23 30 b4 fc	sd	a1,-64(s0)
+0x000000008020ba88 in os::console::print ()
+=> 0x000000008020ba88 <_ZN2os7console5print17hb931d4ac4f00f5f7E+228>:	23 3c c4 fa	sd	a2,-72(s0)
+0x000000008020ba8c in os::console::print ()
+=> 0x000000008020ba8c <_ZN2os7console5print17hb931d4ac4f00f5f7E+232>:	23 38 d4 fa	sd	a3,-80(s0)
+0x000000008020ba90 in os::console::print ()
+=> 0x000000008020ba90 <_ZN2os7console5print17hb931d4ac4f00f5f7E+236>:	97 15 01 00	auipc	a1,0x11
+0x000000008020ba94 in os::console::print ()
+=> 0x000000008020ba94 <_ZN2os7console5print17hb931d4ac4f00f5f7E+240>:	93 85 05 8b	addi	a1,a1,-1872
+0x000000008020ba98 in os::console::print ()
+=> 0x000000008020ba98 <_ZN2os7console5print17hb931d4ac4f00f5f7E+244>:	13 05 84 fa	addi	a0,s0,-88
+0x000000008020ba9c in os::console::print ()
+=> 0x000000008020ba9c <_ZN2os7console5print17hb931d4ac4f00f5f7E+248>:	13 06 04 fb	addi	a2,s0,-80
+0x000000008020baa0 in os::console::print ()
+=> 0x000000008020baa0 <_ZN2os7console5print17hb931d4ac4f00f5f7E+252>:	97 b0 00 00	auipc	ra,0xb
+0x000000008020baa4 in os::console::print ()
+=> 0x000000008020baa4 <_ZN2os7console5print17hb931d4ac4f00f5f7E+256>:	e7 80 e0 7f	jalr	2046(ra)
+core::fmt::write () at library/core/src/fmt/mod.rs:1101
+1101	library/core/src/fmt/mod.rs: No such file or directory.
+0x00000000802172a0	1101	in library/core/src/fmt/mod.rs
+0x00000000802172a2	1101	in library/core/src/fmt/mod.rs
+0x00000000802172a4	1101	in library/core/src/fmt/mod.rs
+0x00000000802172a6	1101	in library/core/src/fmt/mod.rs
+0x00000000802172a8	1101	in library/core/src/fmt/mod.rs
+0x00000000802172aa	1101	in library/core/src/fmt/mod.rs
+0x00000000802172ac	1101	in library/core/src/fmt/mod.rs
+0x00000000802172ae	1101	in library/core/src/fmt/mod.rs
+0x00000000802172b0	1101	in library/core/src/fmt/mod.rs
+0x00000000802172b2	1101	in library/core/src/fmt/mod.rs
+0x00000000802172b4	1101	in library/core/src/fmt/mod.rs
+0x00000000802172b6	1101	in library/core/src/fmt/mod.rs
+0x00000000802172b8	1101	in library/core/src/fmt/mod.rs
+core::fmt::Formatter::new () at library/core/src/fmt/mod.rs:235
+235	in library/core/src/fmt/mod.rs
+0x00000000802172bc	235	in library/core/src/fmt/mod.rs
+0x00000000802172be	235	in library/core/src/fmt/mod.rs
+core::fmt::write () at library/core/src/fmt/mod.rs:1106
+1106	in library/core/src/fmt/mod.rs
+core::fmt::Formatter::new () at library/core/src/fmt/mod.rs:235
+235	in library/core/src/fmt/mod.rs
+0x00000000802172c8	235	in library/core/src/fmt/mod.rs
+0x00000000802172ca	235	in library/core/src/fmt/mod.rs
+0x00000000802172cc	235	in library/core/src/fmt/mod.rs
+core::fmt::write () at library/core/src/fmt/mod.rs:1106
+1106	in library/core/src/fmt/mod.rs
+1108	in library/core/src/fmt/mod.rs
+0x000000008021739a	1108	in library/core/src/fmt/mod.rs
+0x000000008021739e in core::cmp::min_by () at library/core/src/fmt/mod.rs:1108
+1108	in library/core/src/fmt/mod.rs
+0x00000000802173a0	1108	in library/core/src/fmt/mod.rs
+0x00000000802173a4	1108	in library/core/src/fmt/mod.rs
+0x00000000802173a6 in core::fmt::write () at library/core/src/fmt/mod.rs:1108
+1108	in library/core/src/fmt/mod.rs
+<core::iter::adapters::zip::Zip<A,B> as core::iter::adapters::zip::ZipImpl<A,B>>::next () at library/core/src/iter/adapters/zip.rs:228
+228	library/core/src/iter/adapters/zip.rs: No such file or directory.
+0x00000000802173ae in core::fmt::write () at library/core/src/iter/adapters/zip.rs:228
+228	in library/core/src/iter/adapters/zip.rs
+0x00000000802173b2	228	in library/core/src/iter/adapters/zip.rs
+0x00000000802173b4	228	in library/core/src/iter/adapters/zip.rs
+1109	library/core/src/fmt/mod.rs: No such file or directory.
+0x00000000802173ba	1109	in library/core/src/fmt/mod.rs
+0x00000000802173bc	1109	in library/core/src/fmt/mod.rs
+1110	in library/core/src/fmt/mod.rs
+0x00000000802173c0	1110	in library/core/src/fmt/mod.rs
+0x00000000802173c2	1110	in library/core/src/fmt/mod.rs
+0x00000000802173c4	1110	in library/core/src/fmt/mod.rs
+0x00000000802173c6	1110	in library/core/src/fmt/mod.rs
+0x000000008020b8de in <&mut W as core::fmt::Write>::write_str ()
+=> 0x000000008020b8de <_ZN50_$LT$$RF$mut$u20$W$u20$as$u20$core..fmt..Write$GT$9write_str17heababdd190dbd43dE.llvm.3940016566813921747+0>:	41 11	addi	sp,sp,-16
+0x000000008020b8e0 in <&mut W as core::fmt::Write>::write_str ()
+=> 0x000000008020b8e0 <_ZN50_$LT$$RF$mut$u20$W$u20$as$u20$core..fmt..Write$GT$9write_str17heababdd190dbd43dE.llvm.3940016566813921747+2>:	06 e4	sd	ra,8(sp)
+0x000000008020b8e2 in <&mut W as core::fmt::Write>::write_str ()
+=> 0x000000008020b8e2 <_ZN50_$LT$$RF$mut$u20$W$u20$as$u20$core..fmt..Write$GT$9write_str17heababdd190dbd43dE.llvm.3940016566813921747+4>:	22 e0	sd	s0,0(sp)
+0x000000008020b8e4 in <&mut W as core::fmt::Write>::write_str ()
+=> 0x000000008020b8e4 <_ZN50_$LT$$RF$mut$u20$W$u20$as$u20$core..fmt..Write$GT$9write_str17heababdd190dbd43dE.llvm.3940016566813921747+6>:	00 08	addi	s0,sp,16
+0x000000008020b8e6 in <&mut W as core::fmt::Write>::write_str ()
+=> 0x000000008020b8e6 <_ZN50_$LT$$RF$mut$u20$W$u20$as$u20$core..fmt..Write$GT$9write_str17heababdd190dbd43dE.llvm.3940016566813921747+8>:	55 ca	beqz	a2,0x8020b99a <_ZN50_$LT$$RF$mut$u20$W$u20$as$u20$core..fmt..Write$GT$9write_str17heababdd190dbd43dE.llvm.3940016566813921747+188>
+0x000000008020b8e8 in <&mut W as core::fmt::Write>::write_str ()
+=> 0x000000008020b8e8 <_ZN50_$LT$$RF$mut$u20$W$u20$as$u20$core..fmt..Write$GT$9write_str17heababdd190dbd43dE.llvm.3940016566813921747+10>:	b3 87 c5 00	add	a5,a1,a2
+0x000000008020b8ec in <&mut W as core::fmt::Write>::write_str ()
+=> 0x000000008020b8ec <_ZN50_$LT$$RF$mut$u20$W$u20$as$u20$core..fmt..Write$GT$9write_str17heababdd190dbd43dE.llvm.3940016566813921747+14>:	7d 5e	li	t3,-1
+0x000000008020b8ee in <&mut W as core::fmt::Write>::write_str ()
+=> 0x000000008020b8ee <_ZN50_$LT$$RF$mut$u20$W$u20$as$u20$core..fmt..Write$GT$9write_str17heababdd190dbd43dE.llvm.3940016566813921747+16>:	93 03 f0 0d	li	t2,223
+0x000000008020b8f2 in <&mut W as core::fmt::Write>::write_str ()
+=> 0x000000008020b8f2 <_ZN50_$LT$$RF$mut$u20$W$u20$as$u20$core..fmt..Write$GT$9write_str17heababdd190dbd43dE.llvm.3940016566813921747+20>:	13 08 00 0f	li	a6,240
+0x000000008020b8f6 in <&mut W as core::fmt::Write>::write_str ()
+=> 0x000000008020b8f6 <_ZN50_$LT$$RF$mut$u20$W$u20$as$u20$core..fmt..Write$GT$9write_str17heababdd190dbd43dE.llvm.3940016566813921747+24>:	b7 02 1c 00	lui	t0,0x1c0
+0x000000008020b8fa in <&mut W as core::fmt::Write>::write_str ()
+=> 0x000000008020b8fa <_ZN50_$LT$$RF$mut$u20$W$u20$as$u20$core..fmt..Write$GT$9write_str17heababdd190dbd43dE.llvm.3940016566813921747+28>:	37 03 11 00	lui	t1,0x110
+0x000000008020b8fe in <&mut W as core::fmt::Write>::write_str ()
+=> 0x000000008020b8fe <_ZN50_$LT$$RF$mut$u20$W$u20$as$u20$core..fmt..Write$GT$9write_str17heababdd190dbd43dE.llvm.3940016566813921747+32>:	85 48	li	a7,1
+0x000000008020b900 in <&mut W as core::fmt::Write>::write_str ()
+=> 0x000000008020b900 <_ZN50_$LT$$RF$mut$u20$W$u20$as$u20$core..fmt..Write$GT$9write_str17heababdd190dbd43dE.llvm.3940016566813921747+34>:	19 a8	j	0x8020b916 <_ZN50_$LT$$RF$mut$u20$W$u20$as$u20$core..fmt..Write$GT$9write_str17heababdd190dbd43dE.llvm.3940016566813921747+56>
+0x000000008020b916 in <&mut W as core::fmt::Write>::write_str ()
+=> 0x000000008020b916 <_ZN50_$LT$$RF$mut$u20$W$u20$as$u20$core..fmt..Write$GT$9write_str17heababdd190dbd43dE.llvm.3940016566813921747+56>:	03 86 05 00	lb	a2,0(a1)
+0xfffffffffffff000 in ?? ()
+=> 0xfffffffffffff000:	73 11 01 14	csrrw	sp,sscratch,sp
+0xfffffffffffff004 in ?? ()
+=> 0xfffffffffffff004:	06 e4	sd	ra,8(sp)
+0xfffffffffffff000 in ?? ()
+=> 0xfffffffffffff000:	73 11 01 14	csrrw	sp,sscratch,sp
+0xfffffffffffff004 in ?? ()
+=> 0xfffffffffffff004:	06 e4	sd	ra,8(sp)
+0xfffffffffffff006 in ?? ()
+=> 0xfffffffffffff006:	0e ec	sd	gp,24(sp)
+0xfffffffffffff008 in ?? ()
+=> 0xfffffffffffff008:	16 f4	sd	t0,40(sp)
+0xfffffffffffff00a in ?? ()
+=> 0xfffffffffffff00a:	1a f8	sd	t1,48(sp)
+0xfffffffffffff00c in ?? ()
+=> 0xfffffffffffff00c:	1e fc	sd	t2,56(sp)
+0xfffffffffffff00e in ?? ()
+=> 0xfffffffffffff00e:	a2 e0	sd	s0,64(sp)
+0xfffffffffffff010 in ?? ()
+=> 0xfffffffffffff010:	a6 e4	sd	s1,72(sp)
+0xfffffffffffff012 in ?? ()
+=> 0xfffffffffffff012:	aa e8	sd	a0,80(sp)
+0xfffffffffffff014 in ?? ()
+=> 0xfffffffffffff014:	ae ec	sd	a1,88(sp)
+0xfffffffffffff016 in ?? ()
+=> 0xfffffffffffff016:	b2 f0	sd	a2,96(sp)
+#0  0xfffffffffffff016 in ?? ()
+#1  0x00000000802173c8 in core::fmt::write () at library/core/src/fmt/mod.rs:1110
+Backtrace stopped: frame did not save the PC
+=> 0xfffffffffffff016:	sd	a2,96(sp)
+   0xfffffffffffff018:	sd	a3,104(sp)
+   0xfffffffffffff01a:	sd	a4,112(sp)
+   0xfffffffffffff01c:	sd	a5,120(sp)
+   0xfffffffffffff01e:	sd	a6,128(sp)
+   0xfffffffffffff020:	sd	a7,136(sp)
+   0xfffffffffffff022:	sd	s2,144(sp)
+   0xfffffffffffff024:	sd	s3,152(sp)
+   0xfffffffffffff026:	sd	s4,160(sp)
+   0xfffffffffffff028:	sd	s5,168(sp)
+   0xfffffffffffff02a:	sd	s6,176(sp)
+   0xfffffffffffff02c:	sd	s7,184(sp)
+   0xfffffffffffff02e:	sd	s8,192(sp)
+   0xfffffffffffff030:	sd	s9,200(sp)
+   0xfffffffffffff032:	sd	s10,208(sp)
+   0xfffffffffffff034:	sd	s11,216(sp)
+   0xfffffffffffff036:	sd	t3,224(sp)
+   0xfffffffffffff038:	sd	t4,232(sp)
+   0xfffffffffffff03a:	sd	t5,240(sp)
+   0xfffffffffffff03c:	sd	t6,248(sp)
+   0xfffffffffffff03e:	csrr	t0,sstatus
+   0xfffffffffffff042:	csrr	t1,sepc
+   0xfffffffffffff046:	sd	t0,256(sp)
+   0xfffffffffffff048:	sd	t1,264(sp)
+   0xfffffffffffff04a:	csrr	t2,sscratch
+   0xfffffffffffff04e:	sd	t2,16(sp)
+   0xfffffffffffff050:	ld	t0,272(sp)
+   0xfffffffffffff052:	ld	t1,288(sp)
+   0xfffffffffffff054:	ld	sp,280(sp)
+   0xfffffffffffff056:	csrw	satp,t0
+   0xfffffffffffff05a:	sfence.vma
+   0xfffffffffffff05e:	jr	t1
+   0xfffffffffffff060:	csrw	satp,a1
+   0xfffffffffffff064:	sfence.vma
+   0xfffffffffffff068:	csrw	sscratch,a0
+   0xfffffffffffff06c:	mv	sp,a0
+   0xfffffffffffff06e:	ld	t0,256(sp)
+   0xfffffffffffff070:	ld	t1,264(sp)
+   0xfffffffffffff072:	csrw	sstatus,t0
+   0xfffffffffffff076:	csrw	sepc,t1
+   0xfffffffffffff07a:	ld	ra,8(sp)
+   0xfffffffffffff07c:	ld	gp,24(sp)
+   0xfffffffffffff07e:	ld	t0,40(sp)
+   0xfffffffffffff080:	ld	t1,48(sp)
+   0xfffffffffffff082:	ld	t2,56(sp)
+   0xfffffffffffff084:	ld	s0,64(sp)
+   0xfffffffffffff086:	ld	s1,72(sp)
+   0xfffffffffffff088:	ld	a0,80(sp)
+   0xfffffffffffff08a:	ld	a1,88(sp)
+   0xfffffffffffff08c:	ld	a2,96(sp)
+   0xfffffffffffff08e:	ld	a3,104(sp)
+   0xfffffffffffff090:	ld	a4,112(sp)
+   0xfffffffffffff092:	ld	a5,120(sp)
+   0xfffffffffffff094:	ld	a6,128(sp)
+   0xfffffffffffff096:	ld	a7,136(sp)
+   0xfffffffffffff098:	ld	s2,144(sp)
+   0xfffffffffffff09a:	ld	s3,152(sp)
+   0xfffffffffffff09c:	ld	s4,160(sp)
+   0xfffffffffffff09e:	ld	s5,168(sp)
+   0xfffffffffffff0a0:	ld	s6,176(sp)
+   0xfffffffffffff0a2:	ld	s7,184(sp)
+   0xfffffffffffff0a4:	ld	s8,192(sp)
+   0xfffffffffffff0a6:	ld	s9,200(sp)
+   0xfffffffffffff0a8:	ld	s10,208(sp)
+   0xfffffffffffff0aa:	ld	s11,216(sp)
+   0xfffffffffffff0ac:	ld	t3,224(sp)
+   0xfffffffffffff0ae:	ld	t4,232(sp)
+   0xfffffffffffff0b0:	ld	t5,240(sp)
+   0xfffffffffffff0b2:	ld	t6,248(sp)
+   0xfffffffffffff0b4:	ld	sp,16(sp)
+   0xfffffffffffff0b6:	sret
+   0xfffffffffffff0ba:	unimp
+   0xfffffffffffff0bc:	unimp
+   0xfffffffffffff0be:	unimp
+   0xfffffffffffff0c0:	unimp
+   0xfffffffffffff0c2:	unimp
+   0xfffffffffffff0c4:	unimp
+   0xfffffffffffff0c6:	unimp
+   0xfffffffffffff0c8:	unimp
+   0xfffffffffffff0ca:	unimp
+   0xfffffffffffff0cc:	unimp
+   0xfffffffffffff0ce:	unimp
+   0xfffffffffffff0d0:	unimp
+   0xfffffffffffff0d2:	unimp
+   0xfffffffffffff0d4:	unimp
+   0xfffffffffffff0d6:	unimp
+   0xfffffffffffff0d8:	unimp
+   0xfffffffffffff0da:	unimp
+   0xfffffffffffff0dc:	unimp
+   0xfffffffffffff0de:	unimp
+   0xfffffffffffff0e0:	unimp
+   0xfffffffffffff0e2:	unimp
+   0xfffffffffffff0e4:	unimp
+   0xfffffffffffff0e6:	unimp
+   0xfffffffffffff0e8:	unimp
+   0xfffffffffffff0ea:	unimp
+   0xfffffffffffff0ec:	unimp
+   0xfffffffffffff0ee:	unimp
+   0xfffffffffffff0f0:	unimp
+   0xfffffffffffff0f2:	unimp
+0xfffffffffffff018 in ?? ()
+=> 0xfffffffffffff018:	b6 f4	sd	a3,104(sp)
+0xfffffffffffff01a in ?? ()
+=> 0xfffffffffffff01a:	ba f8	sd	a4,112(sp)
+0xfffffffffffff01c in ?? ()
+=> 0xfffffffffffff01c:	be fc	sd	a5,120(sp)
+0xfffffffffffff01e in ?? ()
+=> 0xfffffffffffff01e:	42 e1	sd	a6,128(sp)
+0xfffffffffffff020 in ?? ()
+=> 0xfffffffffffff020:	46 e5	sd	a7,136(sp)
+0xfffffffffffff022 in ?? ()
+=> 0xfffffffffffff022:	4a e9	sd	s2,144(sp)
+0xfffffffffffff024 in ?? ()
+=> 0xfffffffffffff024:	4e ed	sd	s3,152(sp)
+0xfffffffffffff026 in ?? ()
+=> 0xfffffffffffff026:	52 f1	sd	s4,160(sp)
+0xfffffffffffff028 in ?? ()
+=> 0xfffffffffffff028:	56 f5	sd	s5,168(sp)
+0xfffffffffffff02a in ?? ()
+=> 0xfffffffffffff02a:	5a f9	sd	s6,176(sp)
+0xfffffffffffff02c in ?? ()
+=> 0xfffffffffffff02c:	5e fd	sd	s7,184(sp)
+0xfffffffffffff02e in ?? ()
+=> 0xfffffffffffff02e:	e2 e1	sd	s8,192(sp)
+0xfffffffffffff030 in ?? ()
+=> 0xfffffffffffff030:	e6 e5	sd	s9,200(sp)
+0xfffffffffffff032 in ?? ()
+=> 0xfffffffffffff032:	ea e9	sd	s10,208(sp)
+0xfffffffffffff034 in ?? ()
+=> 0xfffffffffffff034:	ee ed	sd	s11,216(sp)
+0xfffffffffffff036 in ?? ()
+=> 0xfffffffffffff036:	f2 f1	sd	t3,224(sp)
+0xfffffffffffff038 in ?? ()
+=> 0xfffffffffffff038:	f6 f5	sd	t4,232(sp)
+0xfffffffffffff03a in ?? ()
+=> 0xfffffffffffff03a:	fa f9	sd	t5,240(sp)
+0xfffffffffffff03c in ?? ()
+=> 0xfffffffffffff03c:	fe fd	sd	t6,248(sp)
+0xfffffffffffff03e in ?? ()
+=> 0xfffffffffffff03e:	f3 22 00 10	csrr	t0,sstatus
+0xfffffffffffff042 in ?? ()
+=> 0xfffffffffffff042:	73 23 10 14	csrr	t1,sepc
+0xfffffffffffff046 in ?? ()
+=> 0xfffffffffffff046:	16 e2	sd	t0,256(sp)
+0xfffffffffffff048 in ?? ()
+=> 0xfffffffffffff048:	1a e6	sd	t1,264(sp)
+0xfffffffffffff04a in ?? ()
+=> 0xfffffffffffff04a:	f3 23 00 14	csrr	t2,sscratch
+0xfffffffffffff04e in ?? ()
+=> 0xfffffffffffff04e:	1e e8	sd	t2,16(sp)
+0xfffffffffffff050 in ?? ()
+=> 0xfffffffffffff050:	d2 62	ld	t0,272(sp)
+0xfffffffffffff052 in ?? ()
+=> 0xfffffffffffff052:	12 73	ld	t1,288(sp)
+0xfffffffffffff054 in ?? ()
+=> 0xfffffffffffff054:	72 61	ld	sp,280(sp)
+0xfffffffffffff056 in ?? ()
+=> 0xfffffffffffff056:	73 90 02 18	csrw	satp,t0
+0xfffffffffffff05a in ?? ()
+=> 0xfffffffffffff05a:	Cannot access memory at address 0xfffffffffffff05a
+zero           0x0	0
+ra             0x802173c8	0x802173c8 <core::fmt::write+298>
+sp             0x8021ab48	0x8021ab48 <.Lanon.0615948ddf514ca455c3fdc7f7063386.42>
+gp             0x0	0x0
+tp             0x0	0x0
+t0             0x80231dd8	2149785048
+t1             0x852623c8	2233869256
+t2             0x86147b88	2249489288
+fp             0x80231c40	0x80231c40
+s1             0x0	0
+a0             0x80231cd8	2149784792
+a1             0x23054100850593da	2523494636698571738
+a2             0x23f4b43023fca434	2590893804500067380
+a3             0x8020b8de	2149628126
+a4             0x0	0
+a5             0x46f9f530a902380e	5114388441198639118
+a6             0xf0	240
+a7             0x1	1
+s2             0x2	2
+s3             0x1	1
+s4             0xff	255
+s5             0x80231d80	2149784960
+s6             0xff	255
+s7             0x8021961c	2149684764
+s8             0x1	1
+s9             0x2	2
+s10            0x80231d90	2149784976
+s11            0x3	3
+t3             0xffffffffffffffff	-1
+t4             0x6	6
+t5             0x0	0
+t6             0x0	0
+pc             0xfffffffffffff05a	0xfffffffffffff05a
+ft0            riscv_double {float: 0, double: 0}	(raw 0x0000000000000000)
+ft1            riscv_double {float: 0, double: 0}	(raw 0x0000000000000000)
+ft2            riscv_double {float: 0, double: 0}	(raw 0x0000000000000000)
+ft3            riscv_double {float: 0, double: 0}	(raw 0x0000000000000000)
+ft4            riscv_double {float: 0, double: 0}	(raw 0x0000000000000000)
+ft5            riscv_double {float: 0, double: 0}	(raw 0x0000000000000000)
+ft6            riscv_double {float: 0, double: 0}	(raw 0x0000000000000000)
+ft7            riscv_double {float: 0, double: 0}	(raw 0x0000000000000000)
+fs0            riscv_double {float: 0, double: 0}	(raw 0x0000000000000000)
+fs1            riscv_double {float: 0, double: 0}	(raw 0x0000000000000000)
+fa0            riscv_double {float: 0, double: 0}	(raw 0x0000000000000000)
+fa1            riscv_double {float: 0, double: 0}	(raw 0x0000000000000000)
+fa2            riscv_double {float: 0, double: 0}	(raw 0x0000000000000000)
+fa3            riscv_double {float: 0, double: 0}	(raw 0x0000000000000000)
+fa4            riscv_double {float: 0, double: 0}	(raw 0x0000000000000000)
+fa5            riscv_double {float: 0, double: 0}	(raw 0x0000000000000000)
+fa6            riscv_double {float: 0, double: 0}	(raw 0x0000000000000000)
+fa7            riscv_double {float: 0, double: 0}	(raw 0x0000000000000000)
+fs2            riscv_double {float: 0, double: 0}	(raw 0x0000000000000000)
+fs3            riscv_double {float: 0, double: 0}	(raw 0x0000000000000000)
+fs4            riscv_double {float: 0, double: 0}	(raw 0x0000000000000000)
+fs5            riscv_double {float: 0, double: 0}	(raw 0x0000000000000000)
+fs6            riscv_double {float: 0, double: 0}	(raw 0x0000000000000000)
+fs7            riscv_double {float: 0, double: 0}	(raw 0x0000000000000000)
+fs8            riscv_double {float: 0, double: 0}	(raw 0x0000000000000000)
+fs9            riscv_double {float: 0, double: 0}	(raw 0x0000000000000000)
+fs10           riscv_double {float: 0, double: 0}	(raw 0x0000000000000000)
+fs11           riscv_double {float: 0, double: 0}	(raw 0x0000000000000000)
+ft8            riscv_double {float: 0, double: 0}	(raw 0x0000000000000000)
+ft9            riscv_double {float: 0, double: 0}	(raw 0x0000000000000000)
+ft10           riscv_double {float: 0, double: 0}	(raw 0x0000000000000000)
+ft11           riscv_double {float: 0, double: 0}	(raw 0x0000000000000000)
+ustatus        Could not fetch register "ustatus"; remote failure reply 'E14'
+fflags         0x0	RD:0 NV:0 DZ:0 OF:0 UF:0 NX:0
+frm            0x0	FRM:0 [RNE (round to nearest; ties to even)]
+fcsr           0x0	RD:0 NV:0 DZ:0 OF:0 UF:0 NX:0 FRM:0 [RNE (round to nearest; ties to even)]
+uie            Could not fetch register "uie"; remote failure reply 'E14'
+utvec          Could not fetch register "utvec"; remote failure reply 'E14'
+uscratch       Could not fetch register "uscratch"; remote failure reply 'E14'
+uepc           Could not fetch register "uepc"; remote failure reply 'E14'
+ucause         Could not fetch register "ucause"; remote failure reply 'E14'
+utval          Could not fetch register "utval"; remote failure reply 'E14'
+uip            Could not fetch register "uip"; remote failure reply 'E14'
+sstatus        0x100	256
+sedeleg        Could not fetch register "sedeleg"; remote failure reply 'E14'
+sideleg        Could not fetch register "sideleg"; remote failure reply 'E14'
+sie            0x20	32
+stvec          0xfffffffffffff000	-4096
+scounteren     0x0	0
+sscratch       0x86147b88	2249489288
+sepc           0xfffffffffffff004	-4092
+scause         0xf	15
+stval          0x86147b90	2249489296
+sip            0x0	0
+satp           0x80231dd8	2149785048
+hstatus        Could not fetch register "hstatus"; remote failure reply 'E14'
+hedeleg        Could not fetch register "hedeleg"; remote failure reply 'E14'
+hideleg        Could not fetch register "hideleg"; remote failure reply 'E14'
+hie            Could not fetch register "hie"; remote failure reply 'E14'
+htvec          Could not fetch register "htvec"; remote failure reply 'E14'
+hscratch       Could not fetch register "hscratch"; remote failure reply 'E14'
+hepc           Could not fetch register "hepc"; remote failure reply 'E14'
+hcause         Could not fetch register "hcause"; remote failure reply 'E14'
+hbadaddr       Could not fetch register "hbadaddr"; remote failure reply 'E14'
+hip            Could not fetch register "hip"; remote failure reply 'E14'
+mstatus        0x180	SD:0 VM:00 MXR:0 PUM:0 MPRV:0 XS:0 FS:0 MPP:0 HPP:0 SPP:1 MPIE:1 HPIE:0 SPIE:0 UPIE:0 MIE:0 HIE:0 SIE:0 UIE:0
+misa           0x800000000014112d	RV64ACDFIMSU
+medeleg        0xb1a3	45475
+mideleg        0x222	546
+mie            0x8a8	2216
+mtvec          0x800011ec	2147488236
+mcounteren     0x0	0
+mucounteren    Could not fetch register "mucounteren"; remote failure reply 'E14'
+mscounteren    Could not fetch register "mscounteren"; remote failure reply 'E14'
+mhcounteren    0x0	0
+mhpmevent3     Could not fetch register "mhpmevent3"; remote failure reply 'E14'
+mhpmevent4     Could not fetch register "mhpmevent4"; remote failure reply 'E14'
+mhpmevent5     0x0	0
+mhpmevent6     0x0	0
+mhpmevent7     0x0	0
+mhpmevent8     0x0	0
+mhpmevent9     0x0	0
+mhpmevent10    0x0	0
+mhpmevent11    0x0	0
+mhpmevent12    0x0	0
+mhpmevent13    0x0	0
+mhpmevent14    0x0	0
+mhpmevent15    0x0	0
+mhpmevent16    0x0	0
+mhpmevent17    0x0	0
+mhpmevent18    0x0	0
+mhpmevent19    0x0	0
+mhpmevent20    0x0	0
+mhpmevent21    0x0	0
+mhpmevent22    0x0	0
+mhpmevent23    0x0	0
+mhpmevent24    0x0	0
+mhpmevent25    0x0	0
+mhpmevent26    0x0	0
+mhpmevent27    0x0	0
+mhpmevent28    0x0	0
+mhpmevent29    0x0	0
+mhpmevent30    0x0	0
+mhpmevent31    0x0	0
+mscratch       0x80012d98	2147560856
+mepc           0x8020b910	2149628176
+mcause         0x9	9
+mtval          0x0	0
+mip            0x80	128
+mbase          Could not fetch register "mbase"; remote failure reply 'E14'
+mbound         Could not fetch register "mbound"; remote failure reply 'E14'
+mibase         Could not fetch register "mibase"; remote failure reply 'E14'
+mibound        Could not fetch register "mibound"; remote failure reply 'E14'
+mdbase         Could not fetch register "mdbase"; remote failure reply 'E14'
+mdbound        Could not fetch register "mdbound"; remote failure reply 'E14'
+pmpcfg0        Could not fetch register "pmpcfg0"; remote failure reply 'E14'
+pmpcfg1        Could not fetch register "pmpcfg1"; remote failure reply 'E14'
+pmpcfg2        0x1f	31
+pmpcfg3        0x0	0
+pmpaddr0       0x0	0
+pmpaddr1       0x0	0
+pmpaddr2       0xffffffffffffffff	-1
+pmpaddr3       0x23ffffff	603979775
+pmpaddr4       0x0	0
+pmpaddr5       0x0	0
+pmpaddr6       0x0	0
+pmpaddr7       0x0	0
+pmpaddr8       0x0	0
+pmpaddr9       0x0	0
+pmpaddr10      0x0	0
+pmpaddr11      0x0	0
+pmpaddr12      0x0	0
+pmpaddr13      0x0	0
+pmpaddr14      0x0	0
+pmpaddr15      0x0	0
+tselect        0x0	0
+tdata1         0x0	0
+tdata2         Could not fetch register "tdata2"; remote failure reply 'E14'
+tdata3         Could not fetch register "tdata3"; remote failure reply 'E14'
+dcsr           Could not fetch register "dcsr"; remote failure reply 'E14'
+dpc            Could not fetch register "dpc"; remote failure reply 'E14'
+dscratch       Could not fetch register "dscratch"; remote failure reply 'E14'
+mcycle         0x0	0
+minstret       0x0	0
+mhpmcounter3   0xac43be90419	11837934994457
+mhpmcounter4   0xac43c615f09	11837942882057
+mhpmcounter5   0x0	0
+mhpmcounter6   0x0	0
+mhpmcounter7   0x0	0
+mhpmcounter8   0x0	0
+mhpmcounter9   0x0	0
+mhpmcounter10  0x0	0
+mhpmcounter11  0x0	0
+mhpmcounter12  0x0	0
+mhpmcounter13  0x0	0
+mhpmcounter14  0x0	0
+mhpmcounter15  0x0	0
+mhpmcounter16  0x0	0
+mhpmcounter17  0x0	0
+mhpmcounter18  0x0	0
+mhpmcounter19  0x0	0
+mhpmcounter20  0x0	0
+mhpmcounter21  0x0	0
+mhpmcounter22  0x0	0
+mhpmcounter23  0x0	0
+mhpmcounter24  0x0	0
+mhpmcounter25  0x0	0
+mhpmcounter26  0x0	0
+mhpmcounter27  0x0	0
+mhpmcounter28  0x0	0
+mhpmcounter29  0x0	0
+mhpmcounter30  0x0	0
+mhpmcounter31  0x0	0
+mcycleh        0x0	0
+minstreth      0x0	0
+mhpmcounter3h  Could not fetch register "mhpmcounter3h"; remote failure reply 'E14'
+mhpmcounter4h  Could not fetch register "mhpmcounter4h"; remote failure reply 'E14'
+mhpmcounter5h  Could not fetch register "mhpmcounter5h"; remote failure reply 'E14'
+mhpmcounter6h  Could not fetch register "mhpmcounter6h"; remote failure reply 'E14'
+mhpmcounter7h  Could not fetch register "mhpmcounter7h"; remote failure reply 'E14'
+mhpmcounter8h  Could not fetch register "mhpmcounter8h"; remote failure reply 'E14'
+mhpmcounter9h  Could not fetch register "mhpmcounter9h"; remote failure reply 'E14'
+mhpmcounter10h Could not fetch register "mhpmcounter10h"; remote failure reply 'E14'
+mhpmcounter11h Could not fetch register "mhpmcounter11h"; remote failure reply 'E14'
+mhpmcounter12h Could not fetch register "mhpmcounter12h"; remote failure reply 'E14'
+mhpmcounter13h Could not fetch register "mhpmcounter13h"; remote failure reply 'E14'
+mhpmcounter14h Could not fetch register "mhpmcounter14h"; remote failure reply 'E14'
+mhpmcounter15h Could not fetch register "mhpmcounter15h"; remote failure reply 'E14'
+mhpmcounter16h Could not fetch register "mhpmcounter16h"; remote failure reply 'E14'
+mhpmcounter17h Could not fetch register "mhpmcounter17h"; remote failure reply 'E14'
+mhpmcounter18h Could not fetch register "mhpmcounter18h"; remote failure reply 'E14'
+mhpmcounter19h Could not fetch register "mhpmcounter19h"; remote failure reply 'E14'
+mhpmcounter20h Could not fetch register "mhpmcounter20h"; remote failure reply 'E14'
+mhpmcounter21h Could not fetch register "mhpmcounter21h"; remote failure reply 'E14'
+mhpmcounter22h Could not fetch register "mhpmcounter22h"; remote failure reply 'E14'
+mhpmcounter23h Could not fetch register "mhpmcounter23h"; remote failure reply 'E14'
+mhpmcounter24h Could not fetch register "mhpmcounter24h"; remote failure reply 'E14'
+mhpmcounter25h Could not fetch register "mhpmcounter25h"; remote failure reply 'E14'
+mhpmcounter26h Could not fetch register "mhpmcounter26h"; remote failure reply 'E14'
+mhpmcounter27h Could not fetch register "mhpmcounter27h"; remote failure reply 'E14'
+mhpmcounter28h Could not fetch register "mhpmcounter28h"; remote failure reply 'E14'
+mhpmcounter29h Could not fetch register "mhpmcounter29h"; remote failure reply 'E14'
+mhpmcounter30h Could not fetch register "mhpmcounter30h"; remote failure reply 'E14'
+mhpmcounter31h Could not fetch register "mhpmcounter31h"; remote failure reply 'E14'
+cycle          0xac45b2c7725	11838459508517
+time           0xd0704b8	218563768
+instret        0xac45c17895d	11838474914141
+hpmcounter3    0x0	0
+hpmcounter4    0x0	0
+hpmcounter5    0x0	0
+hpmcounter6    0x0	0
+hpmcounter7    0x0	0
+hpmcounter8    0x0	0
+hpmcounter9    0x0	0
+hpmcounter10   0x0	0
+hpmcounter11   0x0	0
+hpmcounter12   0x0	0
+hpmcounter13   0x0	0
+hpmcounter14   0x0	0
+hpmcounter15   0x0	0
+hpmcounter16   0x0	0
+hpmcounter17   0x0	0
+hpmcounter18   0x0	0
+hpmcounter19   0x0	0
+hpmcounter20   0x0	0
+hpmcounter21   0x0	0
+hpmcounter22   0x0	0
+hpmcounter23   0x0	0
+hpmcounter24   0x0	0
+hpmcounter25   0x0	0
+hpmcounter26   0x0	0
+hpmcounter27   0x0	0
+hpmcounter28   0x0	0
+hpmcounter29   0x0	0
+hpmcounter30   0x0	0
+hpmcounter31   0x0	0
+cycleh         Could not fetch register "cycleh"; remote failure reply 'E14'
+timeh          Could not fetch register "timeh"; remote failure reply 'E14'
+instreth       Could not fetch register "instreth"; remote failure reply 'E14'
+hpmcounter3h   Could not fetch register "hpmcounter3h"; remote failure reply 'E14'
+hpmcounter4h   Could not fetch register "hpmcounter4h"; remote failure reply 'E14'
+hpmcounter5h   Could not fetch register "hpmcounter5h"; remote failure reply 'E14'
+hpmcounter6h   Could not fetch register "hpmcounter6h"; remote failure reply 'E14'
+hpmcounter7h   Could not fetch register "hpmcounter7h"; remote failure reply 'E14'
+hpmcounter8h   Could not fetch register "hpmcounter8h"; remote failure reply 'E14'
+hpmcounter9h   Could not fetch register "hpmcounter9h"; remote failure reply 'E14'
+hpmcounter10h  Could not fetch register "hpmcounter10h"; remote failure reply 'E14'
+hpmcounter11h  Could not fetch register "hpmcounter11h"; remote failure reply 'E14'
+hpmcounter12h  Could not fetch register "hpmcounter12h"; remote failure reply 'E14'
+hpmcounter13h  Could not fetch register "hpmcounter13h"; remote failure reply 'E14'
+hpmcounter14h  Could not fetch register "hpmcounter14h"; remote failure reply 'E14'
+hpmcounter15h  Could not fetch register "hpmcounter15h"; remote failure reply 'E14'
+hpmcounter16h  Could not fetch register "hpmcounter16h"; remote failure reply 'E14'
+hpmcounter17h  Could not fetch register "hpmcounter17h"; remote failure reply 'E14'
+hpmcounter18h  Could not fetch register "hpmcounter18h"; remote failure reply 'E14'
+hpmcounter19h  Could not fetch register "hpmcounter19h"; remote failure reply 'E14'
+hpmcounter20h  Could not fetch register "hpmcounter20h"; remote failure reply 'E14'
+hpmcounter21h  Could not fetch register "hpmcounter21h"; remote failure reply 'E14'
+hpmcounter22h  Could not fetch register "hpmcounter22h"; remote failure reply 'E14'
+hpmcounter23h  Could not fetch register "hpmcounter23h"; remote failure reply 'E14'
+hpmcounter24h  Could not fetch register "hpmcounter24h"; remote failure reply 'E14'
+hpmcounter25h  Could not fetch register "hpmcounter25h"; remote failure reply 'E14'
+hpmcounter26h  Could not fetch register "hpmcounter26h"; remote failure reply 'E14'
+hpmcounter27h  Could not fetch register "hpmcounter27h"; remote failure reply 'E14'
+hpmcounter28h  Could not fetch register "hpmcounter28h"; remote failure reply 'E14'
+hpmcounter29h  Could not fetch register "hpmcounter29h"; remote failure reply 'E14'
+hpmcounter30h  Could not fetch register "hpmcounter30h"; remote failure reply 'E14'
+hpmcounter31h  Could not fetch register "hpmcounter31h"; remote failure reply 'E14'
+mvendorid      0x0	0
+marchid        0x0	0
+mimpid         0x0	0
+mhartid        0x0	0
+priv           0x1	prv:1 [Supervisor]
+ra             0x802173c8	0x802173c8 <core::fmt::write+298>
+sp             0x8021ab48	0x8021ab48 <.Lanon.0615948ddf514ca455c3fdc7f7063386.42>
+gp             0x0	0x0
+tp             0x0	0x0
+t0             0x80231dd8	2149785048
+t1             0x852623c8	2233869256
+t2             0x86147b88	2249489288
+fp             0x80231c40	0x80231c40
+s1             0x0	0
+a0             0x80231cd8	2149784792
+a1             0x23054100850593da	2523494636698571738
+a2             0x23f4b43023fca434	2590893804500067380
+a3             0x8020b8de	2149628126
+a4             0x0	0
+a5             0x46f9f530a902380e	5114388441198639118
+a6             0xf0	240
+a7             0x1	1
+s2             0x2	2
+s3             0x1	1
+s4             0xff	255
+s5             0x80231d80	2149784960
+s6             0xff	255
+s7             0x8021961c	2149684764
+s8             0x1	1
+s9             0x2	2
+s10            0x80231d90	2149784976
+s11            0x3	3
+t3             0xffffffffffffffff	-1
+t4             0x6	6
+t5             0x0	0
+t6             0x0	0
+pc             0xfffffffffffff05a	0xfffffffffffff05a
+zero           0x0	0
+ra             0x802173c8	0x802173c8 <core::fmt::write+298>
+sp             0x8021ab48	0x8021ab48 <.Lanon.0615948ddf514ca455c3fdc7f7063386.42>
+gp             0x0	0x0
+tp             0x0	0x0
+t0             0x80231dd8	2149785048
+t1             0x852623c8	2233869256
+t2             0x86147b88	2249489288
+fp             0x80231c40	0x80231c40
+s1             0x0	0
+a0             0x80231cd8	2149784792
+a1             0x23054100850593da	2523494636698571738
+a2             0x23f4b43023fca434	2590893804500067380
+a3             0x8020b8de	2149628126
+a4             0x0	0
+a5             0x46f9f530a902380e	5114388441198639118
+a6             0xf0	240
+a7             0x1	1
+s2             0x2	2
+s3             0x1	1
+s4             0xff	255
+s5             0x80231d80	2149784960
+s6             0xff	255
+s7             0x8021961c	2149684764
+s8             0x1	1
+s9             0x2	2
+s10            0x80231d90	2149784976
+s11            0x3	3
+t3             0xffffffffffffffff	-1
+t4             0x6	6
+t5             0x0	0
+t6             0x0	0
+pc             0xfffffffffffff05a	0xfffffffffffff05a
+ft0            riscv_double {float: 0, double: 0}	(raw 0x0000000000000000)
+ft1            riscv_double {float: 0, double: 0}	(raw 0x0000000000000000)
+ft2            riscv_double {float: 0, double: 0}	(raw 0x0000000000000000)
+ft3            riscv_double {float: 0, double: 0}	(raw 0x0000000000000000)
+ft4            riscv_double {float: 0, double: 0}	(raw 0x0000000000000000)
+ft5            riscv_double {float: 0, double: 0}	(raw 0x0000000000000000)
+ft6            riscv_double {float: 0, double: 0}	(raw 0x0000000000000000)
+ft7            riscv_double {float: 0, double: 0}	(raw 0x0000000000000000)
+fs0            riscv_double {float: 0, double: 0}	(raw 0x0000000000000000)
+fs1            riscv_double {float: 0, double: 0}	(raw 0x0000000000000000)
+fa0            riscv_double {float: 0, double: 0}	(raw 0x0000000000000000)
+fa1            riscv_double {float: 0, double: 0}	(raw 0x0000000000000000)
+fa2            riscv_double {float: 0, double: 0}	(raw 0x0000000000000000)
+fa3            riscv_double {float: 0, double: 0}	(raw 0x0000000000000000)
+fa4            riscv_double {float: 0, double: 0}	(raw 0x0000000000000000)
+fa5            riscv_double {float: 0, double: 0}	(raw 0x0000000000000000)
+fa6            riscv_double {float: 0, double: 0}	(raw 0x0000000000000000)
+fa7            riscv_double {float: 0, double: 0}	(raw 0x0000000000000000)
+fs2            riscv_double {float: 0, double: 0}	(raw 0x0000000000000000)
+fs3            riscv_double {float: 0, double: 0}	(raw 0x0000000000000000)
+fs4            riscv_double {float: 0, double: 0}	(raw 0x0000000000000000)
+fs5            riscv_double {float: 0, double: 0}	(raw 0x0000000000000000)
+fs6            riscv_double {float: 0, double: 0}	(raw 0x0000000000000000)
+fs7            riscv_double {float: 0, double: 0}	(raw 0x0000000000000000)
+fs8            riscv_double {float: 0, double: 0}	(raw 0x0000000000000000)
+fs9            riscv_double {float: 0, double: 0}	(raw 0x0000000000000000)
+fs10           riscv_double {float: 0, double: 0}	(raw 0x0000000000000000)
+fs11           riscv_double {float: 0, double: 0}	(raw 0x0000000000000000)
+ft8            riscv_double {float: 0, double: 0}	(raw 0x0000000000000000)
+ft9            riscv_double {float: 0, double: 0}	(raw 0x0000000000000000)
+ft10           riscv_double {float: 0, double: 0}	(raw 0x0000000000000000)
+ft11           riscv_double {float: 0, double: 0}	(raw 0x0000000000000000)
+ustatus        Could not fetch register "ustatus"; remote failure reply 'E14'
+fflags         0x0	RD:0 NV:0 DZ:0 OF:0 UF:0 NX:0
+frm            0x0	FRM:0 [RNE (round to nearest; ties to even)]
+fcsr           0x0	RD:0 NV:0 DZ:0 OF:0 UF:0 NX:0 FRM:0 [RNE (round to nearest; ties to even)]
+uie            Could not fetch register "uie"; remote failure reply 'E14'
+utvec          Could not fetch register "utvec"; remote failure reply 'E14'
+uscratch       Could not fetch register "uscratch"; remote failure reply 'E14'
+uepc           Could not fetch register "uepc"; remote failure reply 'E14'
+ucause         Could not fetch register "ucause"; remote failure reply 'E14'
+utval          Could not fetch register "utval"; remote failure reply 'E14'
+uip            Could not fetch register "uip"; remote failure reply 'E14'
+sstatus        0x100	256
+sedeleg        Could not fetch register "sedeleg"; remote failure reply 'E14'
+sideleg        Could not fetch register "sideleg"; remote failure reply 'E14'
+sie            0x20	32
+stvec          0xfffffffffffff000	-4096
+scounteren     0x0	0
+sscratch       0x86147b88	2249489288
+sepc           0xfffffffffffff004	-4092
+scause         0xf	15
+stval          0x86147b90	2249489296
+sip            0x0	0
+satp           0x80231dd8	2149785048
+hstatus        Could not fetch register "hstatus"; remote failure reply 'E14'
+hedeleg        Could not fetch register "hedeleg"; remote failure reply 'E14'
+hideleg        Could not fetch register "hideleg"; remote failure reply 'E14'
+hie            Could not fetch register "hie"; remote failure reply 'E14'
+htvec          Could not fetch register "htvec"; remote failure reply 'E14'
+hscratch       Could not fetch register "hscratch"; remote failure reply 'E14'
+hepc           Could not fetch register "hepc"; remote failure reply 'E14'
+hcause         Could not fetch register "hcause"; remote failure reply 'E14'
+hbadaddr       Could not fetch register "hbadaddr"; remote failure reply 'E14'
+hip            Could not fetch register "hip"; remote failure reply 'E14'
+mstatus        0x180	SD:0 VM:00 MXR:0 PUM:0 MPRV:0 XS:0 FS:0 MPP:0 HPP:0 SPP:1 MPIE:1 HPIE:0 SPIE:0 UPIE:0 MIE:0 HIE:0 SIE:0 UIE:0
+misa           0x800000000014112d	RV64ACDFIMSU
+medeleg        0xb1a3	45475
+mideleg        0x222	546
+mie            0x8a8	2216
+mtvec          0x800011ec	2147488236
+mcounteren     0x0	0
+mucounteren    Could not fetch register "mucounteren"; remote failure reply 'E14'
+mscounteren    Could not fetch register "mscounteren"; remote failure reply 'E14'
+mhcounteren    0x0	0
+mhpmevent3     Could not fetch register "mhpmevent3"; remote failure reply 'E14'
+mhpmevent4     Could not fetch register "mhpmevent4"; remote failure reply 'E14'
+mhpmevent5     0x0	0
+mhpmevent6     0x0	0
+mhpmevent7     0x0	0
+mhpmevent8     0x0	0
+mhpmevent9     0x0	0
+mhpmevent10    0x0	0
+mhpmevent11    0x0	0
+mhpmevent12    0x0	0
+mhpmevent13    0x0	0
+mhpmevent14    0x0	0
+mhpmevent15    0x0	0
+mhpmevent16    0x0	0
+mhpmevent17    0x0	0
+mhpmevent18    0x0	0
+mhpmevent19    0x0	0
+mhpmevent20    0x0	0
+mhpmevent21    0x0	0
+mhpmevent22    0x0	0
+mhpmevent23    0x0	0
+mhpmevent24    0x0	0
+mhpmevent25    0x0	0
+mhpmevent26    0x0	0
+mhpmevent27    0x0	0
+mhpmevent28    0x0	0
+mhpmevent29    0x0	0
+mhpmevent30    0x0	0
+mhpmevent31    0x0	0
+mscratch       0x80012d98	2147560856
+mepc           0x8020b910	2149628176
+mcause         0x9	9
+mtval          0x0	0
+mip            0x80	128
+mbase          Could not fetch register "mbase"; remote failure reply 'E14'
+mbound         Could not fetch register "mbound"; remote failure reply 'E14'
+mibase         Could not fetch register "mibase"; remote failure reply 'E14'
+mibound        Could not fetch register "mibound"; remote failure reply 'E14'
+mdbase         Could not fetch register "mdbase"; remote failure reply 'E14'
+mdbound        Could not fetch register "mdbound"; remote failure reply 'E14'
+pmpcfg0        Could not fetch register "pmpcfg0"; remote failure reply 'E14'
+pmpcfg1        Could not fetch register "pmpcfg1"; remote failure reply 'E14'
+pmpcfg2        0x1f	31
+pmpcfg3        0x0	0
+pmpaddr0       0x0	0
+pmpaddr1       0x0	0
+pmpaddr2       0xffffffffffffffff	-1
+pmpaddr3       0x23ffffff	603979775
+pmpaddr4       0x0	0
+pmpaddr5       0x0	0
+pmpaddr6       0x0	0
+pmpaddr7       0x0	0
+pmpaddr8       0x0	0
+pmpaddr9       0x0	0
+pmpaddr10      0x0	0
+pmpaddr11      0x0	0
+pmpaddr12      0x0	0
+pmpaddr13      0x0	0
+pmpaddr14      0x0	0
+pmpaddr15      0x0	0
+tselect        0x0	0
+tdata1         0x0	0
+tdata2         Could not fetch register "tdata2"; remote failure reply 'E14'
+tdata3         Could not fetch register "tdata3"; remote failure reply 'E14'
+dcsr           Could not fetch register "dcsr"; remote failure reply 'E14'
+dpc            Could not fetch register "dpc"; remote failure reply 'E14'
+dscratch       Could not fetch register "dscratch"; remote failure reply 'E14'
+mcycle         0x0	0
+minstret       0x0	0
+mhpmcounter3   0xac43be90419	11837934994457
+mhpmcounter4   0xac43c615f09	11837942882057
+mhpmcounter5   0x0	0
+mhpmcounter6   0x0	0
+mhpmcounter7   0x0	0
+mhpmcounter8   0x0	0
+mhpmcounter9   0x0	0
+mhpmcounter10  0x0	0
+mhpmcounter11  0x0	0
+mhpmcounter12  0x0	0
+mhpmcounter13  0x0	0
+mhpmcounter14  0x0	0
+mhpmcounter15  0x0	0
+mhpmcounter16  0x0	0
+mhpmcounter17  0x0	0
+mhpmcounter18  0x0	0
+mhpmcounter19  0x0	0
+mhpmcounter20  0x0	0
+mhpmcounter21  0x0	0
+mhpmcounter22  0x0	0
+mhpmcounter23  0x0	0
+mhpmcounter24  0x0	0
+mhpmcounter25  0x0	0
+mhpmcounter26  0x0	0
+mhpmcounter27  0x0	0
+mhpmcounter28  0x0	0
+mhpmcounter29  0x0	0
+mhpmcounter30  0x0	0
+mhpmcounter31  0x0	0
+mcycleh        0x0	0
+minstreth      0x0	0
+mhpmcounter3h  Could not fetch register "mhpmcounter3h"; remote failure reply 'E14'
+mhpmcounter4h  Could not fetch register "mhpmcounter4h"; remote failure reply 'E14'
+mhpmcounter5h  Could not fetch register "mhpmcounter5h"; remote failure reply 'E14'
+mhpmcounter6h  Could not fetch register "mhpmcounter6h"; remote failure reply 'E14'
+mhpmcounter7h  Could not fetch register "mhpmcounter7h"; remote failure reply 'E14'
+mhpmcounter8h  Could not fetch register "mhpmcounter8h"; remote failure reply 'E14'
+mhpmcounter9h  Could not fetch register "mhpmcounter9h"; remote failure reply 'E14'
+mhpmcounter10h Could not fetch register "mhpmcounter10h"; remote failure reply 'E14'
+mhpmcounter11h Could not fetch register "mhpmcounter11h"; remote failure reply 'E14'
+mhpmcounter12h Could not fetch register "mhpmcounter12h"; remote failure reply 'E14'
+mhpmcounter13h Could not fetch register "mhpmcounter13h"; remote failure reply 'E14'
+mhpmcounter14h Could not fetch register "mhpmcounter14h"; remote failure reply 'E14'
+mhpmcounter15h Could not fetch register "mhpmcounter15h"; remote failure reply 'E14'
+mhpmcounter16h Could not fetch register "mhpmcounter16h"; remote failure reply 'E14'
+mhpmcounter17h Could not fetch register "mhpmcounter17h"; remote failure reply 'E14'
+mhpmcounter18h Could not fetch register "mhpmcounter18h"; remote failure reply 'E14'
+mhpmcounter19h Could not fetch register "mhpmcounter19h"; remote failure reply 'E14'
+mhpmcounter20h Could not fetch register "mhpmcounter20h"; remote failure reply 'E14'
+mhpmcounter21h Could not fetch register "mhpmcounter21h"; remote failure reply 'E14'
+mhpmcounter22h Could not fetch register "mhpmcounter22h"; remote failure reply 'E14'
+mhpmcounter23h Could not fetch register "mhpmcounter23h"; remote failure reply 'E14'
+mhpmcounter24h Could not fetch register "mhpmcounter24h"; remote failure reply 'E14'
+mhpmcounter25h Could not fetch register "mhpmcounter25h"; remote failure reply 'E14'
+mhpmcounter26h Could not fetch register "mhpmcounter26h"; remote failure reply 'E14'
+mhpmcounter27h Could not fetch register "mhpmcounter27h"; remote failure reply 'E14'
+mhpmcounter28h Could not fetch register "mhpmcounter28h"; remote failure reply 'E14'
+mhpmcounter29h Could not fetch register "mhpmcounter29h"; remote failure reply 'E14'
+mhpmcounter30h Could not fetch register "mhpmcounter30h"; remote failure reply 'E14'
+mhpmcounter31h Could not fetch register "mhpmcounter31h"; remote failure reply 'E14'
+cycle          0xac45b2c7725	11838459508517
+time           0xd0704b8	218563768
+instret        0xac45c17895d	11838474914141
+hpmcounter3    0x0	0
+hpmcounter4    0x0	0
+hpmcounter5    0x0	0
+hpmcounter6    0x0	0
+hpmcounter7    0x0	0
+hpmcounter8    0x0	0
+hpmcounter9    0x0	0
+hpmcounter10   0x0	0
+hpmcounter11   0x0	0
+hpmcounter12   0x0	0
+hpmcounter13   0x0	0
+hpmcounter14   0x0	0
+hpmcounter15   0x0	0
+hpmcounter16   0x0	0
+hpmcounter17   0x0	0
+hpmcounter18   0x0	0
+hpmcounter19   0x0	0
+hpmcounter20   0x0	0
+hpmcounter21   0x0	0
+hpmcounter22   0x0	0
+hpmcounter23   0x0	0
+hpmcounter24   0x0	0
+hpmcounter25   0x0	0
+hpmcounter26   0x0	0
+hpmcounter27   0x0	0
+hpmcounter28   0x0	0
+hpmcounter29   0x0	0
+hpmcounter30   0x0	0
+hpmcounter31   0x0	0
+cycleh         Could not fetch register "cycleh"; remote failure reply 'E14'
+timeh          Could not fetch register "timeh"; remote failure reply 'E14'
+instreth       Could not fetch register "instreth"; remote failure reply 'E14'
+hpmcounter3h   Could not fetch register "hpmcounter3h"; remote failure reply 'E14'
+hpmcounter4h   Could not fetch register "hpmcounter4h"; remote failure reply 'E14'
+hpmcounter5h   Could not fetch register "hpmcounter5h"; remote failure reply 'E14'
+hpmcounter6h   Could not fetch register "hpmcounter6h"; remote failure reply 'E14'
+hpmcounter7h   Could not fetch register "hpmcounter7h"; remote failure reply 'E14'
+hpmcounter8h   Could not fetch register "hpmcounter8h"; remote failure reply 'E14'
+hpmcounter9h   Could not fetch register "hpmcounter9h"; remote failure reply 'E14'
+hpmcounter10h  Could not fetch register "hpmcounter10h"; remote failure reply 'E14'
+hpmcounter11h  Could not fetch register "hpmcounter11h"; remote failure reply 'E14'
+hpmcounter12h  Could not fetch register "hpmcounter12h"; remote failure reply 'E14'
+hpmcounter13h  Could not fetch register "hpmcounter13h"; remote failure reply 'E14'
+hpmcounter14h  Could not fetch register "hpmcounter14h"; remote failure reply 'E14'
+hpmcounter15h  Could not fetch register "hpmcounter15h"; remote failure reply 'E14'
+hpmcounter16h  Could not fetch register "hpmcounter16h"; remote failure reply 'E14'
+hpmcounter17h  Could not fetch register "hpmcounter17h"; remote failure reply 'E14'
+hpmcounter18h  Could not fetch register "hpmcounter18h"; remote failure reply 'E14'
+hpmcounter19h  Could not fetch register "hpmcounter19h"; remote failure reply 'E14'
+hpmcounter20h  Could not fetch register "hpmcounter20h"; remote failure reply 'E14'
+hpmcounter21h  Could not fetch register "hpmcounter21h"; remote failure reply 'E14'
+hpmcounter22h  Could not fetch register "hpmcounter22h"; remote failure reply 'E14'
+hpmcounter23h  Could not fetch register "hpmcounter23h"; remote failure reply 'E14'
+hpmcounter24h  Could not fetch register "hpmcounter24h"; remote failure reply 'E14'
+hpmcounter25h  Could not fetch register "hpmcounter25h"; remote failure reply 'E14'
+hpmcounter26h  Could not fetch register "hpmcounter26h"; remote failure reply 'E14'
+hpmcounter27h  Could not fetch register "hpmcounter27h"; remote failure reply 'E14'
+hpmcounter28h  Could not fetch register "hpmcounter28h"; remote failure reply 'E14'
+hpmcounter29h  Could not fetch register "hpmcounter29h"; remote failure reply 'E14'
+hpmcounter30h  Could not fetch register "hpmcounter30h"; remote failure reply 'E14'
+hpmcounter31h  Could not fetch register "hpmcounter31h"; remote failure reply 'E14'
+mvendorid      0x0	0
+marchid        0x0	0
+mimpid         0x0	0
+mhartid        0x0	0
+priv           0x1	prv:1 [Supervisor]
+No symbol 'satp' in current context
+$1 = 2149785048
+$2 = 0x80231dd8
+Ambiguous info command "a": address, all-registers, args, auto-load, auxv.
+ra             0x802173c8	0x802173c8 <core::fmt::write+298>
+sp             0x8021ab48	0x8021ab48 <.Lanon.0615948ddf514ca455c3fdc7f7063386.42>
+gp             0x0	0x0
+tp             0x0	0x0
+t0             0x80231dd8	2149785048
+t1             0x852623c8	2233869256
+t2             0x86147b88	2249489288
+fp             0x80231c40	0x80231c40
+s1             0x0	0
+a0             0x80231cd8	2149784792
+a1             0x23054100850593da	2523494636698571738
+a2             0x23f4b43023fca434	2590893804500067380
+a3             0x8020b8de	2149628126
+a4             0x0	0
+a5             0x46f9f530a902380e	5114388441198639118
+a6             0xf0	240
+a7             0x1	1
+s2             0x2	2
+s3             0x1	1
+s4             0xff	255
+s5             0x80231d80	2149784960
+s6             0xff	255
+s7             0x8021961c	2149684764
+s8             0x1	1
+s9             0x2	2
+s10            0x80231d90	2149784976
+s11            0x3	3
+t3             0xffffffffffffffff	-1
+t4             0x6	6
+t5             0x0	0
+t6             0x0	0
+pc             0xfffffffffffff05a	0xfffffffffffff05a
+sending: "Qqemu.PhyMemMode:1"
+received: "OK"
+0xffffffff:	0x0000000000000000
+0xffffffff:	0x0000000000000000	0x0000000000000000
+0x10000000f:	0x0000000000000000	0x0000000000000000
+0x10000001f:	0x0000000000000000	0x0000000000000000
+0x10000002f:	0x0000000000000000	0x0000000000000000
+0x10000003f:	0x0000000000000000	0x0000000000000000
+Value can't be converted to integer.
+   0x80231dd77fdce228:	unimp
+   0x80231dd77fdce22a:	unimp
+   0x80231dd77fdce22c:	unimp
+   0x80231dd77fdce22e:	unimp
+   0x80231dd77fdce230:	unimp
+   0x80231dd77fdce232:	unimp
+   0x80231dd77fdce234:	unimp
+   0x80231dd77fdce236:	unimp
+   0x80231dd77fdce238:	unimp
+   0x80231dd77fdce23a:	unimp
+   0x80231dd77fdce23c:	unimp
+   0x80231dd77fdce23e:	unimp
+   0x80231dd77fdce240:	unimp
+   0x80231dd77fdce242:	unimp
+   0x80231dd77fdce244:	unimp
+   0x80231dd77fdce246:	unimp
+   0x80231dd77fdce248:	unimp
+   0x80231dd77fdce24a:	unimp
+   0x80231dd77fdce24c:	unimp
+   0x80231dd77fdce24e:	unimp
+   0x80231dd77fdce250:	unimp
+   0x80231dd77fdce252:	unimp
+   0x80231dd77fdce254:	unimp
+   0x80231dd77fdce256:	unimp
+   0x80231dd77fdce258:	unimp
+   0x80231dd77fdce25a:	unimp
+   0x80231dd77fdce25c:	unimp
+   0x80231dd77fdce25e:	unimp
+   0x80231dd77fdce260:	unimp
+   0x80231dd77fdce262:	unimp
+   0x80231dd77fdce264:	unimp
+   0x80231dd77fdce266:	unimp
+   0x80231dd77fdce268:	unimp
+   0x80231dd77fdce26a:	unimp
+   0x80231dd77fdce26c:	unimp
+   0x80231dd77fdce26e:	unimp
+   0x80231dd77fdce270:	unimp
+   0x80231dd77fdce272:	unimp
+   0x80231dd77fdce274:	unimp
+   0x80231dd77fdce276:	unimp
+   0x80231dd77fdce278:	unimp
+   0x80231dd77fdce27a:	unimp
+   0x80231dd77fdce27c:	unimp
+   0x80231dd77fdce27e:	unimp
+   0x80231dd77fdce280:	unimp
+   0x80231dd77fdce282:	unimp
+   0x80231dd77fdce284:	unimp
+   0x80231dd77fdce286:	unimp
+   0x80231dd77fdce288:	unimp
+   0x80231dd77fdce28a:	unimp
+   0x80231dd77fdce28c:	unimp
+   0x80231dd77fdce28e:	unimp
+   0x80231dd77fdce290:	unimp
+   0x80231dd77fdce292:	unimp
+   0x80231dd77fdce294:	unimp
+   0x80231dd77fdce296:	unimp
+   0x80231dd77fdce298:	unimp
+   0x80231dd77fdce29a:	unimp
+   0x80231dd77fdce29c:	unimp
+   0x80231dd77fdce29e:	unimp
+   0x80231dd77fdce2a0:	unimp
+   0x80231dd77fdce2a2:	unimp
+   0x80231dd77fdce2a4:	unimp
+   0x80231dd77fdce2a6:	unimp
+   0x80231dd77fdce2a8:	unimp
+   0x80231dd77fdce2aa:	unimp
+   0x80231dd77fdce2ac:	unimp
+   0x80231dd77fdce2ae:	unimp
+   0x80231dd77fdce2b0:	unimp
+   0x80231dd77fdce2b2:	unimp
+   0x80231dd77fdce2b4:	unimp
+   0x80231dd77fdce2b6:	unimp
+   0x80231dd77fdce2b8:	unimp
+   0x80231dd77fdce2ba:	unimp
+   0x80231dd77fdce2bc:	unimp
+   0x80231dd77fdce2be:	unimp
+   0x80231dd77fdce2c0:	unimp
+   0x80231dd77fdce2c2:	unimp
+   0x80231dd77fdce2c4:	unimp
+   0x80231dd77fdce2c6:	unimp
+   0x80231dd77fdce2c8:	unimp
+   0x80231dd77fdce2ca:	unimp
+   0x80231dd77fdce2cc:	unimp
+   0x80231dd77fdce2ce:	unimp
+   0x80231dd77fdce2d0:	unimp
+   0x80231dd77fdce2d2:	unimp
+   0x80231dd77fdce2d4:	unimp
+   0x80231dd77fdce2d6:	unimp
+   0x80231dd77fdce2d8:	unimp
+   0x80231dd77fdce2da:	unimp
+   0x80231dd77fdce2dc:	unimp
+   0x80231dd77fdce2de:	unimp
+   0x80231dd77fdce2e0:	unimp
+   0x80231dd77fdce2e2:	unimp
+   0x80231dd77fdce2e4:	unimp
+   0x80231dd77fdce2e6:	unimp
+   0x80231dd77fdce2e8:	unimp
+   0x80231dd77fdce2ea:	unimp
+   0x80231dd77fdce2ec:	unimp
+   0x80231dd77fdce2ee:	unimp
+syntax error in expression, near `x/10xg 0xfffffffffffff016'.
+0xffffffff:	0x0000000000000000	0x0000000000000000
+0x10000000f:	0x0000000000000000	0x0000000000000000
+0x10000001f:	0x0000000000000000	0x0000000000000000
+0x10000002f:	0x0000000000000000	0x0000000000000000
+0x10000003f:	0x0000000000000000	0x0000000000000000
+0xffffffff:	0x0000000000000000	0x0000000000000000
+0x10000000f:	0x0000000000000000	0x0000000000000000
+0x10000001f:	0x0000000000000000	0x0000000000000000
+0x10000002f:	0x0000000000000000	0x0000000000000000
+0x10000003f:	0x0000000000000000	0x0000000000000000
+0xffffffff:	0x0000000000000000	0x0000000000000000
+0x10000000f:	0x0000000000000000	0x0000000000000000
+0x10000001f:	0x0000000000000000	0x0000000000000000
+0x10000002f:	0x0000000000000000	0x0000000000000000
+0x10000003f:	0x0000000000000000	0x0000000000000000
+0xffffffff:	0x0000000000000000	0x0000000000000000
+0x10000000f:	0x0000000000000000	0x0000000000000000
+0x10000001f:	0x0000000000000000	0x0000000000000000
+0x10000002f:	0x0000000000000000	0x0000000000000000
+0x10000003f:	0x0000000000000000	0x0000000000000000
+0x10000004f:	0x0000000000000000	0x0000000000000000
+0x10000005f:	0x0000000000000000	0x0000000000000000
+0x10000006f:	0x0000000000000000	0x0000000000000000
+0x10000007f:	0x0000000000000000	0x0000000000000000
+0x10000008f:	0x0000000000000000	0x0000000000000000
+0x10000009f:	0x0000000000000000	0x0000000000000000
+0x1000000af:	0x0000000000000000	0x0000000000000000
+0x1000000bf:	0x0000000000000000	0x0000000000000000
+0x1000000cf:	0x0000000000000000	0x0000000000000000
+0x1000000df:	0x0000000000000000	0x0000000000000000
+0x1000000ef:	0x0000000000000000	0x0000000000000000
+0x1000000ff:	0x0000000000000000	0x0000000000000000
+0x10000010f:	0x0000000000000000	0x0000000000000000
+0x10000011f:	0x0000000000000000	0x0000000000000000
+0x10000012f:	0x0000000000000000	0x0000000000000000
+0x10000013f:	0x0000000000000000	0x0000000000000000
+0x10000014f:	0x0000000000000000	0x0000000000000000
+0x10000015f:	0x0000000000000000	0x0000000000000000
+0x10000016f:	0x0000000000000000	0x0000000000000000
+0x10000017f:	0x0000000000000000	0x0000000000000000
+0x10000018f:	0x0000000000000000	0x0000000000000000
+0x10000019f:	0x0000000000000000	0x0000000000000000
+0x1000001af:	0x0000000000000000	0x0000000000000000
+0x1000001bf:	0x0000000000000000	0x0000000000000000
+0x1000001cf:	0x0000000000000000	0x0000000000000000
+0x1000001df:	0x0000000000000000	0x0000000000000000
+0x1000001ef:	0x0000000000000000	0x0000000000000000
+0x1000001ff:	0x0000000000000000	0x0000000000000000
+0x10000020f:	0x0000000000000000	0x0000000000000000
+0x10000021f:	0x0000000000000000	0x0000000000000000
+0x10000022f:	0x0000000000000000	0x0000000000000000
+0x10000023f:	0x0000000000000000	0x0000000000000000
+0x10000024f:	0x0000000000000000	0x0000000000000000
+0x10000025f:	0x0000000000000000	0x0000000000000000
+0x10000026f:	0x0000000000000000	0x0000000000000000
+0x10000027f:	0x0000000000000000	0x0000000000000000
+0x10000028f:	0x0000000000000000	0x0000000000000000
+0x10000029f:	0x0000000000000000	0x0000000000000000
+0x1000002af:	0x0000000000000000	0x0000000000000000
+0x1000002bf:	0x0000000000000000	0x0000000000000000
+0x1000002cf:	0x0000000000000000	0x0000000000000000
+0x1000002df:	0x0000000000000000	0x0000000000000000
+0x1000002ef:	0x0000000000000000	0x0000000000000000
+0x1000002ff:	0x0000000000000000	0x0000000000000000
+0x10000030f:	0x0000000000000000	0x0000000000000000
+0x10000031f:	0x0000000000000000	0x0000000000000000
+0x10000032f:	0x0000000000000000	0x0000000000000000
+0x10000033f:	0x0000000000000000	0x0000000000000000
+0x10000034f:	0x0000000000000000	0x0000000000000000
+0x10000035f:	0x0000000000000000	0x0000000000000000
+0x10000036f:	0x0000000000000000	0x0000000000000000
+0x10000037f:	0x0000000000000000	0x0000000000000000
+0x10000038f:	0x0000000000000000	0x0000000000000000
+0x10000039f:	0x0000000000000000	0x0000000000000000
+0x1000003af:	0x0000000000000000	0x0000000000000000
+0x1000003bf:	0x0000000000000000	0x0000000000000000
+0x1000003cf:	0x0000000000000000	0x0000000000000000
+0x1000003df:	0x0000000000000000	0x0000000000000000
+0x1000003ef:	0x0000000000000000	0x0000000000000000
+0x1000003ff:	0x0000000000000000	0x0000000000000000
+0x10000040f:	0x0000000000000000	0x0000000000000000
+0x10000041f:	0x0000000000000000	0x0000000000000000
+0x10000042f:	0x0000000000000000	0x0000000000000000
+0x10000043f:	0x0000000000000000	0x0000000000000000
+0x10000044f:	0x0000000000000000	0x0000000000000000
+0x10000045f:	0x0000000000000000	0x0000000000000000
+0x10000046f:	0x0000000000000000	0x0000000000000000
+0x10000047f:	0x0000000000000000	0x0000000000000000
+0x10000048f:	0x0000000000000000	0x0000000000000000
+0x10000049f:	0x0000000000000000	0x0000000000000000
+0x1000004af:	0x0000000000000000	0x0000000000000000
+0x1000004bf:	0x0000000000000000	0x0000000000000000
+0x1000004cf:	0x0000000000000000	0x0000000000000000
+0x1000004df:	0x0000000000000000	0x0000000000000000
+0x1000004ef:	0x0000000000000000	0x0000000000000000
+0x1000004ff:	0x0000000000000000	0x0000000000000000
+0x10000050f:	0x0000000000000000	0x0000000000000000
+0x10000051f:	0x0000000000000000	0x0000000000000000
+0x10000052f:	0x0000000000000000	0x0000000000000000
+0x10000053f:	0x0000000000000000	0x0000000000000000
+0x10000054f:	0x0000000000000000	0x0000000000000000
+0x10000055f:	0x0000000000000000	0x0000000000000000
+0x10000056f:	0x0000000000000000	0x0000000000000000
+0x10000057f:	0x0000000000000000	0x0000000000000000
+0x10000058f:	0x0000000000000000	0x0000000000000000
+0x10000059f:	0x0000000000000000	0x0000000000000000
+0x1000005af:	0x0000000000000000	0x0000000000000000
+0x1000005bf:	0x0000000000000000	0x0000000000000000
+0x1000005cf:	0x0000000000000000	0x0000000000000000
+0x1000005df:	0x0000000000000000	0x0000000000000000
+0x1000005ef:	0x0000000000000000	0x0000000000000000
+0x1000005ff:	0x0000000000000000	0x0000000000000000
+0x10000060f:	0x0000000000000000	0x0000000000000000
+0x10000061f:	0x0000000000000000	0x0000000000000000
+0x10000062f:	0x0000000000000000	0x0000000000000000
+0x10000063f:	0x0000000000000000	0x0000000000000000
+0x10000064f:	0x0000000000000000	0x0000000000000000
+0x10000065f:	0x0000000000000000	0x0000000000000000
+0x10000066f:	0x0000000000000000	0x0000000000000000
+0x10000067f:	0x0000000000000000	0x0000000000000000
+0x10000068f:	0x0000000000000000	0x0000000000000000
+0x10000069f:	0x0000000000000000	0x0000000000000000
+0x1000006af:	0x0000000000000000	0x0000000000000000
+0x1000006bf:	0x0000000000000000	0x0000000000000000
+0x1000006cf:	0x0000000000000000	0x0000000000000000
+0x1000006df:	0x0000000000000000	0x0000000000000000
+0x1000006ef:	0x0000000000000000	0x0000000000000000
+0x1000006ff:	0x0000000000000000	0x0000000000000000
+0x10000070f:	0x0000000000000000	0x0000000000000000
+0x10000071f:	0x0000000000000000	0x0000000000000000
+0x10000072f:	0x0000000000000000	0x0000000000000000
+0x10000073f:	0x0000000000000000	0x0000000000000000
+0x10000074f:	0x0000000000000000	0x0000000000000000
+0x10000075f:	0x0000000000000000	0x0000000000000000
+0x10000076f:	0x0000000000000000	0x0000000000000000
+0x10000077f:	0x0000000000000000	0x0000000000000000
+0x10000078f:	0x0000000000000000	0x0000000000000000
+0x10000079f:	0x0000000000000000	0x0000000000000000
+0x1000007af:	0x0000000000000000	0x0000000000000000
+0x1000007bf:	0x0000000000000000	0x0000000000000000
+0x1000007cf:	0x0000000000000000	0x0000000000000000
+0x1000007df:	0x0000000000000000	0x0000000000000000
+0x1000007ef:	0x0000000000000000	0x0000000000000000
+0x1000007ff:	0x0000000000000000	0x0000000000000000
+0x10000080f:	0x0000000000000000	0x0000000000000000
+0x10000081f:	0x0000000000000000	0x0000000000000000
+0x10000082f:	0x0000000000000000	0x0000000000000000
+0x10000083f:	0x0000000000000000	0x0000000000000000
+0x10000084f:	0x0000000000000000	0x0000000000000000
+0x10000085f:	0x0000000000000000	0x0000000000000000
+0x10000086f:	0x0000000000000000	0x0000000000000000
+0x10000087f:	0x0000000000000000	0x0000000000000000
+0x10000088f:	0x0000000000000000	0x0000000000000000
+0x10000089f:	0x0000000000000000	0x0000000000000000
+0x1000008af:	0x0000000000000000	0x0000000000000000
+0x1000008bf:	0x0000000000000000	0x0000000000000000
+0x1000008cf:	0x0000000000000000	0x0000000000000000
+0x1000008df:	0x0000000000000000	0x0000000000000000
+0x1000008ef:	0x0000000000000000	0x0000000000000000
+0x1000008ff:	0x0000000000000000	0x0000000000000000
+0x10000090f:	0x0000000000000000	0x0000000000000000
+0x10000091f:	0x0000000000000000	0x0000000000000000
+0x10000092f:	0x0000000000000000	0x0000000000000000
+0x10000093f:	0x0000000000000000	0x0000000000000000
+0x10000094f:	0x0000000000000000	0x0000000000000000
+0x10000095f:	0x0000000000000000	0x0000000000000000
+0x10000096f:	0x0000000000000000	0x0000000000000000
+0x10000097f:	0x0000000000000000	0x0000000000000000
+0x10000098f:	0x0000000000000000	0x0000000000000000
+0x10000099f:	0x0000000000000000	0x0000000000000000
+0x1000009af:	0x0000000000000000	0x0000000000000000
+0x1000009bf:	0x0000000000000000	0x0000000000000000
+0x1000009cf:	0x0000000000000000	0x0000000000000000
+0x1000009df:	0x0000000000000000	0x0000000000000000
+0x1000009ef:	0x0000000000000000	0x0000000000000000
+0x1000009ff:	0x0000000000000000	0x0000000000000000
+0x100000a0f:	0x0000000000000000	0x0000000000000000
+0x100000a1f:	0x0000000000000000	0x0000000000000000
+0x100000a2f:	0x0000000000000000	0x0000000000000000
+0x100000a3f:	0x0000000000000000	0x0000000000000000
+0x100000a4f:	0x0000000000000000	0x0000000000000000
+0x100000a5f:	0x0000000000000000	0x0000000000000000
+0x100000a6f:	0x0000000000000000	0x0000000000000000
+0x100000a7f:	0x0000000000000000	0x0000000000000000
+0x100000a8f:	0x0000000000000000	0x0000000000000000
+0x100000a9f:	0x0000000000000000	0x0000000000000000
+0x100000aaf:	0x0000000000000000	0x0000000000000000
+0x100000abf:	0x0000000000000000	0x0000000000000000
+0x100000acf:	0x0000000000000000	0x0000000000000000
+0x100000adf:	0x0000000000000000	0x0000000000000000
+0x100000aef:	0x0000000000000000	0x0000000000000000
+0x100000aff:	0x0000000000000000	0x0000000000000000
+0x100000b0f:	0x0000000000000000	0x0000000000000000
+0x100000b1f:	0x0000000000000000	0x0000000000000000
+0x100000b2f:	0x0000000000000000	0x0000000000000000
+0x100000b3f:	0x0000000000000000	0x0000000000000000
+0x100000b4f:	0x0000000000000000	0x0000000000000000
+0x100000b5f:	0x0000000000000000	0x0000000000000000
+0x100000b6f:	0x0000000000000000	0x0000000000000000
+0x100000b7f:	0x0000000000000000	0x0000000000000000
+0x100000b8f:	0x0000000000000000	0x0000000000000000
+0x100000b9f:	0x0000000000000000	0x0000000000000000
+0x100000baf:	0x0000000000000000	0x0000000000000000
+0x100000bbf:	0x0000000000000000	0x0000000000000000
+0x100000bcf:	0x0000000000000000	0x0000000000000000
+0x100000bdf:	0x0000000000000000	0x0000000000000000
+0x100000bef:	0x0000000000000000	0x0000000000000000
+0x100000bff:	0x0000000000000000	0x0000000000000000
+0x100000c0f:	0x0000000000000000	0x0000000000000000
+0x100000c1f:	0x0000000000000000	0x0000000000000000
+0x100000c2f:	0x0000000000000000	0x0000000000000000
+0x100000c3f:	0x0000000000000000	0x0000000000000000
+0x100000c4f:	0x0000000000000000	0x0000000000000000
+0x100000c5f:	0x0000000000000000	0x0000000000000000
+0x100000c6f:	0x0000000000000000	0x0000000000000000
+0x100000c7f:	0x0000000000000000	0x0000000000000000
+0x100000c8f:	0x0000000000000000	0x0000000000000000
+0x100000c9f:	0x0000000000000000	0x0000000000000000
+0x100000caf:	0x0000000000000000	0x0000000000000000
+0x100000cbf:	0x0000000000000000	0x0000000000000000
+0x100000ccf:	0x0000000000000000	0x0000000000000000
+0x100000cdf:	0x0000000000000000	0x0000000000000000
+0x100000cef:	0x0000000000000000	0x0000000000000000
+0x100000cff:	0x0000000000000000	0x0000000000000000
+0x100000d0f:	0x0000000000000000	0x0000000000000000
+0x100000d1f:	0x0000000000000000	0x0000000000000000
+0x100000d2f:	0x0000000000000000	0x0000000000000000
+0x100000d3f:	0x0000000000000000	0x0000000000000000
+0x100000d4f:	0x0000000000000000	0x0000000000000000
+0x100000d5f:	0x0000000000000000	0x0000000000000000
+0x100000d6f:	0x0000000000000000	0x0000000000000000
+0x100000d7f:	0x0000000000000000	0x0000000000000000
+0x100000d8f:	0x0000000000000000	0x0000000000000000
+0x100000d9f:	0x0000000000000000	0x0000000000000000
+0x100000daf:	0x0000000000000000	0x0000000000000000
+0x100000dbf:	0x0000000000000000	0x0000000000000000
+0x100000dcf:	0x0000000000000000	0x0000000000000000
+0x100000ddf:	0x0000000000000000	0x0000000000000000
+0x100000def:	0x0000000000000000	0x0000000000000000
+0x100000dff:	0x0000000000000000	0x0000000000000000
+0x100000e0f:	0x0000000000000000	0x0000000000000000
+0x100000e1f:	0x0000000000000000	0x0000000000000000
+0x100000e2f:	0x0000000000000000	0x0000000000000000
+0x100000e3f:	0x0000000000000000	0x0000000000000000
+0x100000e4f:	0x0000000000000000	0x0000000000000000
+0x100000e5f:	0x0000000000000000	0x0000000000000000
+0x100000e6f:	0x0000000000000000	0x0000000000000000
+0x100000e7f:	0x0000000000000000	0x0000000000000000
+0x100000e8f:	0x0000000000000000	0x0000000000000000
+0x100000e9f:	0x0000000000000000	0x0000000000000000
+0x100000eaf:	0x0000000000000000	0x0000000000000000
+0x100000ebf:	0x0000000000000000	0x0000000000000000
+0x100000ecf:	0x0000000000000000	0x0000000000000000
+0x100000edf:	0x0000000000000000	0x0000000000000000
+0x100000eef:	0x0000000000000000	0x0000000000000000
+0x100000eff:	0x0000000000000000	0x0000000000000000
+0x100000f0f:	0x0000000000000000	0x0000000000000000
+0x100000f1f:	0x0000000000000000	0x0000000000000000
+0x100000f2f:	0x0000000000000000	0x0000000000000000
+0x100000f3f:	0x0000000000000000	0x0000000000000000
+0x100000f4f:	0x0000000000000000	0x0000000000000000
+0x100000f5f:	0x0000000000000000	0x0000000000000000
+0x100000f6f:	0x0000000000000000	0x0000000000000000
+0x100000f7f:	0x0000000000000000	0x0000000000000000
+0x100000f8f:	0x0000000000000000	0x0000000000000000
+0x100000f9f:	0x0000000000000000	0x0000000000000000
+0x100000faf:	0x0000000000000000	0x0000000000000000
+0x100000fbf:	0x0000000000000000	0x0000000000000000
+0x100000fcf:	0x0000000000000000	0x0000000000000000
+0x100000fdf:	0x0000000000000000	0x0000000000000000
+0x100000fef:	0x0000000000000000	0x0000000000000000
+0x100000fff:	0x0000000000000000	0x0000000000000000
+0x10000100f:	0x0000000000000000	0x0000000000000000
+0x10000101f:	0x0000000000000000	0x0000000000000000
+0x10000102f:	0x0000000000000000	0x0000000000000000
+0x10000103f:	0x0000000000000000	0x0000000000000000
+0x10000104f:	0x0000000000000000	0x0000000000000000
+0x10000105f:	0x0000000000000000	0x0000000000000000
+0x10000106f:	0x0000000000000000	0x0000000000000000
+0x10000107f:	0x0000000000000000	0x0000000000000000
+0x10000108f:	0x0000000000000000	0x0000000000000000
+0x10000109f:	0x0000000000000000	0x0000000000000000
+0x1000010af:	0x0000000000000000	0x0000000000000000
+0x1000010bf:	0x0000000000000000	0x0000000000000000
+0x1000010cf:	0x0000000000000000	0x0000000000000000
+0x1000010df:	0x0000000000000000	0x0000000000000000
+0x1000010ef:	0x0000000000000000	0x0000000000000000
+0x1000010ff:	0x0000000000000000	0x0000000000000000
+0x10000110f:	0x0000000000000000	0x0000000000000000
+0x10000111f:	0x0000000000000000	0x0000000000000000
+0x10000112f:	0x0000000000000000	0x0000000000000000
+0x10000113f:	0x0000000000000000	0x0000000000000000
+0x10000114f:	0x0000000000000000	0x0000000000000000
+0x10000115f:	0x0000000000000000	0x0000000000000000
+0x10000116f:	0x0000000000000000	0x0000000000000000
+0x10000117f:	0x0000000000000000	0x0000000000000000
+0x10000118f:	0x0000000000000000	0x0000000000000000
+0x10000119f:	0x0000000000000000	0x0000000000000000
+0x1000011af:	0x0000000000000000	0x0000000000000000
+0x1000011bf:	0x0000000000000000	0x0000000000000000
+0x1000011cf:	0x0000000000000000	0x0000000000000000
+0x1000011df:	0x0000000000000000	0x0000000000000000
+0x1000011ef:	0x0000000000000000	0x0000000000000000
+0x1000011ff:	0x0000000000000000	0x0000000000000000
+0x10000120f:	0x0000000000000000	0x0000000000000000
+0x10000121f:	0x0000000000000000	0x0000000000000000
+0x10000122f:	0x0000000000000000	0x0000000000000000
+0x10000123f:	0x0000000000000000	0x0000000000000000
+0x10000124f:	0x0000000000000000	0x0000000000000000
+0x10000125f:	0x0000000000000000	0x0000000000000000
+0x10000126f:	0x0000000000000000	0x0000000000000000
+0x10000127f:	0x0000000000000000	0x0000000000000000
+0x10000128f:	0x0000000000000000	0x0000000000000000
+0x10000129f:	0x0000000000000000	0x0000000000000000
+0x1000012af:	0x0000000000000000	0x0000000000000000
+0x1000012bf:	0x0000000000000000	0x0000000000000000
+0x1000012cf:	0x0000000000000000	0x0000000000000000
+0x1000012df:	0x0000000000000000	0x0000000000000000
+0x1000012ef:	0x0000000000000000	0x0000000000000000
+0x1000012ff:	0x0000000000000000	0x0000000000000000
+0x10000130f:	0x0000000000000000	0x0000000000000000
+0x10000131f:	0x0000000000000000	0x0000000000000000
+0x10000132f:	0x0000000000000000	0x0000000000000000
+0x10000133f:	0x0000000000000000	0x0000000000000000
+0x10000134f:	0x0000000000000000	0x0000000000000000
+0x10000135f:	0x0000000000000000	0x0000000000000000
+0x10000136f:	0x0000000000000000	0x0000000000000000
+0x10000137f:	0x0000000000000000	0x0000000000000000
+0x10000138f:	0x0000000000000000	0x0000000000000000
+0x10000139f:	0x0000000000000000	0x0000000000000000
+0x1000013af:	0x0000000000000000	0x0000000000000000
+0x1000013bf:	0x0000000000000000	0x0000000000000000
+0x1000013cf:	0x0000000000000000	0x0000000000000000
+0x1000013df:	0x0000000000000000	0x0000000000000000
+0x1000013ef:	0x0000000000000000	0x0000000000000000
+0x1000013ff:	0x0000000000000000	0x0000000000000000
+0x10000140f:	0x0000000000000000	0x0000000000000000
+0x10000141f:	0x0000000000000000	0x0000000000000000
+0x10000142f:	0x0000000000000000	0x0000000000000000
+0x10000143f:	0x0000000000000000	0x0000000000000000
+0x10000144f:	0x0000000000000000	0x0000000000000000
+0x10000145f:	0x0000000000000000	0x0000000000000000
+0x10000146f:	0x0000000000000000	0x0000000000000000
+0x10000147f:	0x0000000000000000	0x0000000000000000
+0x10000148f:	0x0000000000000000	0x0000000000000000
+0x10000149f:	0x0000000000000000	0x0000000000000000
+0x1000014af:	0x0000000000000000	0x0000000000000000
+0x1000014bf:	0x0000000000000000	0x0000000000000000
+0x1000014cf:	0x0000000000000000	0x0000000000000000
+0x1000014df:	0x0000000000000000	0x0000000000000000
+0x1000014ef:	0x0000000000000000	0x0000000000000000
+0x1000014ff:	0x0000000000000000	0x0000000000000000
+0x10000150f:	0x0000000000000000	0x0000000000000000
+0x10000151f:	0x0000000000000000	0x0000000000000000
+0x10000152f:	0x0000000000000000	0x0000000000000000
+0x10000153f:	0x0000000000000000	0x0000000000000000
+0x10000154f:	0x0000000000000000	0x0000000000000000
+0x10000155f:	0x0000000000000000	0x0000000000000000
+0x10000156f:	0x0000000000000000	0x0000000000000000
+0x10000157f:	0x0000000000000000	0x0000000000000000
+0x10000158f:	0x0000000000000000	0x0000000000000000
+0x10000159f:	0x0000000000000000	0x0000000000000000
+0x1000015af:	0x0000000000000000	0x0000000000000000
+0x1000015bf:	0x0000000000000000	0x0000000000000000
+0x1000015cf:	0x0000000000000000	0x0000000000000000
+0x1000015df:	0x0000000000000000	0x0000000000000000
+0x1000015ef:	0x0000000000000000	0x0000000000000000
+0x1000015ff:	0x0000000000000000	0x0000000000000000
+0x10000160f:	0x0000000000000000	0x0000000000000000
+0x10000161f:	0x0000000000000000	0x0000000000000000
+0x10000162f:	0x0000000000000000	0x0000000000000000
+0x10000163f:	0x0000000000000000	0x0000000000000000
+0x10000164f:	0x0000000000000000	0x0000000000000000
+0x10000165f:	0x0000000000000000	0x0000000000000000
+0x10000166f:	0x0000000000000000	0x0000000000000000
+0x10000167f:	0x0000000000000000	0x0000000000000000
+0x10000168f:	0x0000000000000000	0x0000000000000000
+0x10000169f:	0x0000000000000000	0x0000000000000000
+0x1000016af:	0x0000000000000000	0x0000000000000000
+0x1000016bf:	0x0000000000000000	0x0000000000000000
+0x1000016cf:	0x0000000000000000	0x0000000000000000
+0x1000016df:	0x0000000000000000	0x0000000000000000
+0x1000016ef:	0x0000000000000000	0x0000000000000000
+0x1000016ff:	0x0000000000000000	0x0000000000000000
+0x10000170f:	0x0000000000000000	0x0000000000000000
+0x10000171f:	0x0000000000000000	0x0000000000000000
+0x10000172f:	0x0000000000000000	0x0000000000000000
+0x10000173f:	0x0000000000000000	0x0000000000000000
+0x10000174f:	0x0000000000000000	0x0000000000000000
+0x10000175f:	0x0000000000000000	0x0000000000000000
+0x10000176f:	0x0000000000000000	0x0000000000000000
+0x10000177f:	0x0000000000000000	0x0000000000000000
+0x10000178f:	0x0000000000000000	0x0000000000000000
+0x10000179f:	0x0000000000000000	0x0000000000000000
+0x1000017af:	0x0000000000000000	0x0000000000000000
+0x1000017bf:	0x0000000000000000	0x0000000000000000
+0x1000017cf:	0x0000000000000000	0x0000000000000000
+0x1000017df:	0x0000000000000000	0x0000000000000000
+0x1000017ef:	0x0000000000000000	0x0000000000000000
+0x1000017ff:	0x0000000000000000	0x0000000000000000
+0x10000180f:	0x0000000000000000	0x0000000000000000
+0x10000181f:	0x0000000000000000	0x0000000000000000
+0x10000182f:	0x0000000000000000	0x0000000000000000
+0x10000183f:	0x0000000000000000	0x0000000000000000
+0x10000184f:	0x0000000000000000	0x0000000000000000
+0x10000185f:	0x0000000000000000	0x0000000000000000
+0x10000186f:	0x0000000000000000	0x0000000000000000
+0x10000187f:	0x0000000000000000	0x0000000000000000
+0x10000188f:	0x0000000000000000	0x0000000000000000
+0x10000189f:	0x0000000000000000	0x0000000000000000
+0x1000018af:	0x0000000000000000	0x0000000000000000
+0x1000018bf:	0x0000000000000000	0x0000000000000000
+0x1000018cf:	0x0000000000000000	0x0000000000000000
+0x1000018df:	0x0000000000000000	0x0000000000000000
+0x1000018ef:	0x0000000000000000	0x0000000000000000
+0x1000018ff:	0x0000000000000000	0x0000000000000000
+0x10000190f:	0x0000000000000000	0x0000000000000000
+0x10000191f:	0x0000000000000000	0x0000000000000000
+0x10000192f:	0x0000000000000000	0x0000000000000000
+0x10000193f:	0x0000000000000000	0x0000000000000000
+0x10000194f:	0x0000000000000000	0x0000000000000000
+0x10000195f:	0x0000000000000000	0x0000000000000000
+0x10000196f:	0x0000000000000000	0x0000000000000000
+0x10000197f:	0x0000000000000000	0x0000000000000000
+0x10000198f:	0x0000000000000000	0x0000000000000000
+0x10000199f:	0x0000000000000000	0x0000000000000000
+0x1000019af:	0x0000000000000000	0x0000000000000000
+0x1000019bf:	0x0000000000000000	0x0000000000000000
+0x1000019cf:	0x0000000000000000	0x0000000000000000
+0x1000019df:	0x0000000000000000	0x0000000000000000
+0x1000019ef:	0x0000000000000000	0x0000000000000000
+0x1000019ff:	0x0000000000000000	0x0000000000000000
+0x100001a0f:	0x0000000000000000	0x0000000000000000
+0x100001a1f:	0x0000000000000000	0x0000000000000000
+0x100001a2f:	0x0000000000000000	0x0000000000000000
+0x100001a3f:	0x0000000000000000	0x0000000000000000
+0x100001a4f:	0x0000000000000000	0x0000000000000000
+0x100001a5f:	0x0000000000000000	0x0000000000000000
+0x100001a6f:	0x0000000000000000	0x0000000000000000
+0x100001a7f:	0x0000000000000000	0x0000000000000000
+0x100001a8f:	0x0000000000000000	0x0000000000000000
+0x100001a9f:	0x0000000000000000	0x0000000000000000
+0x100001aaf:	0x0000000000000000	0x0000000000000000
+0x100001abf:	0x0000000000000000	0x0000000000000000
+0x100001acf:	0x0000000000000000	0x0000000000000000
+0x100001adf:	0x0000000000000000	0x0000000000000000
+0x100001aef:	0x0000000000000000	0x0000000000000000
+0x100001aff:	0x0000000000000000	0x0000000000000000
+0x100001b0f:	0x0000000000000000	0x0000000000000000
+0x100001b1f:	0x0000000000000000	0x0000000000000000
+0x100001b2f:	0x0000000000000000	0x0000000000000000
+0x100001b3f:	0x0000000000000000	0x0000000000000000
+0x100001b4f:	0x0000000000000000	0x0000000000000000
+0x100001b5f:	0x0000000000000000	0x0000000000000000
+0x100001b6f:	0x0000000000000000	0x0000000000000000
+0x100001b7f:	0x0000000000000000	0x0000000000000000
+0x100001b8f:	0x0000000000000000	0x0000000000000000
+0x100001b9f:	0x0000000000000000	0x0000000000000000
+0x100001baf:	0x0000000000000000	0x0000000000000000
+0x100001bbf:	0x0000000000000000	0x0000000000000000
+0x100001bcf:	0x0000000000000000	0x0000000000000000
+0x100001bdf:	0x0000000000000000	0x0000000000000000
+0x100001bef:	0x0000000000000000	0x0000000000000000
+0x100001bff:	0x0000000000000000	0x0000000000000000
+0x100001c0f:	0x0000000000000000	0x0000000000000000
+0x100001c1f:	0x0000000000000000	0x0000000000000000
+0x100001c2f:	0x0000000000000000	0x0000000000000000
+0x100001c3f:	0x0000000000000000	0x0000000000000000
+0x100001c4f:	0x0000000000000000	0x0000000000000000
+0x100001c5f:	0x0000000000000000	0x0000000000000000
+0x100001c6f:	0x0000000000000000	0x0000000000000000
+0x100001c7f:	0x0000000000000000	0x0000000000000000
+0x100001c8f:	0x0000000000000000	0x0000000000000000
+0x100001c9f:	0x0000000000000000	0x0000000000000000
+0x100001caf:	0x0000000000000000	0x0000000000000000
+0x100001cbf:	0x0000000000000000	0x0000000000000000
+0x100001ccf:	0x0000000000000000	0x0000000000000000
+0x100001cdf:	0x0000000000000000	0x0000000000000000
+0x100001cef:	0x0000000000000000	0x0000000000000000
+0x100001cff:	0x0000000000000000	0x0000000000000000
+0x100001d0f:	0x0000000000000000	0x0000000000000000
+0x100001d1f:	0x0000000000000000	0x0000000000000000
+0x100001d2f:	0x0000000000000000	0x0000000000000000
+0x100001d3f:	0x0000000000000000	0x0000000000000000
+0x100001d4f:	0x0000000000000000	0x0000000000000000
+0x100001d5f:	0x0000000000000000	0x0000000000000000
+0x100001d6f:	0x0000000000000000	0x0000000000000000
+0x100001d7f:	0x0000000000000000	0x0000000000000000
+0x100001d8f:	0x0000000000000000	0x0000000000000000
+0x100001d9f:	0x0000000000000000	0x0000000000000000
+0x100001daf:	0x0000000000000000	0x0000000000000000
+0x100001dbf:	0x0000000000000000	0x0000000000000000
+0x100001dcf:	0x0000000000000000	0x0000000000000000
+0x100001ddf:	0x0000000000000000	0x0000000000000000
+0x100001def:	0x0000000000000000	0x0000000000000000
+0x100001dff:	0x0000000000000000	0x0000000000000000
+0x100001e0f:	0x0000000000000000	0x0000000000000000
+0x100001e1f:	0x0000000000000000	0x0000000000000000
+0x100001e2f:	0x0000000000000000	0x0000000000000000
+0x100001e3f:	0x0000000000000000	0x0000000000000000
+0x100001e4f:	0x0000000000000000	0x0000000000000000
+0x100001e5f:	0x0000000000000000	0x0000000000000000
+0x100001e6f:	0x0000000000000000	0x0000000000000000
+0x100001e7f:	0x0000000000000000	0x0000000000000000
+0x100001e8f:	0x0000000000000000	0x0000000000000000
+0x100001e9f:	0x0000000000000000	0x0000000000000000
+0x100001eaf:	0x0000000000000000	0x0000000000000000
+0x100001ebf:	0x0000000000000000	0x0000000000000000
+0x100001ecf:	0x0000000000000000	0x0000000000000000
+0x100001edf:	0x0000000000000000	0x0000000000000000
+0x100001eef:	0x0000000000000000	0x0000000000000000
+0x100001eff:	0x0000000000000000	0x0000000000000000
+0x100001f0f:	0x0000000000000000	0x0000000000000000
+0x100001f1f:	0x0000000000000000	0x0000000000000000
+0x100001f2f:	0x0000000000000000	0x0000000000000000
+  Id   Target Id                    Frame 
+* 1    Thread 1.1 (CPU#0 [running]) 0xfffffffffffff05a in ?? ()
+  2    Thread 1.2 (CPU#1 [running]) compiler_builtins::mem::impls::copy_forward () at /cargo/registry/src/github.com-1ecc6299db9ec823/compiler_builtins-0.1.46/src/mem/impls.rs:5
+  3    Thread 1.3 (CPU#2 [running]) 0x00000000802114da in easy_fs::vfs::Inode::read_at ()
+  4    Thread 1.4 (CPU#3 [running]) 0x00000000802141b6 in <alloc::collections::vec_deque::iter::Iter<T> as core::iter::traits::iterator::Iterator>::try_fold ()
+Detaching from program: D:\z\2\new\c\os\target\riscv64gc-unknown-none-elf\release\os, process 1
+Ending remote debugging.
+[Inferior 1 (process 1) detached]
+0x0000000000001000 in ?? ()
+=> 0x0000000000001000:	97 02 00 00	auipc	t0,0x0
+Breakpoint 1 at 0x80206f0e
+sending: "Qqemu.PhyMemMode:1"
+received: "OK"
+.\.gdbinit_release:10: Error in sourced command file:
+Invalid number "0x0xfffffffffffff05a".
+Breakpoint 2 at 0xfffffffffffff056
+Continuing.
+[Switching to Thread 1.2]
+
+Thread 2 hit Breakpoint 2, 0xfffffffffffff056 in ?? ()
+=> 0xfffffffffffff056:	00 00	unimp
+Continuing.
+[Switching to Thread 1.4]
+
+Thread 4 hit Breakpoint 2, 0xfffffffffffff056 in ?? ()
+=> 0xfffffffffffff056:	00 00	unimp
+Continuing.
+[Switching to Thread 1.3]
+
+Thread 3 hit Breakpoint 2, 0xfffffffffffff056 in ?? ()
+=> 0xfffffffffffff056:	00 00	unimp
+Continuing.
+[Switching to Thread 1.2]
+
+Thread 2 hit Breakpoint 2, 0xfffffffffffff056 in ?? ()
+=> 0xfffffffffffff056:	00 00	unimp
+Continuing.
+[Switching to Thread 1.3]
+
+Thread 3 hit Breakpoint 2, 0xfffffffffffff056 in ?? ()
+=> 0xfffffffffffff056:	00 00	unimp
+Continuing.
+[Switching to Thread 1.4]
+
+Thread 4 hit Breakpoint 2, 0xfffffffffffff056 in ?? ()
+=> 0xfffffffffffff056:	00 00	unimp
+0xfffffffffffff056:	0x0000000000000000	0x0000000000000000
+0xfffffffffffff066:	0x0000000000000000	0x0000000000000000
+0xfffffffffffff076:	0x0000000000000000	0x0000000000000000
+0xfffffffffffff086:	0x0000000000000000	0x0000000000000000
+0xfffffffffffff096:	0x0000000000000000	0x0000000000000000
+0xfffffffffffff0a6:	0x0000000000000000	0x0000000000000000
+0xfffffffffffff0b6:	0x0000000000000000	0x0000000000000000
+0xfffffffffffff0c6:	0x0000000000000000	0x0000000000000000
+0xfffffffffffff0d6:	0x0000000000000000	0x0000000000000000
+0xfffffffffffff0e6:	0x0000000000000000	0x0000000000000000
+Continuing.
+
+Thread 4 hit Breakpoint 2, 0xfffffffffffff056 in ?? ()
+=> 0xfffffffffffff056:	00 00	unimp
+sending: "Qqemu.PhyMemMode:M."
+received: ""
+sending: "Qqemu.PhyMemMode:0"
+received: "OK"
+0xfffffffffffff056:	0x1200007318029073	0x0073180590738302
+0xfffffffffffff066:	0x812a140510731200	0x1002907363326292
+0xfffffffffffff076:	0x61e260a214131073	0x640673e2734272a2
+0xfffffffffffff086:	0x760665e6654664a6	0x680a77e6774676a6
+0xfffffffffffff096:	0x7a0a69ea694a68aa	0x6c0e7bea7b4a7aaa
+0xfffffffffffff0a6:	0x7e0e6dee6d4e6cae	0x61427fee7f4e7eae
+0xfffffffffffff0b6:	0x0000000010200073	0x0000000000000000
+0xfffffffffffff0c6:	0x0000000000000000	0x0000000000000000
+0xfffffffffffff0d6:	0x0000000000000000	0x0000000000000000
+0xfffffffffffff0e6:	0x0000000000000000	0x0000000000000000
+Continuing.
+[Switching to Thread 1.3]
+
+Thread 3 hit Breakpoint 2, 0xfffffffffffff056 in ?? ()
+=> 0xfffffffffffff056:	73 90 02 18	csrw	satp,t0
+Continuing.
+[Switching to Thread 1.2]
+
+Thread 2 hit Breakpoint 2, 0xfffffffffffff056 in ?? ()
+=> 0xfffffffffffff056:	73 90 02 18	csrw	satp,t0
+Continuing.
+[Switching to Thread 1.1]
+
+Thread 1 hit Breakpoint 2, 0xfffffffffffff056 in ?? ()
+=> 0xfffffffffffff056:	73 90 02 18	csrw	satp,t0
+Continuing.
+
+Thread 1 hit Breakpoint 2, 0xfffffffffffff056 in ?? ()
+=> 0xfffffffffffff056:	73 90 02 18	csrw	satp,t0
+Continuing.
+
+Thread 1 hit Breakpoint 2, 0xfffffffffffff056 in ?? ()
+=> 0xfffffffffffff056:	73 90 02 18	csrw	satp,t0
+Continuing.
+[Switching to Thread 1.2]
+
+Thread 2 hit Breakpoint 2, 0xfffffffffffff056 in ?? ()
+=> 0xfffffffffffff056:	73 90 02 18	csrw	satp,t0
+Continuing.
+
+Thread 2 hit Breakpoint 2, 0xfffffffffffff056 in ?? ()
+=> 0xfffffffffffff056:	73 90 02 18	csrw	satp,t0
+Continuing.
+[Switching to Thread 1.3]
+
+Thread 3 hit Breakpoint 2, 0xfffffffffffff056 in ?? ()
+=> 0xfffffffffffff056:	73 90 02 18	csrw	satp,t0
+Continuing.
+
+Thread 3 hit Breakpoint 2, 0xfffffffffffff056 in ?? ()
+=> 0xfffffffffffff056:	73 90 02 18	csrw	satp,t0
+Continuing.
+[Switching to Thread 1.4]
+
+Thread 4 hit Breakpoint 2, 0xfffffffffffff056 in ?? ()
+=> 0xfffffffffffff056:	73 90 02 18	csrw	satp,t0
+Continuing.
+
+Thread 4 hit Breakpoint 2, 0xfffffffffffff056 in ?? ()
+=> 0xfffffffffffff056:	73 90 02 18	csrw	satp,t0
+Continuing.
+[Switching to Thread 1.1]
+
+Thread 1 hit Breakpoint 2, 0xfffffffffffff056 in ?? ()
+=> 0xfffffffffffff056:	73 90 02 18	csrw	satp,t0
+Continuing.
+
+Thread 1 hit Breakpoint 2, 0xfffffffffffff056 in ?? ()
+=> 0xfffffffffffff056:	73 90 02 18	csrw	satp,t0
+Continuing.
+[Switching to Thread 1.2]
+
+Thread 2 hit Breakpoint 2, 0xfffffffffffff056 in ?? ()
+=> 0xfffffffffffff056:	73 90 02 18	csrw	satp,t0
+Continuing.
+
+Thread 2 hit Breakpoint 2, 0xfffffffffffff056 in ?? ()
+=> 0xfffffffffffff056:	73 90 02 18	csrw	satp,t0
+Continuing.
+[Switching to Thread 1.3]
+
+Thread 3 hit Breakpoint 2, 0xfffffffffffff056 in ?? ()
+=> 0xfffffffffffff056:	73 90 02 18	csrw	satp,t0
+Continuing.
+
+Thread 3 hit Breakpoint 2, 0xfffffffffffff056 in ?? ()
+=> 0xfffffffffffff056:	73 90 02 18	csrw	satp,t0
+Continuing.
+[Switching to Thread 1.4]
+
+Thread 4 hit Breakpoint 2, 0xfffffffffffff056 in ?? ()
+=> 0xfffffffffffff056:	73 90 02 18	csrw	satp,t0
+Continuing.
+
+Thread 4 hit Breakpoint 2, 0xfffffffffffff056 in ?? ()
+=> 0xfffffffffffff056:	73 90 02 18	csrw	satp,t0
+Continuing.
+[Switching to Thread 1.1]
+
+Thread 1 hit Breakpoint 2, 0xfffffffffffff056 in ?? ()
+=> 0xfffffffffffff056:	73 90 02 18	csrw	satp,t0
+Continuing.
+
+Thread 1 hit Breakpoint 2, 0xfffffffffffff056 in ?? ()
+=> 0xfffffffffffff056:	73 90 02 18	csrw	satp,t0
+Continuing.
+[Switching to Thread 1.2]
+
+Thread 2 hit Breakpoint 2, 0xfffffffffffff056 in ?? ()
+=> 0xfffffffffffff056:	73 90 02 18	csrw	satp,t0
+Continuing.
+
+Thread 2 hit Breakpoint 2, 0xfffffffffffff056 in ?? ()
+=> 0xfffffffffffff056:	73 90 02 18	csrw	satp,t0
+Continuing.
+[Switching to Thread 1.3]
+
+Thread 3 hit Breakpoint 2, 0xfffffffffffff056 in ?? ()
+=> 0xfffffffffffff056:	73 90 02 18	csrw	satp,t0
+Continuing.
+
+Thread 3 hit Breakpoint 2, 0xfffffffffffff056 in ?? ()
+=> 0xfffffffffffff056:	73 90 02 18	csrw	satp,t0
+Continuing.
+[Switching to Thread 1.4]
+
+Thread 4 hit Breakpoint 2, 0xfffffffffffff056 in ?? ()
+=> 0xfffffffffffff056:	73 90 02 18	csrw	satp,t0
+Continuing.
+
+Thread 4 hit Breakpoint 2, 0xfffffffffffff056 in ?? ()
+=> 0xfffffffffffff056:	73 90 02 18	csrw	satp,t0
+Continuing.
+[Switching to Thread 1.1]
+
+Thread 1 hit Breakpoint 2, 0xfffffffffffff056 in ?? ()
+=> 0xfffffffffffff056:	73 90 02 18	csrw	satp,t0
+Continuing.
+
+Thread 1 hit Breakpoint 2, 0xfffffffffffff056 in ?? ()
+=> 0xfffffffffffff056:	73 90 02 18	csrw	satp,t0
+Continuing.
+[Switching to Thread 1.2]
+
+Thread 2 hit Breakpoint 2, 0xfffffffffffff056 in ?? ()
+=> 0xfffffffffffff056:	73 90 02 18	csrw	satp,t0
+Continuing.
+
+Thread 2 hit Breakpoint 2, 0xfffffffffffff056 in ?? ()
+=> 0xfffffffffffff056:	73 90 02 18	csrw	satp,t0
+Continuing.
+
+Thread 2 hit Breakpoint 2, 0xfffffffffffff056 in ?? ()
+=> 0xfffffffffffff056:	73 90 02 18	csrw	satp,t0
+Continuing.
+
+Thread 2 hit Breakpoint 2, 0xfffffffffffff056 in ?? ()
+=> 0xfffffffffffff056:	73 90 02 18	csrw	satp,t0
+Continuing.
+
+Thread 2 hit Breakpoint 2, 0xfffffffffffff056 in ?? ()
+=> 0xfffffffffffff056:	73 90 02 18	csrw	satp,t0
+Continuing.
+
+Thread 2 hit Breakpoint 2, 0xfffffffffffff056 in ?? ()
+=> 0xfffffffffffff056:	73 90 02 18	csrw	satp,t0
+Continuing.
+
+Thread 2 hit Breakpoint 2, 0xfffffffffffff056 in ?? ()
+=> 0xfffffffffffff056:	73 90 02 18	csrw	satp,t0
+Continuing.
+
+Thread 2 hit Breakpoint 2, 0xfffffffffffff056 in ?? ()
+=> 0xfffffffffffff056:	73 90 02 18	csrw	satp,t0
+Continuing.
+
+Thread 2 hit Breakpoint 2, 0xfffffffffffff056 in ?? ()
+=> 0xfffffffffffff056:	73 90 02 18	csrw	satp,t0
+Continuing.
+
+Thread 2 hit Breakpoint 2, 0xfffffffffffff056 in ?? ()
+=> 0xfffffffffffff056:	73 90 02 18	csrw	satp,t0
+Continuing.
+
+Thread 2 hit Breakpoint 2, 0xfffffffffffff056 in ?? ()
+=> 0xfffffffffffff056:	73 90 02 18	csrw	satp,t0
+Continuing.
+
+Thread 2 hit Breakpoint 2, 0xfffffffffffff056 in ?? ()
+=> 0xfffffffffffff056:	73 90 02 18	csrw	satp,t0
+Continuing.
+
+Thread 2 hit Breakpoint 2, 0xfffffffffffff056 in ?? ()
+=> 0xfffffffffffff056:	73 90 02 18	csrw	satp,t0
+Continuing.
+
+Thread 2 hit Breakpoint 2, 0xfffffffffffff056 in ?? ()
+=> 0xfffffffffffff056:	73 90 02 18	csrw	satp,t0
+Continuing.
+
+Thread 2 hit Breakpoint 2, 0xfffffffffffff056 in ?? ()
+=> 0xfffffffffffff056:	73 90 02 18	csrw	satp,t0
+Continuing.
+
+Thread 2 hit Breakpoint 2, 0xfffffffffffff056 in ?? ()
+=> 0xfffffffffffff056:	73 90 02 18	csrw	satp,t0
+Continuing.
+
+Thread 2 hit Breakpoint 2, 0xfffffffffffff056 in ?? ()
+=> 0xfffffffffffff056:	73 90 02 18	csrw	satp,t0
+Continuing.
+
+Thread 2 hit Breakpoint 2, 0xfffffffffffff056 in ?? ()
+=> 0xfffffffffffff056:	73 90 02 18	csrw	satp,t0
+Continuing.
+
+Thread 2 hit Breakpoint 2, 0xfffffffffffff056 in ?? ()
+=> 0xfffffffffffff056:	73 90 02 18	csrw	satp,t0
+Continuing.
+
+Thread 2 hit Breakpoint 2, 0xfffffffffffff056 in ?? ()
+=> 0xfffffffffffff056:	73 90 02 18	csrw	satp,t0
+Continuing.
+
+Thread 2 hit Breakpoint 2, 0xfffffffffffff056 in ?? ()
+=> 0xfffffffffffff056:	73 90 02 18	csrw	satp,t0
+Continuing.
+
+Thread 2 hit Breakpoint 2, 0xfffffffffffff056 in ?? ()
+=> 0xfffffffffffff056:	73 90 02 18	csrw	satp,t0
+Continuing.
+
+Thread 2 hit Breakpoint 2, 0xfffffffffffff056 in ?? ()
+=> 0xfffffffffffff056:	73 90 02 18	csrw	satp,t0
+Continuing.
+
+Thread 2 hit Breakpoint 2, 0xfffffffffffff056 in ?? ()
+=> 0xfffffffffffff056:	73 90 02 18	csrw	satp,t0
+Continuing.
+
+Thread 2 hit Breakpoint 2, 0xfffffffffffff056 in ?? ()
+=> 0xfffffffffffff056:	73 90 02 18	csrw	satp,t0
+Continuing.
+
+Thread 2 hit Breakpoint 2, 0xfffffffffffff056 in ?? ()
+=> 0xfffffffffffff056:	73 90 02 18	csrw	satp,t0
+Continuing.
+
+Thread 2 hit Breakpoint 2, 0xfffffffffffff056 in ?? ()
+=> 0xfffffffffffff056:	73 90 02 18	csrw	satp,t0
+Continuing.
+
+Thread 2 hit Breakpoint 2, 0xfffffffffffff056 in ?? ()
+=> 0xfffffffffffff056:	73 90 02 18	csrw	satp,t0
+Continuing.
+
+Thread 2 hit Breakpoint 2, 0xfffffffffffff056 in ?? ()
+=> 0xfffffffffffff056:	73 90 02 18	csrw	satp,t0
+Continuing.
+
+Thread 2 hit Breakpoint 2, 0xfffffffffffff056 in ?? ()
+=> 0xfffffffffffff056:	73 90 02 18	csrw	satp,t0
+Continuing.
+
+Thread 2 hit Breakpoint 2, 0xfffffffffffff056 in ?? ()
+=> 0xfffffffffffff056:	73 90 02 18	csrw	satp,t0
+Continuing.
+
+Thread 2 hit Breakpoint 2, 0xfffffffffffff056 in ?? ()
+=> 0xfffffffffffff056:	73 90 02 18	csrw	satp,t0
+Continuing.
+
+Thread 2 hit Breakpoint 2, 0xfffffffffffff056 in ?? ()
+=> 0xfffffffffffff056:	73 90 02 18	csrw	satp,t0
+Continuing.
+
+Thread 2 hit Breakpoint 2, 0xfffffffffffff056 in ?? ()
+=> 0xfffffffffffff056:	73 90 02 18	csrw	satp,t0
+Continuing.
+
+Thread 2 hit Breakpoint 2, 0xfffffffffffff056 in ?? ()
+=> 0xfffffffffffff056:	73 90 02 18	csrw	satp,t0
+Continuing.
+
+Thread 2 hit Breakpoint 2, 0xfffffffffffff056 in ?? ()
+=> 0xfffffffffffff056:	73 90 02 18	csrw	satp,t0
+Continuing.
+
+Thread 2 hit Breakpoint 2, 0xfffffffffffff056 in ?? ()
+=> 0xfffffffffffff056:	73 90 02 18	csrw	satp,t0
+Continuing.
+
+Thread 2 hit Breakpoint 2, 0xfffffffffffff056 in ?? ()
+=> 0xfffffffffffff056:	73 90 02 18	csrw	satp,t0
+Continuing.
+
+Thread 2 hit Breakpoint 2, 0xfffffffffffff056 in ?? ()
+=> 0xfffffffffffff056:	73 90 02 18	csrw	satp,t0
+Continuing.
+
+Thread 2 hit Breakpoint 2, 0xfffffffffffff056 in ?? ()
+=> 0xfffffffffffff056:	73 90 02 18	csrw	satp,t0
+Continuing.
+
+Thread 2 hit Breakpoint 2, 0xfffffffffffff056 in ?? ()
+=> 0xfffffffffffff056:	73 90 02 18	csrw	satp,t0
+Continuing.
+
+Thread 2 hit Breakpoint 2, 0xfffffffffffff056 in ?? ()
+=> 0xfffffffffffff056:	73 90 02 18	csrw	satp,t0
+Continuing.
+
+Thread 2 hit Breakpoint 2, 0xfffffffffffff056 in ?? ()
+=> 0xfffffffffffff056:	73 90 02 18	csrw	satp,t0
+Continuing.
+
+Thread 2 hit Breakpoint 2, 0xfffffffffffff056 in ?? ()
+=> 0xfffffffffffff056:	73 90 02 18	csrw	satp,t0
+Continuing.
+
+Thread 2 hit Breakpoint 2, 0xfffffffffffff056 in ?? ()
+=> 0xfffffffffffff056:	73 90 02 18	csrw	satp,t0
+Continuing.
+
+Thread 2 hit Breakpoint 2, 0xfffffffffffff056 in ?? ()
+=> 0xfffffffffffff056:	73 90 02 18	csrw	satp,t0
+Continuing.
+
+Thread 2 hit Breakpoint 2, 0xfffffffffffff056 in ?? ()
+=> 0xfffffffffffff056:	73 90 02 18	csrw	satp,t0
+Continuing.
+
+Thread 2 hit Breakpoint 2, 0xfffffffffffff056 in ?? ()
+=> 0xfffffffffffff056:	73 90 02 18	csrw	satp,t0
+Continuing.
+
+Thread 2 hit Breakpoint 2, 0xfffffffffffff056 in ?? ()
+=> 0xfffffffffffff056:	73 90 02 18	csrw	satp,t0
+Continuing.
+
+Thread 2 hit Breakpoint 2, 0xfffffffffffff056 in ?? ()
+=> 0xfffffffffffff056:	73 90 02 18	csrw	satp,t0
+Continuing.
+
+Thread 2 hit Breakpoint 2, 0xfffffffffffff056 in ?? ()
+=> 0xfffffffffffff056:	73 90 02 18	csrw	satp,t0
+Continuing.
+
+Thread 2 hit Breakpoint 2, 0xfffffffffffff056 in ?? ()
+=> 0xfffffffffffff056:	73 90 02 18	csrw	satp,t0
+Continuing.
+
+Thread 2 hit Breakpoint 2, 0xfffffffffffff056 in ?? ()
+=> 0xfffffffffffff056:	73 90 02 18	csrw	satp,t0
+Continuing.
+
+Thread 2 hit Breakpoint 2, 0xfffffffffffff056 in ?? ()
+=> 0xfffffffffffff056:	73 90 02 18	csrw	satp,t0
+Continuing.
+
+Thread 2 hit Breakpoint 2, 0xfffffffffffff056 in ?? ()
+=> 0xfffffffffffff056:	73 90 02 18	csrw	satp,t0
+Continuing.
+
+Thread 2 hit Breakpoint 2, 0xfffffffffffff056 in ?? ()
+=> 0xfffffffffffff056:	73 90 02 18	csrw	satp,t0
+Continuing.
+
+Thread 2 hit Breakpoint 2, 0xfffffffffffff056 in ?? ()
+=> 0xfffffffffffff056:	73 90 02 18	csrw	satp,t0
+Continuing.
+
+Thread 2 hit Breakpoint 2, 0xfffffffffffff056 in ?? ()
+=> 0xfffffffffffff056:	73 90 02 18	csrw	satp,t0
+Continuing.
+
+Thread 2 hit Breakpoint 2, 0xfffffffffffff056 in ?? ()
+=> 0xfffffffffffff056:	73 90 02 18	csrw	satp,t0
+Continuing.
+
+Thread 2 hit Breakpoint 2, 0xfffffffffffff056 in ?? ()
+=> 0xfffffffffffff056:	73 90 02 18	csrw	satp,t0
+Continuing.
+
+Thread 2 hit Breakpoint 2, 0xfffffffffffff056 in ?? ()
+=> 0xfffffffffffff056:	73 90 02 18	csrw	satp,t0
+Continuing.
+
+Thread 2 hit Breakpoint 2, 0xfffffffffffff056 in ?? ()
+=> 0xfffffffffffff056:	73 90 02 18	csrw	satp,t0
+Continuing.
+
+Thread 2 hit Breakpoint 2, 0xfffffffffffff056 in ?? ()
+=> 0xfffffffffffff056:	73 90 02 18	csrw	satp,t0
+Continuing.
+
+Thread 2 hit Breakpoint 2, 0xfffffffffffff056 in ?? ()
+=> 0xfffffffffffff056:	73 90 02 18	csrw	satp,t0
+Continuing.
+
+Thread 2 hit Breakpoint 2, 0xfffffffffffff056 in ?? ()
+=> 0xfffffffffffff056:	73 90 02 18	csrw	satp,t0
+Continuing.
+
+Thread 2 hit Breakpoint 2, 0xfffffffffffff056 in ?? ()
+=> 0xfffffffffffff056:	73 90 02 18	csrw	satp,t0
+Continuing.
+
+Thread 2 hit Breakpoint 2, 0xfffffffffffff056 in ?? ()
+=> 0xfffffffffffff056:	73 90 02 18	csrw	satp,t0
+Continuing.
+
+Thread 2 hit Breakpoint 2, 0xfffffffffffff056 in ?? ()
+=> 0xfffffffffffff056:	73 90 02 18	csrw	satp,t0
+Continuing.
+
+Thread 2 hit Breakpoint 2, 0xfffffffffffff056 in ?? ()
+=> 0xfffffffffffff056:	73 90 02 18	csrw	satp,t0
+Continuing.
+
+Thread 2 hit Breakpoint 2, 0xfffffffffffff056 in ?? ()
+=> 0xfffffffffffff056:	73 90 02 18	csrw	satp,t0
+Continuing.
+
+Thread 2 hit Breakpoint 2, 0xfffffffffffff056 in ?? ()
+=> 0xfffffffffffff056:	73 90 02 18	csrw	satp,t0
+Continuing.
+
+Thread 2 hit Breakpoint 2, 0xfffffffffffff056 in ?? ()
+=> 0xfffffffffffff056:	73 90 02 18	csrw	satp,t0
+Continuing.
+
+Thread 2 hit Breakpoint 2, 0xfffffffffffff056 in ?? ()
+=> 0xfffffffffffff056:	73 90 02 18	csrw	satp,t0
+Continuing.
+
+Thread 2 hit Breakpoint 2, 0xfffffffffffff056 in ?? ()
+=> 0xfffffffffffff056:	73 90 02 18	csrw	satp,t0
+Continuing.
+
+Thread 2 hit Breakpoint 2, 0xfffffffffffff056 in ?? ()
+=> 0xfffffffffffff056:	73 90 02 18	csrw	satp,t0
+Continuing.
+
+Thread 2 hit Breakpoint 2, 0xfffffffffffff056 in ?? ()
+=> 0xfffffffffffff056:	73 90 02 18	csrw	satp,t0
+Continuing.
+
+Thread 2 hit Breakpoint 2, 0xfffffffffffff056 in ?? ()
+=> 0xfffffffffffff056:	73 90 02 18	csrw	satp,t0
+Continuing.
+
+Thread 2 hit Breakpoint 2, 0xfffffffffffff056 in ?? ()
+=> 0xfffffffffffff056:	73 90 02 18	csrw	satp,t0
+Continuing.
+
+Thread 2 hit Breakpoint 2, 0xfffffffffffff056 in ?? ()
+=> 0xfffffffffffff056:	73 90 02 18	csrw	satp,t0
+Continuing.
+
+Thread 2 hit Breakpoint 2, 0xfffffffffffff056 in ?? ()
+=> 0xfffffffffffff056:	73 90 02 18	csrw	satp,t0
+Continuing.
+
+Thread 2 hit Breakpoint 2, 0xfffffffffffff056 in ?? ()
+=> 0xfffffffffffff056:	73 90 02 18	csrw	satp,t0
+Continuing.
+
+Thread 2 hit Breakpoint 2, 0xfffffffffffff056 in ?? ()
+=> 0xfffffffffffff056:	73 90 02 18	csrw	satp,t0
+Continuing.
+
+Thread 2 hit Breakpoint 2, 0xfffffffffffff056 in ?? ()
+=> 0xfffffffffffff056:	73 90 02 18	csrw	satp,t0
+Continuing.
+
+Thread 2 hit Breakpoint 2, 0xfffffffffffff056 in ?? ()
+=> 0xfffffffffffff056:	73 90 02 18	csrw	satp,t0
+Continuing.
+
+Thread 2 hit Breakpoint 2, 0xfffffffffffff056 in ?? ()
+=> 0xfffffffffffff056:	73 90 02 18	csrw	satp,t0
+Continuing.
+
+Thread 2 hit Breakpoint 2, 0xfffffffffffff056 in ?? ()
+=> 0xfffffffffffff056:	73 90 02 18	csrw	satp,t0
+Continuing.
+
+Thread 2 hit Breakpoint 2, 0xfffffffffffff056 in ?? ()
+=> 0xfffffffffffff056:	73 90 02 18	csrw	satp,t0
+Continuing.
+
+Thread 2 hit Breakpoint 2, 0xfffffffffffff056 in ?? ()
+=> 0xfffffffffffff056:	73 90 02 18	csrw	satp,t0
+Continuing.
+
+Thread 2 hit Breakpoint 2, 0xfffffffffffff056 in ?? ()
+=> 0xfffffffffffff056:	73 90 02 18	csrw	satp,t0
+Continuing.
+
+Thread 2 hit Breakpoint 2, 0xfffffffffffff056 in ?? ()
+=> 0xfffffffffffff056:	73 90 02 18	csrw	satp,t0
+Continuing.
+
+Thread 2 hit Breakpoint 2, 0xfffffffffffff056 in ?? ()
+=> 0xfffffffffffff056:	73 90 02 18	csrw	satp,t0
+Continuing.
+
+Thread 2 hit Breakpoint 2, 0xfffffffffffff056 in ?? ()
+=> 0xfffffffffffff056:	73 90 02 18	csrw	satp,t0
+Continuing.
+
+Thread 2 hit Breakpoint 2, 0xfffffffffffff056 in ?? ()
+=> 0xfffffffffffff056:	73 90 02 18	csrw	satp,t0
+Continuing.
+
+Thread 2 hit Breakpoint 2, 0xfffffffffffff056 in ?? ()
+=> 0xfffffffffffff056:	73 90 02 18	csrw	satp,t0
+Continuing.
+
+Thread 2 hit Breakpoint 2, 0xfffffffffffff056 in ?? ()
+=> 0xfffffffffffff056:	73 90 02 18	csrw	satp,t0
+Continuing.
+
+Thread 2 hit Breakpoint 2, 0xfffffffffffff056 in ?? ()
+=> 0xfffffffffffff056:	73 90 02 18	csrw	satp,t0
+Continuing.
+
+Thread 2 hit Breakpoint 2, 0xfffffffffffff056 in ?? ()
+=> 0xfffffffffffff056:	73 90 02 18	csrw	satp,t0
+Continuing.
+
+Thread 2 hit Breakpoint 2, 0xfffffffffffff056 in ?? ()
+=> 0xfffffffffffff056:	73 90 02 18	csrw	satp,t0
+Continuing.
+
+Thread 2 hit Breakpoint 2, 0xfffffffffffff056 in ?? ()
+=> 0xfffffffffffff056:	73 90 02 18	csrw	satp,t0
+Continuing.
+
+Thread 2 hit Breakpoint 2, 0xfffffffffffff056 in ?? ()
+=> 0xfffffffffffff056:	73 90 02 18	csrw	satp,t0
+Continuing.
+
+Thread 2 hit Breakpoint 2, 0xfffffffffffff056 in ?? ()
+=> 0xfffffffffffff056:	73 90 02 18	csrw	satp,t0
+Continuing.
+
+Thread 2 hit Breakpoint 2, 0xfffffffffffff056 in ?? ()
+=> 0xfffffffffffff056:	73 90 02 18	csrw	satp,t0
+Continuing.
+
+Thread 2 hit Breakpoint 2, 0xfffffffffffff056 in ?? ()
+=> 0xfffffffffffff056:	73 90 02 18	csrw	satp,t0
+Continuing.
+
+Thread 2 hit Breakpoint 2, 0xfffffffffffff056 in ?? ()
+=> 0xfffffffffffff056:	73 90 02 18	csrw	satp,t0
+Continuing.
+
+Thread 2 hit Breakpoint 2, 0xfffffffffffff056 in ?? ()
+=> 0xfffffffffffff056:	73 90 02 18	csrw	satp,t0
+Continuing.
+
+Thread 2 hit Breakpoint 2, 0xfffffffffffff056 in ?? ()
+=> 0xfffffffffffff056:	73 90 02 18	csrw	satp,t0
+Continuing.
+
+Thread 2 hit Breakpoint 2, 0xfffffffffffff056 in ?? ()
+=> 0xfffffffffffff056:	73 90 02 18	csrw	satp,t0
+Continuing.
+
+Thread 2 hit Breakpoint 2, 0xfffffffffffff056 in ?? ()
+=> 0xfffffffffffff056:	73 90 02 18	csrw	satp,t0
+Continuing.
+
+Thread 2 hit Breakpoint 2, 0xfffffffffffff056 in ?? ()
+=> 0xfffffffffffff056:	73 90 02 18	csrw	satp,t0
+Continuing.
+
+Thread 2 hit Breakpoint 2, 0xfffffffffffff056 in ?? ()
+=> 0xfffffffffffff056:	73 90 02 18	csrw	satp,t0
+Continuing.
+
+Thread 2 hit Breakpoint 2, 0xfffffffffffff056 in ?? ()
+=> 0xfffffffffffff056:	73 90 02 18	csrw	satp,t0
+Continuing.
+
+Thread 2 hit Breakpoint 2, 0xfffffffffffff056 in ?? ()
+=> 0xfffffffffffff056:	73 90 02 18	csrw	satp,t0
+Continuing.
+
+Thread 2 hit Breakpoint 2, 0xfffffffffffff056 in ?? ()
+=> 0xfffffffffffff056:	73 90 02 18	csrw	satp,t0
+Continuing.
+
+Thread 2 hit Breakpoint 2, 0xfffffffffffff056 in ?? ()
+=> 0xfffffffffffff056:	73 90 02 18	csrw	satp,t0
+Continuing.
+
+Thread 2 hit Breakpoint 2, 0xfffffffffffff056 in ?? ()
+=> 0xfffffffffffff056:	73 90 02 18	csrw	satp,t0
+Continuing.
+
+Thread 2 hit Breakpoint 2, 0xfffffffffffff056 in ?? ()
+=> 0xfffffffffffff056:	73 90 02 18	csrw	satp,t0
+Continuing.
+
+Thread 2 hit Breakpoint 2, 0xfffffffffffff056 in ?? ()
+=> 0xfffffffffffff056:	73 90 02 18	csrw	satp,t0
+Continuing.
+
+Thread 2 hit Breakpoint 2, 0xfffffffffffff056 in ?? ()
+=> 0xfffffffffffff056:	73 90 02 18	csrw	satp,t0
+Continuing.
+
+Thread 2 hit Breakpoint 2, 0xfffffffffffff056 in ?? ()
+=> 0xfffffffffffff056:	73 90 02 18	csrw	satp,t0
+Continuing.
+
+Thread 2 hit Breakpoint 2, 0xfffffffffffff056 in ?? ()
+=> 0xfffffffffffff056:	73 90 02 18	csrw	satp,t0
+Continuing.
+
+Thread 2 hit Breakpoint 2, 0xfffffffffffff056 in ?? ()
+=> 0xfffffffffffff056:	73 90 02 18	csrw	satp,t0
+Continuing.
+
+Thread 2 hit Breakpoint 2, 0xfffffffffffff056 in ?? ()
+=> 0xfffffffffffff056:	73 90 02 18	csrw	satp,t0
+Continuing.
+
+Thread 2 hit Breakpoint 2, 0xfffffffffffff056 in ?? ()
+=> 0xfffffffffffff056:	73 90 02 18	csrw	satp,t0
+Continuing.
+
+Thread 2 hit Breakpoint 1, 0x0000000080206f0e in os::task::exit_current_and_run_next ()
+=> 0x0000000080206f0e <_ZN2os4task25exit_current_and_run_next17h540d2a0d1176830cE+20>:	2a 89	mv	s2,a0
+Continuing.
+
+Thread 2 hit Breakpoint 2, 0xfffffffffffff056 in ?? ()
+=> 0xfffffffffffff056:	73 90 02 18	csrw	satp,t0
+0xfffffffffffff056:	0x1200007318029073	0x0073180590738302
+0xfffffffffffff066:	0x812a140510731200	0x1002907363326292
+0xfffffffffffff076:	0x61e260a214131073	0x640673e2734272a2
+0xfffffffffffff086:	0x760665e6654664a6	0x680a77e6774676a6
+0xfffffffffffff096:	0x7a0a69ea694a68aa	0x6c0e7bea7b4a7aaa
+0xfffffffffffff0a6:	0x7e0e6dee6d4e6cae	0x61427fee7f4e7eae
+0xfffffffffffff0b6:	0x0000000010200073	0x0000000000000000
+0xfffffffffffff0c6:	0x0000000000000000	0x0000000000000000
+0xfffffffffffff0d6:	0x0000000000000000	0x0000000000000000
+0xfffffffffffff0e6:	0x0000000000000000	0x0000000000000000
+=> 0xfffffffffffff056:	csrw	satp,t0
+   0xfffffffffffff05a:	sfence.vma
+   0xfffffffffffff05e:	jr	t1
+   0xfffffffffffff060:	csrw	satp,a1
+   0xfffffffffffff064:	sfence.vma
+   0xfffffffffffff068:	csrw	sscratch,a0
+   0xfffffffffffff06c:	mv	sp,a0
+   0xfffffffffffff06e:	ld	t0,256(sp)
+   0xfffffffffffff070:	ld	t1,264(sp)
+   0xfffffffffffff072:	csrw	sstatus,t0
+   0xfffffffffffff076:	csrw	sepc,t1
+   0xfffffffffffff07a:	ld	ra,8(sp)
+   0xfffffffffffff07c:	ld	gp,24(sp)
+   0xfffffffffffff07e:	ld	t0,40(sp)
+   0xfffffffffffff080:	ld	t1,48(sp)
+   0xfffffffffffff082:	ld	t2,56(sp)
+   0xfffffffffffff084:	ld	s0,64(sp)
+   0xfffffffffffff086:	ld	s1,72(sp)
+   0xfffffffffffff088:	ld	a0,80(sp)
+   0xfffffffffffff08a:	ld	a1,88(sp)
+   0xfffffffffffff08c:	ld	a2,96(sp)
+   0xfffffffffffff08e:	ld	a3,104(sp)
+   0xfffffffffffff090:	ld	a4,112(sp)
+   0xfffffffffffff092:	ld	a5,120(sp)
+   0xfffffffffffff094:	ld	a6,128(sp)
+   0xfffffffffffff096:	ld	a7,136(sp)
+   0xfffffffffffff098:	ld	s2,144(sp)
+   0xfffffffffffff09a:	ld	s3,152(sp)
+   0xfffffffffffff09c:	ld	s4,160(sp)
+   0xfffffffffffff09e:	ld	s5,168(sp)
+   0xfffffffffffff0a0:	ld	s6,176(sp)
+   0xfffffffffffff0a2:	ld	s7,184(sp)
+   0xfffffffffffff0a4:	ld	s8,192(sp)
+   0xfffffffffffff0a6:	ld	s9,200(sp)
+   0xfffffffffffff0a8:	ld	s10,208(sp)
+   0xfffffffffffff0aa:	ld	s11,216(sp)
+   0xfffffffffffff0ac:	ld	t3,224(sp)
+   0xfffffffffffff0ae:	ld	t4,232(sp)
+   0xfffffffffffff0b0:	ld	t5,240(sp)
+   0xfffffffffffff0b2:	ld	t6,248(sp)
+   0xfffffffffffff0b4:	ld	sp,16(sp)
+   0xfffffffffffff0b6:	sret
+   0xfffffffffffff0ba:	unimp
+   0xfffffffffffff0bc:	unimp
+   0xfffffffffffff0be:	unimp
+   0xfffffffffffff0c0:	unimp
+   0xfffffffffffff0c2:	unimp
+   0xfffffffffffff0c4:	unimp
+   0xfffffffffffff0c6:	unimp
+   0xfffffffffffff0c8:	unimp
+   0xfffffffffffff0ca:	unimp
+   0xfffffffffffff0cc:	unimp
+   0xfffffffffffff0ce:	unimp
+   0xfffffffffffff0d0:	unimp
+   0xfffffffffffff0d2:	unimp
+   0xfffffffffffff0d4:	unimp
+   0xfffffffffffff0d6:	unimp
+   0xfffffffffffff0d8:	unimp
+   0xfffffffffffff0da:	unimp
+   0xfffffffffffff0dc:	unimp
+   0xfffffffffffff0de:	unimp
+   0xfffffffffffff0e0:	unimp
+   0xfffffffffffff0e2:	unimp
+   0xfffffffffffff0e4:	unimp
+   0xfffffffffffff0e6:	unimp
+   0xfffffffffffff0e8:	unimp
+   0xfffffffffffff0ea:	unimp
+   0xfffffffffffff0ec:	unimp
+   0xfffffffffffff0ee:	unimp
+   0xfffffffffffff0f0:	unimp
+   0xfffffffffffff0f2:	unimp
+   0xfffffffffffff0f4:	unimp
+   0xfffffffffffff0f6:	unimp
+   0xfffffffffffff0f8:	unimp
+   0xfffffffffffff0fa:	unimp
+   0xfffffffffffff0fc:	unimp
+   0xfffffffffffff0fe:	unimp
+   0xfffffffffffff100:	unimp
+   0xfffffffffffff102:	unimp
+   0xfffffffffffff104:	unimp
+   0xfffffffffffff106:	unimp
+   0xfffffffffffff108:	unimp
+   0xfffffffffffff10a:	unimp
+   0xfffffffffffff10c:	unimp
+   0xfffffffffffff10e:	unimp
+   0xfffffffffffff110:	unimp
+   0xfffffffffffff112:	unimp
+   0xfffffffffffff114:	unimp
+   0xfffffffffffff116:	unimp
+   0xfffffffffffff118:	unimp
+   0xfffffffffffff11a:	unimp
+   0xfffffffffffff11c:	unimp
+   0xfffffffffffff11e:	unimp
+   0xfffffffffffff120:	unimp
+   0xfffffffffffff122:	unimp
+   0xfffffffffffff124:	unimp
+   0xfffffffffffff126:	unimp
+   0xfffffffffffff128:	unimp
+   0xfffffffffffff12a:	unimp
+   0xfffffffffffff12c:	unimp
+0xfffffffffffff05a in ?? ()
+=> 0xfffffffffffff05a:	Cannot access memory at address 0xfffffffffffff05a
+0xfffffffffffff05e in ?? ()
+=> 0xfffffffffffff05e:	Cannot access memory at address 0xfffffffffffff05e
+0xfffffffffffff000 in ?? ()
+=> 0xfffffffffffff000:	Cannot access memory at address 0xfffffffffffff000
+0xfffffffffffff000 in ?? ()
+=> 0xfffffffffffff000:	Cannot access memory at address 0xfffffffffffff000
+0xfffffffffffff000 in ?? ()
+=> 0xfffffffffffff000:	Cannot access memory at address 0xfffffffffffff000
+0xfffffffffffff000 in ?? ()
+=> 0xfffffffffffff000:	Cannot access memory at address 0xfffffffffffff000
+0xfffffffffffff000 in ?? ()
+=> 0xfffffffffffff000:	Cannot access memory at address 0xfffffffffffff000
+0xfffffffffffff000 in ?? ()
+=> 0xfffffffffffff000:	Cannot access memory at address 0xfffffffffffff000
+0xfffffffffffff056:	Cannot access memory at address 0xfffffffffffff056
+ra             0x802173c8	0x802173c8 <core::fmt::write+298>
+sp             0x8021ab48	0x8021ab48 <.Lanon.0615948ddf514ca455c3fdc7f7063386.42>
+gp             0x0	0x0
+tp             0x1	0x1
+t0             0x80241dd8	2149850584
+t1             0x852623c8	2233869256
+t2             0x86147b88	2249489288
+fp             0x80241c40	0x80241c40
+s1             0x0	0
+a0             0x80241cd8	2149850328
+a1             0x23054100850593da	2523494636698571738
+a2             0x23f4b43023fca434	2590893804500067380
+a3             0x8020b8de	2149628126
+a4             0x0	0
+a5             0x46f9f530a902380e	5114388441198639118
+a6             0xf0	240
+a7             0x1	1
+s2             0x2	2
+s3             0x1	1
+s4             0xff	255
+s5             0x80241d80	2149850496
+s6             0xff	255
+s7             0x8021961c	2149684764
+s8             0x1	1
+s9             0x2	2
+s10            0x80241d90	2149850512
+s11            0x3	3
+t3             0xffffffffffffffff	-1
+t4             0x6	6
+t5             0x0	0
+t6             0x0	0
+pc             0xfffffffffffff000	0xfffffffffffff000
+$1 = 0x80241dd8
+zero           0x0	0
+ra             0x802173c8	0x802173c8 <core::fmt::write+298>
+sp             0x8021ab48	0x8021ab48 <.Lanon.0615948ddf514ca455c3fdc7f7063386.42>
+gp             0x0	0x0
+tp             0x1	0x1
+t0             0x80241dd8	2149850584
+t1             0x852623c8	2233869256
+t2             0x86147b88	2249489288
+fp             0x80241c40	0x80241c40
+s1             0x0	0
+a0             0x80241cd8	2149850328
+a1             0x23054100850593da	2523494636698571738
+a2             0x23f4b43023fca434	2590893804500067380
+a3             0x8020b8de	2149628126
+a4             0x0	0
+a5             0x46f9f530a902380e	5114388441198639118
+a6             0xf0	240
+a7             0x1	1
+s2             0x2	2
+s3             0x1	1
+s4             0xff	255
+s5             0x80241d80	2149850496
+s6             0xff	255
+s7             0x8021961c	2149684764
+s8             0x1	1
+s9             0x2	2
+s10            0x80241d90	2149850512
+s11            0x3	3
+t3             0xffffffffffffffff	-1
+t4             0x6	6
+t5             0x0	0
+t6             0x0	0
+pc             0xfffffffffffff000	0xfffffffffffff000
+ft0            {float = 0, double = 0}	(raw 0x0000000000000000)
+ft1            {float = 0, double = 0}	(raw 0x0000000000000000)
+ft2            {float = 0, double = 0}	(raw 0x0000000000000000)
+ft3            {float = 0, double = 0}	(raw 0x0000000000000000)
+ft4            {float = 0, double = 0}	(raw 0x0000000000000000)
+ft5            {float = 0, double = 0}	(raw 0x0000000000000000)
+ft6            {float = 0, double = 0}	(raw 0x0000000000000000)
+ft7            {float = 0, double = 0}	(raw 0x0000000000000000)
+fs0            {float = 0, double = 0}	(raw 0x0000000000000000)
+fs1            {float = 0, double = 0}	(raw 0x0000000000000000)
+fa0            {float = 0, double = 0}	(raw 0x0000000000000000)
+fa1            {float = 0, double = 0}	(raw 0x0000000000000000)
+fa2            {float = 0, double = 0}	(raw 0x0000000000000000)
+fa3            {float = 0, double = 0}	(raw 0x0000000000000000)
+fa4            {float = 0, double = 0}	(raw 0x0000000000000000)
+fa5            {float = 0, double = 0}	(raw 0x0000000000000000)
+fa6            {float = 0, double = 0}	(raw 0x0000000000000000)
+fa7            {float = 0, double = 0}	(raw 0x0000000000000000)
+fs2            {float = 0, double = 0}	(raw 0x0000000000000000)
+fs3            {float = 0, double = 0}	(raw 0x0000000000000000)
+fs4            {float = 0, double = 0}	(raw 0x0000000000000000)
+fs5            {float = 0, double = 0}	(raw 0x0000000000000000)
+fs6            {float = 0, double = 0}	(raw 0x0000000000000000)
+fs7            {float = 0, double = 0}	(raw 0x0000000000000000)
+fs8            {float = 0, double = 0}	(raw 0x0000000000000000)
+fs9            {float = 0, double = 0}	(raw 0x0000000000000000)
+fs10           {float = 0, double = 0}	(raw 0x0000000000000000)
+fs11           {float = 0, double = 0}	(raw 0x0000000000000000)
+ft8            {float = 0, double = 0}	(raw 0x0000000000000000)
+ft9            {float = 0, double = 0}	(raw 0x0000000000000000)
+ft10           {float = 0, double = 0}	(raw 0x0000000000000000)
+ft11           {float = 0, double = 0}	(raw 0x0000000000000000)
+ustatus        Could not fetch register "ustatus"; remote failure reply 'E14'
+fflags         0x0	RD:0 NV:0 DZ:0 OF:0 UF:0 NX:0
+frm            0x0	FRM:0 [RNE (round to nearest; ties to even)]
+fcsr           0x0	RD:0 NV:0 DZ:0 OF:0 UF:0 NX:0 FRM:0 [RNE (round to nearest; ties to even)]
+uie            Could not fetch register "uie"; remote failure reply 'E14'
+utvec          Could not fetch register "utvec"; remote failure reply 'E14'
+uscratch       Could not fetch register "uscratch"; remote failure reply 'E14'
+uepc           Could not fetch register "uepc"; remote failure reply 'E14'
+ucause         Could not fetch register "ucause"; remote failure reply 'E14'
+utval          Could not fetch register "utval"; remote failure reply 'E14'
+uip            Could not fetch register "uip"; remote failure reply 'E14'
+sstatus        0x100	256
+sedeleg        Could not fetch register "sedeleg"; remote failure reply 'E14'
+sideleg        Could not fetch register "sideleg"; remote failure reply 'E14'
+sie            0x20	32
+stvec          0xfffffffffffff000	-4096
+scounteren     0x0	0
+sscratch       0x86147b88	2249489288
+sepc           0xfffffffffffff000	-4096
+scause         0x5	5
+stval          0xfffffffffffff000	-4096
+sip            0x20	32
+satp           0x80241dd8	2149850584
+hstatus        Could not fetch register "hstatus"; remote failure reply 'E14'
+hedeleg        Could not fetch register "hedeleg"; remote failure reply 'E14'
+hideleg        Could not fetch register "hideleg"; remote failure reply 'E14'
+hie            Could not fetch register "hie"; remote failure reply 'E14'
+htvec          Could not fetch register "htvec"; remote failure reply 'E14'
+hscratch       Could not fetch register "hscratch"; remote failure reply 'E14'
+hepc           Could not fetch register "hepc"; remote failure reply 'E14'
+hcause         Could not fetch register "hcause"; remote failure reply 'E14'
+hbadaddr       Could not fetch register "hbadaddr"; remote failure reply 'E14'
+hip            Could not fetch register "hip"; remote failure reply 'E14'
+mstatus        0x180	SD:0 VM:00 MXR:0 PUM:0 MPRV:0 XS:0 FS:0 MPP:0 HPP:0 SPP:1 MPIE:1 HPIE:0 SPIE:0 UPIE:0 MIE:0 HIE:0 SIE:0 UIE:0
+misa           0x800000000014112d	RV64ACDFIMSU
+medeleg        0xb1a3	45475
+mideleg        0x222	546
+mie            0x828	2088
+mtvec          0x800011ec	2147488236
+mcounteren     0x0	0
+mucounteren    Could not fetch register "mucounteren"; remote failure reply 'E14'
+mscounteren    Could not fetch register "mscounteren"; remote failure reply 'E14'
+mhcounteren    0x0	0
+mhpmevent3     Could not fetch register "mhpmevent3"; remote failure reply 'E14'
+mhpmevent4     Could not fetch register "mhpmevent4"; remote failure reply 'E14'
+mhpmevent5     0x0	0
+mhpmevent6     0x0	0
+mhpmevent7     0x0	0
+mhpmevent8     0x0	0
+mhpmevent9     0x0	0
+mhpmevent10    0x0	0
+mhpmevent11    0x0	0
+mhpmevent12    0x0	0
+mhpmevent13    0x0	0
+mhpmevent14    0x0	0
+mhpmevent15    0x0	0
+mhpmevent16    0x0	0
+mhpmevent17    0x0	0
+mhpmevent18    0x0	0
+mhpmevent19    0x0	0
+mhpmevent20    0x0	0
+mhpmevent21    0x0	0
+mhpmevent22    0x0	0
+mhpmevent23    0x0	0
+mhpmevent24    0x0	0
+mhpmevent25    0x0	0
+mhpmevent26    0x0	0
+mhpmevent27    0x0	0
+mhpmevent28    0x0	0
+mhpmevent29    0x0	0
+mhpmevent30    0x0	0
+mhpmevent31    0x0	0
+mscratch       0x80016d98	2147577240
+mepc           0x8020b910	2149628176
+mcause         0x9	9
+mtval          0x0	0
+mip            0xa0	160
+mbase          Could not fetch register "mbase"; remote failure reply 'E14'
+mbound         Could not fetch register "mbound"; remote failure reply 'E14'
+mibase         Could not fetch register "mibase"; remote failure reply 'E14'
+mibound        Could not fetch register "mibound"; remote failure reply 'E14'
+mdbase         Could not fetch register "mdbase"; remote failure reply 'E14'
+mdbound        Could not fetch register "mdbound"; remote failure reply 'E14'
+pmpcfg0        Could not fetch register "pmpcfg0"; remote failure reply 'E14'
+pmpcfg1        Could not fetch register "pmpcfg1"; remote failure reply 'E14'
+pmpcfg2        0x1f	31
+pmpcfg3        0x0	0
+pmpaddr0       0x0	0
+pmpaddr1       0x0	0
+pmpaddr2       0xffffffffffffffff	-1
+pmpaddr3       0x23ffffff	603979775
+pmpaddr4       0x0	0
+pmpaddr5       0x0	0
+pmpaddr6       0x0	0
+pmpaddr7       0x0	0
+pmpaddr8       0x0	0
+pmpaddr9       0x0	0
+pmpaddr10      0x0	0
+pmpaddr11      0x0	0
+pmpaddr12      0x0	0
+pmpaddr13      0x0	0
+pmpaddr14      0x0	0
+pmpaddr15      0x0	0
+tselect        0x0	0
+tdata1         0x0	0
+tdata2         Could not fetch register "tdata2"; remote failure reply 'E14'
+tdata3         Could not fetch register "tdata3"; remote failure reply 'E14'
+dcsr           Could not fetch register "dcsr"; remote failure reply 'E14'
+dpc            Could not fetch register "dpc"; remote failure reply 'E14'
+dscratch       Could not fetch register "dscratch"; remote failure reply 'E14'
+mcycle         0x0	0
+minstret       0x0	0
+mhpmcounter3   0xddc7cf32645	15240640276037
+mhpmcounter4   0xddc7d68f19d	15240647995805
+mhpmcounter5   0x0	0
+mhpmcounter6   0x0	0
+mhpmcounter7   0x0	0
+mhpmcounter8   0x0	0
+mhpmcounter9   0x0	0
+mhpmcounter10  0x0	0
+mhpmcounter11  0x0	0
+mhpmcounter12  0x0	0
+mhpmcounter13  0x0	0
+mhpmcounter14  0x0	0
+mhpmcounter15  0x0	0
+mhpmcounter16  0x0	0
+mhpmcounter17  0x0	0
+mhpmcounter18  0x0	0
+mhpmcounter19  0x0	0
+mhpmcounter20  0x0	0
+mhpmcounter21  0x0	0
+mhpmcounter22  0x0	0
+mhpmcounter23  0x0	0
+mhpmcounter24  0x0	0
+mhpmcounter25  0x0	0
+mhpmcounter26  0x0	0
+mhpmcounter27  0x0	0
+mhpmcounter28  0x0	0
+mhpmcounter29  0x0	0
+mhpmcounter30  0x0	0
+mhpmcounter31  0x0	0
+mcycleh        0x0	0
+minstreth      0x0	0
+mhpmcounter3h  Could not fetch register "mhpmcounter3h"; remote failure reply 'E14'
+mhpmcounter4h  Could not fetch register "mhpmcounter4h"; remote failure reply 'E14'
+mhpmcounter5h  Could not fetch register "mhpmcounter5h"; remote failure reply 'E14'
+mhpmcounter6h  Could not fetch register "mhpmcounter6h"; remote failure reply 'E14'
+mhpmcounter7h  Could not fetch register "mhpmcounter7h"; remote failure reply 'E14'
+mhpmcounter8h  Could not fetch register "mhpmcounter8h"; remote failure reply 'E14'
+mhpmcounter9h  Could not fetch register "mhpmcounter9h"; remote failure reply 'E14'
+mhpmcounter10h Could not fetch register "mhpmcounter10h"; remote failure reply 'E14'
+mhpmcounter11h Could not fetch register "mhpmcounter11h"; remote failure reply 'E14'
+mhpmcounter12h Could not fetch register "mhpmcounter12h"; remote failure reply 'E14'
+mhpmcounter13h Could not fetch register "mhpmcounter13h"; remote failure reply 'E14'
+mhpmcounter14h Could not fetch register "mhpmcounter14h"; remote failure reply 'E14'
+mhpmcounter15h Could not fetch register "mhpmcounter15h"; remote failure reply 'E14'
+mhpmcounter16h Could not fetch register "mhpmcounter16h"; remote failure reply 'E14'
+mhpmcounter17h Could not fetch register "mhpmcounter17h"; remote failure reply 'E14'
+mhpmcounter18h Could not fetch register "mhpmcounter18h"; remote failure reply 'E14'
+mhpmcounter19h Could not fetch register "mhpmcounter19h"; remote failure reply 'E14'
+mhpmcounter20h Could not fetch register "mhpmcounter20h"; remote failure reply 'E14'
+mhpmcounter21h Could not fetch register "mhpmcounter21h"; remote failure reply 'E14'
+mhpmcounter22h Could not fetch register "mhpmcounter22h"; remote failure reply 'E14'
+mhpmcounter23h Could not fetch register "mhpmcounter23h"; remote failure reply 'E14'
+mhpmcounter24h Could not fetch register "mhpmcounter24h"; remote failure reply 'E14'
+mhpmcounter25h Could not fetch register "mhpmcounter25h"; remote failure reply 'E14'
+mhpmcounter26h Could not fetch register "mhpmcounter26h"; remote failure reply 'E14'
+mhpmcounter27h Could not fetch register "mhpmcounter27h"; remote failure reply 'E14'
+mhpmcounter28h Could not fetch register "mhpmcounter28h"; remote failure reply 'E14'
+mhpmcounter29h Could not fetch register "mhpmcounter29h"; remote failure reply 'E14'
+mhpmcounter30h Could not fetch register "mhpmcounter30h"; remote failure reply 'E14'
+mhpmcounter31h Could not fetch register "mhpmcounter31h"; remote failure reply 'E14'
+cycle          0xddc9cb74052	15241173221458
+time           0xe354ca9	238374057
+instret        0xddc9d94c206	15241187738118
+hpmcounter3    0x0	0
+hpmcounter4    0x0	0
+hpmcounter5    0x0	0
+hpmcounter6    0x0	0
+hpmcounter7    0x0	0
+hpmcounter8    0x0	0
+hpmcounter9    0x0	0
+hpmcounter10   0x0	0
+hpmcounter11   0x0	0
+hpmcounter12   0x0	0
+hpmcounter13   0x0	0
+hpmcounter14   0x0	0
+hpmcounter15   0x0	0
+hpmcounter16   0x0	0
+hpmcounter17   0x0	0
+hpmcounter18   0x0	0
+hpmcounter19   0x0	0
+hpmcounter20   0x0	0
+hpmcounter21   0x0	0
+hpmcounter22   0x0	0
+hpmcounter23   0x0	0
+hpmcounter24   0x0	0
+hpmcounter25   0x0	0
+hpmcounter26   0x0	0
+hpmcounter27   0x0	0
+hpmcounter28   0x0	0
+hpmcounter29   0x0	0
+hpmcounter30   0x0	0
+hpmcounter31   0x0	0
+cycleh         Could not fetch register "cycleh"; remote failure reply 'E14'
+timeh          Could not fetch register "timeh"; remote failure reply 'E14'
+instreth       Could not fetch register "instreth"; remote failure reply 'E14'
+hpmcounter3h   Could not fetch register "hpmcounter3h"; remote failure reply 'E14'
+hpmcounter4h   Could not fetch register "hpmcounter4h"; remote failure reply 'E14'
+hpmcounter5h   Could not fetch register "hpmcounter5h"; remote failure reply 'E14'
+hpmcounter6h   Could not fetch register "hpmcounter6h"; remote failure reply 'E14'
+hpmcounter7h   Could not fetch register "hpmcounter7h"; remote failure reply 'E14'
+hpmcounter8h   Could not fetch register "hpmcounter8h"; remote failure reply 'E14'
+hpmcounter9h   Could not fetch register "hpmcounter9h"; remote failure reply 'E14'
+hpmcounter10h  Could not fetch register "hpmcounter10h"; remote failure reply 'E14'
+hpmcounter11h  Could not fetch register "hpmcounter11h"; remote failure reply 'E14'
+hpmcounter12h  Could not fetch register "hpmcounter12h"; remote failure reply 'E14'
+hpmcounter13h  Could not fetch register "hpmcounter13h"; remote failure reply 'E14'
+hpmcounter14h  Could not fetch register "hpmcounter14h"; remote failure reply 'E14'
+hpmcounter15h  Could not fetch register "hpmcounter15h"; remote failure reply 'E14'
+hpmcounter16h  Could not fetch register "hpmcounter16h"; remote failure reply 'E14'
+hpmcounter17h  Could not fetch register "hpmcounter17h"; remote failure reply 'E14'
+hpmcounter18h  Could not fetch register "hpmcounter18h"; remote failure reply 'E14'
+hpmcounter19h  Could not fetch register "hpmcounter19h"; remote failure reply 'E14'
+hpmcounter20h  Could not fetch register "hpmcounter20h"; remote failure reply 'E14'
+hpmcounter21h  Could not fetch register "hpmcounter21h"; remote failure reply 'E14'
+hpmcounter22h  Could not fetch register "hpmcounter22h"; remote failure reply 'E14'
+hpmcounter23h  Could not fetch register "hpmcounter23h"; remote failure reply 'E14'
+hpmcounter24h  Could not fetch register "hpmcounter24h"; remote failure reply 'E14'
+hpmcounter25h  Could not fetch register "hpmcounter25h"; remote failure reply 'E14'
+hpmcounter26h  Could not fetch register "hpmcounter26h"; remote failure reply 'E14'
+hpmcounter27h  Could not fetch register "hpmcounter27h"; remote failure reply 'E14'
+hpmcounter28h  Could not fetch register "hpmcounter28h"; remote failure reply 'E14'
+hpmcounter29h  Could not fetch register "hpmcounter29h"; remote failure reply 'E14'
+hpmcounter30h  Could not fetch register "hpmcounter30h"; remote failure reply 'E14'
+hpmcounter31h  Could not fetch register "hpmcounter31h"; remote failure reply 'E14'
+mvendorid      0x0	0
+marchid        0x0	0
+mimpid         0x0	0
+mhartid        0x1	1
+priv           0x1	prv:1 [Supervisor]
+0xfffffffffffff000 in ?? ()
+=> 0xfffffffffffff000:	Cannot access memory at address 0xfffffffffffff000
+0xfffffffffffff000 in ?? ()
+=> 0xfffffffffffff000:	Cannot access memory at address 0xfffffffffffff000
+0xfffffffffffff000 in ?? ()
+=> 0xfffffffffffff000:	Cannot access memory at address 0xfffffffffffff000
+0xfffffffffffff000 in ?? ()
+=> 0xfffffffffffff000:	Cannot access memory at address 0xfffffffffffff000
+0xfffffffffffff000 in ?? ()
+=> 0xfffffffffffff000:	Cannot access memory at address 0xfffffffffffff000
+0xfffffffffffff000 in ?? ()
+=> 0xfffffffffffff000:	Cannot access memory at address 0xfffffffffffff000
+0xfffffffffffff000 in ?? ()
+=> 0xfffffffffffff000:	Cannot access memory at address 0xfffffffffffff000
+0xfffffffffffff000 in ?? ()
+=> 0xfffffffffffff000:	Cannot access memory at address 0xfffffffffffff000
+0xfffffffffffff000 in ?? ()
+=> 0xfffffffffffff000:	Cannot access memory at address 0xfffffffffffff000
+0xfffffffffffff000 in ?? ()
+=> 0xfffffffffffff000:	Cannot access memory at address 0xfffffffffffff000
+Detaching from program: D:\z\2\new\c\os\target\riscv64gc-unknown-none-elf\release\os, process 1
+Ending remote debugging.
+[Inferior 1 (process 1) detached]
+0x0000000000001000 in ?? ()
+=> 0x0000000000001000:	97 02 00 00	auipc	t0,0x0
+Breakpoint 1 at 0x80206f0e
+sending: "Qqemu.PhyMemMode:1"
+received: "OK"
+Breakpoint 2 at 0xfffffffffffff056
+Continuing.
+[Switching to Thread 1.2]
+
+Thread 2 hit Breakpoint 2, 0xfffffffffffff056 in ?? ()
+=> 0xfffffffffffff056:	00 00	unimp
+Note: breakpoint 1 also set at pc 0x80206f0e.
+Breakpoint 3 at 0x80206f0e
+Breakpoint 4 at 0x80206f0e
+Continuing.
+[Switching to Thread 1.1]
+
+Thread 1 hit Breakpoint 4, 0x0000000080206f0e in os::task::exit_current_and_run_next ()
+=> 0x0000000080206f0e <_ZN2os4task25exit_current_and_run_next17h540d2a0d1176830cE+20>:	2a 89	mv	s2,a0
+#0  0x0000000080206f0e in os::task::exit_current_and_run_next ()
+#1  0x000000008020a394 in os::syscall::process::sys_exit ()
+Backtrace stopped: frame did not save the PC
+0x0000000080206f10 in os::task::exit_current_and_run_next ()
+=> 0x0000000080206f10 <_ZN2os4task25exit_current_and_run_next17h540d2a0d1176830cE+22>:	17 b5 05 00	auipc	a0,0x5b
+Function "schedule" not defined.
+Continuing.
+
+Thread 1 received signal SIGINT, Interrupt.
+0xfffffffffffff000 in ?? ()
+=> 0xfffffffffffff000:	00 00	unimp
+Detaching from program: D:\z\2\new\c\os\target\riscv64gc-unknown-none-elf\release\os, process 1
+Remote communication error.  Target disconnected.: Success.
+0x0000000000001000 in ?? ()
+=> 0x0000000000001000:	97 02 00 00	auipc	t0,0x0
+Breakpoint 1 at 0x80206f0e
+sending: "Qqemu.PhyMemMode:1"
+received: "OK"
+Breakpoint 2 at 0x80206f0e
+
+Thread 1 hit Breakpoint 1, 0x0000000080206f0e in os::task::exit_current_and_run_next ()
+=> 0x0000000080206f0e <_ZN2os4task25exit_current_and_run_next17h540d2a0d1176830cE+20>:	2a 89	mv	s2,a0
+
+Thread 1 received signal SIGINT, Interrupt.
+0xfffffffffffff000 in ?? ()
+=> 0xfffffffffffff000:	00 00	unimp
+Breakpoint 3 at 0xfffffffffffff056
+Detaching from program: D:\z\2\new\c\os\target\riscv64gc-unknown-none-elf\release\os, process 1
+Remote communication error.  Target disconnected.: No such file or directory.
+0x0000000000001000 in ?? ()
+=> 0x0000000000001000:	97 02 00 00	auipc	t0,0x0
+Breakpoint 1 at 0x80206f0e
+sending: "Qqemu.PhyMemMode:1"
+received: "OK"
+Breakpoint 2 at 0x80206f0e
+
+Thread 1 hit Breakpoint 1, 0x0000000080206f0e in os::task::exit_current_and_run_next ()
+=> 0x0000000080206f0e <_ZN2os4task25exit_current_and_run_next17h540d2a0d1176830cE+20>:	2a 89	mv	s2,a0
+Breakpoint 3 at 0xfffffffffffff056
+zero           0x0	0
+ra             0x8020a394	0x8020a394 <os::syscall::process::sys_exit+126>
+sp             0xffffffffffff5d40	0xffffffffffff5d40
+gp             0x0	0x0
+tp             0x0	0x0
+t0             0x1c0000	1835008
+t1             0x110000	1114112
+t2             0xdf	223
+fp             0xffffffffffff5e60	0xffffffffffff5e60
+s1             0x0	0
+a0             0x0	0
+a1             0x8021c052	2149695570
+a2             0x0	0
+a3             0x8021c052	2149695570
+a4             0x1	1
+a5             0x8021c052	2149695570
+a6             0xf0	240
+a7             0x1	1
+s2             0x0	0
+s3             0x0	0
+s4             0x0	0
+s5             0x0	0
+s6             0x0	0
+s7             0x0	0
+s8             0x0	0
+s9             0x0	0
+s10            0x0	0
+s11            0x0	0
+t3             0xffffffffffffffff	-1
+t4             0x4	4
+t5             0x0	0
+t6             0x0	0
+pc             0x80206f0e	0x80206f0e <os::task::exit_current_and_run_next+20>
+ft0            {float = 0, double = 0}	(raw 0x0000000000000000)
+ft1            {float = 0, double = 0}	(raw 0x0000000000000000)
+ft2            {float = 0, double = 0}	(raw 0x0000000000000000)
+ft3            {float = 0, double = 0}	(raw 0x0000000000000000)
+ft4            {float = 0, double = 0}	(raw 0x0000000000000000)
+ft5            {float = 0, double = 0}	(raw 0x0000000000000000)
+ft6            {float = 0, double = 0}	(raw 0x0000000000000000)
+ft7            {float = 0, double = 0}	(raw 0x0000000000000000)
+fs0            {float = 0, double = 0}	(raw 0x0000000000000000)
+fs1            {float = 0, double = 0}	(raw 0x0000000000000000)
+fa0            {float = 0, double = 0}	(raw 0x0000000000000000)
+fa1            {float = 0, double = 0}	(raw 0x0000000000000000)
+fa2            {float = 0, double = 0}	(raw 0x0000000000000000)
+fa3            {float = 0, double = 0}	(raw 0x0000000000000000)
+fa4            {float = 0, double = 0}	(raw 0x0000000000000000)
+fa5            {float = 0, double = 0}	(raw 0x0000000000000000)
+fa6            {float = 0, double = 0}	(raw 0x0000000000000000)
+fa7            {float = 0, double = 0}	(raw 0x0000000000000000)
+fs2            {float = 0, double = 0}	(raw 0x0000000000000000)
+fs3            {float = 0, double = 0}	(raw 0x0000000000000000)
+fs4            {float = 0, double = 0}	(raw 0x0000000000000000)
+fs5            {float = 0, double = 0}	(raw 0x0000000000000000)
+fs6            {float = 0, double = 0}	(raw 0x0000000000000000)
+fs7            {float = 0, double = 0}	(raw 0x0000000000000000)
+fs8            {float = 0, double = 0}	(raw 0x0000000000000000)
+fs9            {float = 0, double = 0}	(raw 0x0000000000000000)
+fs10           {float = 0, double = 0}	(raw 0x0000000000000000)
+fs11           {float = 0, double = 0}	(raw 0x0000000000000000)
+ft8            {float = 0, double = 0}	(raw 0x0000000000000000)
+ft9            {float = 0, double = 0}	(raw 0x0000000000000000)
+ft10           {float = 0, double = 0}	(raw 0x0000000000000000)
+ft11           {float = 0, double = 0}	(raw 0x0000000000000000)
+ustatus        Could not fetch register "ustatus"; remote failure reply 'E14'
+fflags         0x0	RD:0 NV:0 DZ:0 OF:0 UF:0 NX:0
+frm            0x0	FRM:0 [RNE (round to nearest; ties to even)]
+fcsr           0x0	RD:0 NV:0 DZ:0 OF:0 UF:0 NX:0 FRM:0 [RNE (round to nearest; ties to even)]
+uie            Could not fetch register "uie"; remote failure reply 'E14'
+utvec          Could not fetch register "utvec"; remote failure reply 'E14'
+uscratch       Could not fetch register "uscratch"; remote failure reply 'E14'
+uepc           Could not fetch register "uepc"; remote failure reply 'E14'
+ucause         Could not fetch register "ucause"; remote failure reply 'E14'
+utval          Could not fetch register "utval"; remote failure reply 'E14'
+uip            Could not fetch register "uip"; remote failure reply 'E14'
+sstatus        0x0	0
+sedeleg        Could not fetch register "sedeleg"; remote failure reply 'E14'
+sideleg        Could not fetch register "sideleg"; remote failure reply 'E14'
+sie            0x20	32
+stvec          0xfffffffffffff000	-4096
+scounteren     0x0	0
+sscratch       0x86147b88	2249489288
+sepc           0x8600f7da	2248210394
+scause         0x8	8
+stval          0x0	0
+sip            0x0	0
+satp           0x8000000000085263	-9223372036854230429
+hstatus        Could not fetch register "hstatus"; remote failure reply 'E14'
+hedeleg        Could not fetch register "hedeleg"; remote failure reply 'E14'
+hideleg        Could not fetch register "hideleg"; remote failure reply 'E14'
+hie            Could not fetch register "hie"; remote failure reply 'E14'
+htvec          Could not fetch register "htvec"; remote failure reply 'E14'
+hscratch       Could not fetch register "hscratch"; remote failure reply 'E14'
+hepc           Could not fetch register "hepc"; remote failure reply 'E14'
+hcause         Could not fetch register "hcause"; remote failure reply 'E14'
+hbadaddr       Could not fetch register "hbadaddr"; remote failure reply 'E14'
+hip            Could not fetch register "hip"; remote failure reply 'E14'
+mstatus        0x80	SD:0 VM:00 MXR:0 PUM:0 MPRV:0 XS:0 FS:0 MPP:0 HPP:0 SPP:0 MPIE:1 HPIE:0 SPIE:0 UPIE:0 MIE:0 HIE:0 SIE:0 UIE:0
+misa           0x800000000014112d	RV64ACDFIMSU
+medeleg        0xb1a3	45475
+mideleg        0x222	546
+mie            0x8a8	2216
+mtvec          0x800011ec	2147488236
+mcounteren     0x0	0
+mucounteren    Could not fetch register "mucounteren"; remote failure reply 'E14'
+mscounteren    Could not fetch register "mscounteren"; remote failure reply 'E14'
+mhcounteren    0x0	0
+mhpmevent3     Could not fetch register "mhpmevent3"; remote failure reply 'E14'
+mhpmevent4     Could not fetch register "mhpmevent4"; remote failure reply 'E14'
+mhpmevent5     0x0	0
+mhpmevent6     0x0	0
+mhpmevent7     0x0	0
+mhpmevent8     0x0	0
+mhpmevent9     0x0	0
+mhpmevent10    0x0	0
+mhpmevent11    0x0	0
+mhpmevent12    0x0	0
+mhpmevent13    0x0	0
+mhpmevent14    0x0	0
+mhpmevent15    0x0	0
+mhpmevent16    0x0	0
+mhpmevent17    0x0	0
+mhpmevent18    0x0	0
+mhpmevent19    0x0	0
+mhpmevent20    0x0	0
+mhpmevent21    0x0	0
+mhpmevent22    0x0	0
+mhpmevent23    0x0	0
+mhpmevent24    0x0	0
+mhpmevent25    0x0	0
+mhpmevent26    0x0	0
+mhpmevent27    0x0	0
+mhpmevent28    0x0	0
+mhpmevent29    0x0	0
+mhpmevent30    0x0	0
+mhpmevent31    0x0	0
+mscratch       0x80012d98	2147560856
+mepc           0x8020b910	2149628176
+mcause         0x9	9
+mtval          0x0	0
+mip            0x0	0
+mbase          Could not fetch register "mbase"; remote failure reply 'E14'
+mbound         Could not fetch register "mbound"; remote failure reply 'E14'
+mibase         Could not fetch register "mibase"; remote failure reply 'E14'
+mibound        Could not fetch register "mibound"; remote failure reply 'E14'
+mdbase         Could not fetch register "mdbase"; remote failure reply 'E14'
+mdbound        Could not fetch register "mdbound"; remote failure reply 'E14'
+pmpcfg0        Could not fetch register "pmpcfg0"; remote failure reply 'E14'
+pmpcfg1        Could not fetch register "pmpcfg1"; remote failure reply 'E14'
+pmpcfg2        0x1f	31
+pmpcfg3        0x0	0
+pmpaddr0       0x0	0
+pmpaddr1       0x0	0
+pmpaddr2       0xffffffffffffffff	-1
+pmpaddr3       0x23ffffff	603979775
+pmpaddr4       0x0	0
+pmpaddr5       0x0	0
+pmpaddr6       0x0	0
+pmpaddr7       0x0	0
+pmpaddr8       0x0	0
+pmpaddr9       0x0	0
+pmpaddr10      0x0	0
+pmpaddr11      0x0	0
+pmpaddr12      0x0	0
+pmpaddr13      0x0	0
+pmpaddr14      0x0	0
+pmpaddr15      0x0	0
+tselect        0x0	0
+tdata1         0x0	0
+tdata2         Could not fetch register "tdata2"; remote failure reply 'E14'
+tdata3         Could not fetch register "tdata3"; remote failure reply 'E14'
+dcsr           Could not fetch register "dcsr"; remote failure reply 'E14'
+dpc            Could not fetch register "dpc"; remote failure reply 'E14'
+dscratch       Could not fetch register "dscratch"; remote failure reply 'E14'
+mcycle         0x0	0
+minstret       0x0	0
+mhpmcounter3   0xf26dba713be	16659568333758
+mhpmcounter4   0xf26dc00ed12	16659574222098
+mhpmcounter5   0x0	0
+mhpmcounter6   0x0	0
+mhpmcounter7   0x0	0
+mhpmcounter8   0x0	0
+mhpmcounter9   0x0	0
+mhpmcounter10  0x0	0
+mhpmcounter11  0x0	0
+mhpmcounter12  0x0	0
+mhpmcounter13  0x0	0
+mhpmcounter14  0x0	0
+mhpmcounter15  0x0	0
+mhpmcounter16  0x0	0
+mhpmcounter17  0x0	0
+mhpmcounter18  0x0	0
+mhpmcounter19  0x0	0
+mhpmcounter20  0x0	0
+mhpmcounter21  0x0	0
+mhpmcounter22  0x0	0
+mhpmcounter23  0x0	0
+mhpmcounter24  0x0	0
+mhpmcounter25  0x0	0
+mhpmcounter26  0x0	0
+mhpmcounter27  0x0	0
+mhpmcounter28  0x0	0
+mhpmcounter29  0x0	0
+mhpmcounter30  0x0	0
+mhpmcounter31  0x0	0
+mcycleh        0x0	0
+minstreth      0x0	0
+mhpmcounter3h  Could not fetch register "mhpmcounter3h"; remote failure reply 'E14'
+mhpmcounter4h  Could not fetch register "mhpmcounter4h"; remote failure reply 'E14'
+mhpmcounter5h  Could not fetch register "mhpmcounter5h"; remote failure reply 'E14'
+mhpmcounter6h  Could not fetch register "mhpmcounter6h"; remote failure reply 'E14'
+mhpmcounter7h  Could not fetch register "mhpmcounter7h"; remote failure reply 'E14'
+mhpmcounter8h  Could not fetch register "mhpmcounter8h"; remote failure reply 'E14'
+mhpmcounter9h  Could not fetch register "mhpmcounter9h"; remote failure reply 'E14'
+mhpmcounter10h Could not fetch register "mhpmcounter10h"; remote failure reply 'E14'
+mhpmcounter11h Could not fetch register "mhpmcounter11h"; remote failure reply 'E14'
+mhpmcounter12h Could not fetch register "mhpmcounter12h"; remote failure reply 'E14'
+mhpmcounter13h Could not fetch register "mhpmcounter13h"; remote failure reply 'E14'
+mhpmcounter14h Could not fetch register "mhpmcounter14h"; remote failure reply 'E14'
+mhpmcounter15h Could not fetch register "mhpmcounter15h"; remote failure reply 'E14'
+mhpmcounter16h Could not fetch register "mhpmcounter16h"; remote failure reply 'E14'
+mhpmcounter17h Could not fetch register "mhpmcounter17h"; remote failure reply 'E14'
+mhpmcounter18h Could not fetch register "mhpmcounter18h"; remote failure reply 'E14'
+mhpmcounter19h Could not fetch register "mhpmcounter19h"; remote failure reply 'E14'
+mhpmcounter20h Could not fetch register "mhpmcounter20h"; remote failure reply 'E14'
+mhpmcounter21h Could not fetch register "mhpmcounter21h"; remote failure reply 'E14'
+mhpmcounter22h Could not fetch register "mhpmcounter22h"; remote failure reply 'E14'
+mhpmcounter23h Could not fetch register "mhpmcounter23h"; remote failure reply 'E14'
+mhpmcounter24h Could not fetch register "mhpmcounter24h"; remote failure reply 'E14'
+mhpmcounter25h Could not fetch register "mhpmcounter25h"; remote failure reply 'E14'
+mhpmcounter26h Could not fetch register "mhpmcounter26h"; remote failure reply 'E14'
+mhpmcounter27h Could not fetch register "mhpmcounter27h"; remote failure reply 'E14'
+mhpmcounter28h Could not fetch register "mhpmcounter28h"; remote failure reply 'E14'
+mhpmcounter29h Could not fetch register "mhpmcounter29h"; remote failure reply 'E14'
+mhpmcounter30h Could not fetch register "mhpmcounter30h"; remote failure reply 'E14'
+mhpmcounter31h Could not fetch register "mhpmcounter31h"; remote failure reply 'E14'
+cycle          0xf26f4dedb95	16659991419797
+time           0xd2e2a8d	221129357
+instret        0xf26f5b67d39	16660005551417
+hpmcounter3    0x0	0
+hpmcounter4    0x0	0
+hpmcounter5    0x0	0
+hpmcounter6    0x0	0
+hpmcounter7    0x0	0
+hpmcounter8    0x0	0
+hpmcounter9    0x0	0
+hpmcounter10   0x0	0
+hpmcounter11   0x0	0
+hpmcounter12   0x0	0
+hpmcounter13   0x0	0
+hpmcounter14   0x0	0
+hpmcounter15   0x0	0
+hpmcounter16   0x0	0
+hpmcounter17   0x0	0
+hpmcounter18   0x0	0
+hpmcounter19   0x0	0
+hpmcounter20   0x0	0
+hpmcounter21   0x0	0
+hpmcounter22   0x0	0
+hpmcounter23   0x0	0
+hpmcounter24   0x0	0
+hpmcounter25   0x0	0
+hpmcounter26   0x0	0
+hpmcounter27   0x0	0
+hpmcounter28   0x0	0
+hpmcounter29   0x0	0
+hpmcounter30   0x0	0
+hpmcounter31   0x0	0
+cycleh         Could not fetch register "cycleh"; remote failure reply 'E14'
+timeh          Could not fetch register "timeh"; remote failure reply 'E14'
+instreth       Could not fetch register "instreth"; remote failure reply 'E14'
+hpmcounter3h   Could not fetch register "hpmcounter3h"; remote failure reply 'E14'
+hpmcounter4h   Could not fetch register "hpmcounter4h"; remote failure reply 'E14'
+hpmcounter5h   Could not fetch register "hpmcounter5h"; remote failure reply 'E14'
+hpmcounter6h   Could not fetch register "hpmcounter6h"; remote failure reply 'E14'
+hpmcounter7h   Could not fetch register "hpmcounter7h"; remote failure reply 'E14'
+hpmcounter8h   Could not fetch register "hpmcounter8h"; remote failure reply 'E14'
+hpmcounter9h   Could not fetch register "hpmcounter9h"; remote failure reply 'E14'
+hpmcounter10h  Could not fetch register "hpmcounter10h"; remote failure reply 'E14'
+hpmcounter11h  Could not fetch register "hpmcounter11h"; remote failure reply 'E14'
+hpmcounter12h  Could not fetch register "hpmcounter12h"; remote failure reply 'E14'
+hpmcounter13h  Could not fetch register "hpmcounter13h"; remote failure reply 'E14'
+hpmcounter14h  Could not fetch register "hpmcounter14h"; remote failure reply 'E14'
+hpmcounter15h  Could not fetch register "hpmcounter15h"; remote failure reply 'E14'
+hpmcounter16h  Could not fetch register "hpmcounter16h"; remote failure reply 'E14'
+hpmcounter17h  Could not fetch register "hpmcounter17h"; remote failure reply 'E14'
+hpmcounter18h  Could not fetch register "hpmcounter18h"; remote failure reply 'E14'
+hpmcounter19h  Could not fetch register "hpmcounter19h"; remote failure reply 'E14'
+hpmcounter20h  Could not fetch register "hpmcounter20h"; remote failure reply 'E14'
+hpmcounter21h  Could not fetch register "hpmcounter21h"; remote failure reply 'E14'
+hpmcounter22h  Could not fetch register "hpmcounter22h"; remote failure reply 'E14'
+hpmcounter23h  Could not fetch register "hpmcounter23h"; remote failure reply 'E14'
+hpmcounter24h  Could not fetch register "hpmcounter24h"; remote failure reply 'E14'
+hpmcounter25h  Could not fetch register "hpmcounter25h"; remote failure reply 'E14'
+hpmcounter26h  Could not fetch register "hpmcounter26h"; remote failure reply 'E14'
+hpmcounter27h  Could not fetch register "hpmcounter27h"; remote failure reply 'E14'
+hpmcounter28h  Could not fetch register "hpmcounter28h"; remote failure reply 'E14'
+hpmcounter29h  Could not fetch register "hpmcounter29h"; remote failure reply 'E14'
+hpmcounter30h  Could not fetch register "hpmcounter30h"; remote failure reply 'E14'
+hpmcounter31h  Could not fetch register "hpmcounter31h"; remote failure reply 'E14'
+mvendorid      0x0	0
+marchid        0x0	0
+mimpid         0x0	0
+mhartid        0x0	0
+priv           0x1	prv:1 [Supervisor]
+A syntax error in expression, near `'.
+$1 = 0x8000000000085263
+No symbol "t0" in current context.
+Watchpoint 4: $t0
+Watchpoint 5: $t1
+Watchpoint 6: $a0
+Watchpoint 7: $satp
+Continuing.
+
+Thread 1 hit Watchpoint 6: $a0
+
+Old value = 0
+New value = 2149981968
+0x0000000080206f14 in os::task::exit_current_and_run_next ()
+=> 0x0000000080206f14 <_ZN2os4task25exit_current_and_run_next17h540d2a0d1176830cE+26>:	13 05 05 0f	addi	a0,a0,240
+Continuing.
+
+Thread 1 hit Watchpoint 6: $a0
+
+Old value = 2149981968
+New value = 2149982208
+0x0000000080206f18 in os::task::exit_current_and_run_next ()
+=> 0x0000000080206f18 <_ZN2os4task25exit_current_and_run_next17h540d2a0d1176830cE+30>:	97 80 00 00	auipc	ra,0x8
+Continuing.
+
+Thread 1 hit Watchpoint 6: $a0
+
+Old value = 2149982208
+New value = 2
+0x000000008020eb6e in spin::once::Once<T>::call_once ()
+=> 0x000000008020eb6e <_ZN4spin4once13Once$LT$T$GT$9call_once17hc206bebce4e3ffabE+26>:	0f 00 30 02	fence	r,rw
+Continuing.
+
+Thread 1 hit Watchpoint 6: $a0
+
+Old value = 2
+New value = 2149982224
+0x000000008020ec7e in spin::once::Once<T>::call_once ()
+=> 0x000000008020ec7e <_ZN4spin4once13Once$LT$T$GT$9call_once17hc206bebce4e3ffabE+298>:	83 34 81 23	ld	s1,568(sp)
+Continuing.
+
+Thread 1 hit Watchpoint 6: $a0
+
+Old value = 2149982224
+New value = 0
+0x0000000080206f58 in os::task::exit_current_and_run_next ()
+=> 0x0000000080206f58 <_ZN2os4task25exit_current_and_run_next17h540d2a0d1176830cE+94>:	0f 00 30 02	fence	r,rw
+Continuing.
+
+Thread 1 hit Watchpoint 6: $a0
+
+Old value = 0
+New value = 2
+0x0000000080206f80 in os::task::exit_current_and_run_next ()
+=> 0x0000000080206f80 <_ZN2os4task25exit_current_and_run_next17h540d2a0d1176830cE+134>:	23 30 aa 00	sd	a0,0(s4)
+Continuing.
+
+Thread 1 hit Watchpoint 6: $a0
+
+Old value = 2
+New value = -41664
+0x0000000080206f88 in os::task::exit_current_and_run_next ()
+=> 0x0000000080206f88 <_ZN2os4task25exit_current_and_run_next17h540d2a0d1176830cE+142>:	97 f0 00 00	auipc	ra,0xf
+Continuing.
+
+Thread 1 hit Watchpoint 6: $a0
+
+Old value = -41664
+New value = 1
+0x0000000080206fb6 in os::task::exit_current_and_run_next ()
+=> 0x0000000080206fb6 <_ZN2os4task25exit_current_and_run_next17h540d2a0d1176830cE+188>:	93 16 35 00	slli	a3,a0,0x3
+Continuing.
+
+Thread 1 hit Watchpoint 6: $a0
+
+Old value = 1
+New value = 255
+0x0000000080206fbe in os::task::exit_current_and_run_next ()
+=> 0x0000000080206fbe <_ZN2os4task25exit_current_and_run_next17h540d2a0d1176830cE+196>:	bb 15 d5 00	sllw	a1,a0,a3
+Continuing.
+
+Thread 1 hit Watchpoint 6: $a0
+
+Old value = 255
+New value = 0
+0x0000000080207024 in os::task::exit_current_and_run_next ()
+=> 0x0000000080207024 <_ZN2os4task25exit_current_and_run_next17h540d2a0d1176830cE+298>:	01 25	sext.w	a0,a0
+Continuing.
+
+Thread 1 hit Watchpoint 6: $a0
+
+Old value = 0
+New value = 8
+0x00000000802070ac in os::task::exit_current_and_run_next ()
+=> 0x00000000802070ac <_ZN2os4task25exit_current_and_run_next17h540d2a0d1176830cE+434>:	83 b5 09 0e	ld	a1,224(s3)
+Continuing.
+
+Thread 1 hit Watchpoint 6: $a0
+
+Old value = 8
+New value = 2150076944
+0x00000000802070c4 in os::task::exit_current_and_run_next ()
+=> 0x00000000802070c4 <_ZN2os4task25exit_current_and_run_next17h540d2a0d1176830cE+458>:	97 60 00 00	auipc	ra,0x6
+Continuing.
+
+Thread 1 hit Watchpoint 6: $a0
+
+Old value = 2150076944
+New value = 2150058496
+0x000000008020d6de in <alloc::collections::btree::map::BTreeMap<K,V> as core::ops::drop::Drop>::drop ()
+=> 0x000000008020d6de <_ZN95_$LT$alloc..collections..btree..map..BTreeMap$LT$K$C$V$GT$$u20$as$u20$core..ops..drop..Drop$GT$4drop17he840b34548b9a62bE+16>:	90 61	ld	a2,0(a1)
+Continuing.
+
+Thread 1 hit Watchpoint 6: $a0
+
+Old value = 2150058496
+New value = 2150056704
+0x000000008020d6ea in <alloc::collections::btree::map::BTreeMap<K,V> as core::ops::drop::Drop>::drop ()
+=> 0x000000008020d6ea <_ZN95_$LT$alloc..collections..btree..map..BTreeMap$LT$K$C$V$GT$$u20$as$u20$core..ops..drop..Drop$GT$4drop17he840b34548b9a62bE+28>:	7d 16	addi	a2,a2,-1
+Num     Type           Disp Enb Address            What
+1       breakpoint     keep y   0x0000000080206f0e <os::task::exit_current_and_run_next+20>
+	breakpoint already hit 1 time
+2       breakpoint     keep y   0x0000000080206f0e <os::task::exit_current_and_run_next+20>
+	breakpoint already hit 1 time
+3       breakpoint     keep y   0xfffffffffffff056 
+4       watchpoint     keep y                      $t0
+5       watchpoint     keep y                      $t1
+6       watchpoint     keep y                      $a0
+	breakpoint already hit 14 times
+7       watchpoint     keep y                      $satp
+Num     Type           Disp Enb Address    What
+5       watchpoint     keep y              $t1
+6       watchpoint     keep y              $a0
+	breakpoint already hit 14 times
+7       watchpoint     keep y              $satp
+Watchpoint 8: $satp
+Num     Type           Disp Enb Address    What
+8       watchpoint     keep y              $satp
+Continuing.
+
+Thread 4 received signal SIGINT, Interrupt.
+[Switching to Thread 1.4]
+compiler_builtins::mem::impls::copy_forward () at /cargo/registry/src/github.com-1ecc6299db9ec823/compiler_builtins-0.1.46/src/mem/impls.rs:5
+5	/cargo/registry/src/github.com-1ecc6299db9ec823/compiler_builtins-0.1.46/src/mem/impls.rs: No such file or directory.
+Breakpoint 9 at 0xffffffff
+Continuing.
+
+Thread 3 received signal SIGTRAP, Trace/breakpoint trap.
+[Switching to Thread 1.3]
+0x00000000802114de in easy_fs::vfs::Inode::read_at ()
+=> 0x00000000802114de <_ZN7easy_fs3vfs5Inode7read_at17hc5902e94807ac47eE+50>:	0f 00 30 02	fence	r,rw
+Continuing.
+
+Thread 1 received signal SIGTRAP, Trace/breakpoint trap.
+[Switching to Thread 1.1]
+0x000000008020f39a in os::mm::frame_allocator::frame_dealloc ()
+=> 0x000000008020f39a <_ZN2os2mm15frame_allocator13frame_dealloc17h02a16a9cb38f59edE+120>:	61 16	addi	a2,a2,-8
+Continuing.
+
+Thread 2 received signal SIGTRAP, Trace/breakpoint trap.
+[Switching to Thread 1.2]
+0x0000000080219d1c in compiler_builtins::mem::impls::copy_forward () at /cargo/registry/src/github.com-1ecc6299db9ec823/compiler_builtins-0.1.46/src/mem/impls.rs:5
+5	in /cargo/registry/src/github.com-1ecc6299db9ec823/compiler_builtins-0.1.46/src/mem/impls.rs
+Continuing.
+
+Thread 2 received signal SIGINT, Interrupt.
+0x000000008020ba4c in os::console::print ()
+=> 0x000000008020ba4c <_ZN2os7console5print17hb931d4ac4f00f5f7E+168>:	83 86 94 00	lb	a3,9(s1)
+  Id   Target Id                    Frame 
+  1    Thread 1.1 (CPU#0 [running]) 0xfffffffffffff000 in ?? ()
+* 2    Thread 1.2 (CPU#1 [running]) 0x000000008020ba4c in os::console::print ()
+  3    Thread 1.3 (CPU#2 [running]) 0x000000008020ba4c in os::console::print ()
+  4    Thread 1.4 (CPU#3 [running]) 0x000000008020ba4c in os::console::print ()
+Detaching from program: D:\z\2\new\c\os\target\riscv64gc-unknown-none-elf\release\os, process 1
+Ending remote debugging.
+[Inferior 1 (process 1) detached]

@@ -6,3 +6,7 @@ set disassemble-next-line auto
 set logging on 1.log
 target remote 127.0.0.1:1234
 b exit_current_and_run_next
+maintenance packet Qqemu.PhyMemMode:1
+b exit_current_and_run_next
+c
+b *0xfffffffffffff056

@@ -64,10 +64,6 @@ pub fn suspend_current_and_run_next() {
 // }
 
 pub fn exit_current_and_run_next(exit_code: i32) {
-
-    // ++++++ hold initproc PCB lock here
-    // let mut initproc_inner = INITPROC.acquire_inner_lock();
-    
     
     // take from Processor
     let task = take_current_task().unwrap();
@@ -80,17 +76,6 @@ pub fn exit_current_and_run_next(exit_code: i32) {
     inner.task_status = TaskStatus::Zombie;
     // Record exit code
     inner.exit_code = exit_code;
-    // do not move to its parent but under initproc
-
-    
-    
-    // for child in inner.children.iter() {
-    //     child.acquire_inner_lock().parent = Some(Arc::downgrade(&INITPROC));
-    //     initproc_inner.children.push(child.clone());
-    // }
-    // drop(initproc_inner);
-    
-    // ++++++ release parent PCB lock here
 
     inner.children.clear();
     // deallocate user space
@@ -106,7 +91,7 @@ pub fn exit_current_and_run_next(exit_code: i32) {
     let mut _unused = TaskContext::zero_init();
 
     warn!("exit_current_and_run_next schedule");
-    schedule(&mut _unused as *mut _);
+    schedule(&mut _unused as *mut TaskContext);
 }
 
 lazy_static! {
