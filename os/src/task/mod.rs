@@ -9,7 +9,7 @@ mod pool;
 use crate::fs::{open_file, OpenFlags};
 use switch::__switch;
 use task::{TaskControlBlock, TaskStatus};
-use alloc::sync::Arc;
+use alloc::{sync::Arc, string::ToString};
 pub use pool::{add_task, fetch_task, prioritize_task};
 use lazy_static::*;
 pub use context::TaskContext;
@@ -66,7 +66,7 @@ pub fn suspend_current_and_run_next() {
 pub fn exit_current_and_run_next(exit_code: i32) {
 
     // ++++++ hold initproc PCB lock here
-    let mut initproc_inner = INITPROC.acquire_inner_lock();
+    // let mut initproc_inner = INITPROC.acquire_inner_lock();
     
     
     // take from Processor
@@ -84,11 +84,11 @@ pub fn exit_current_and_run_next(exit_code: i32) {
 
     
     
-    for child in inner.children.iter() {
-        child.acquire_inner_lock().parent = Some(Arc::downgrade(&INITPROC));
-        initproc_inner.children.push(child.clone());
-    }
-    drop(initproc_inner);
+    // for child in inner.children.iter() {
+    //     child.acquire_inner_lock().parent = Some(Arc::downgrade(&INITPROC));
+    //     initproc_inner.children.push(child.clone());
+    // }
+    // drop(initproc_inner);
     
     // ++++++ release parent PCB lock here
 
@@ -104,6 +104,8 @@ pub fn exit_current_and_run_next(exit_code: i32) {
     drop(task);
     // we do not have to save task context
     let mut _unused = TaskContext::zero_init();
+
+    warn!("exit_current_and_run_next schedule");
     schedule(&mut _unused as *mut _);
 }
 
@@ -121,6 +123,17 @@ pub fn add_initproc() {
 
 
 pub fn add_user_test(){
+
+    // for i in 1..9 {
+    //     let task = Arc::new({
+    //         let inode = open_file(i.to_string().as_str(), OpenFlags::RDONLY).unwrap();
+    //         let v = inode.read_all();
+    //         TaskControlBlock::new(v.as_slice(), 0 as usize)
+    //     });
+    //     add_task(task.clone());
+    //     drop(task);
+    // }
+
     let task1 = Arc::new({
         let inode = open_file("1", OpenFlags::RDONLY).unwrap();
         let v = inode.read_all();
@@ -129,7 +142,7 @@ pub fn add_user_test(){
     let task2 = Arc::new({
         let inode = open_file("2", OpenFlags::RDONLY).unwrap();
         let v = inode.read_all();
-        TaskControlBlock::new(v.as_slice(), 2 as usize)
+        TaskControlBlock::new(v.as_slice(), 1 as usize)
     });
     let task3 = Arc::new({
         let inode = open_file("3", OpenFlags::RDONLY).unwrap();
@@ -141,8 +154,34 @@ pub fn add_user_test(){
         let v = inode.read_all();
         TaskControlBlock::new(v.as_slice(), 1 as usize)
     });
-    add_task(task1.clone());
-    add_task(task2.clone());
-    add_task(task3.clone());
-    add_task(task4.clone());
+    let task5 = Arc::new({
+        let inode = open_file("5", OpenFlags::RDONLY).unwrap();
+        let v = inode.read_all();
+        TaskControlBlock::new(v.as_slice(), 1 as usize)
+    });
+    let task6 = Arc::new({
+        let inode = open_file("6", OpenFlags::RDONLY).unwrap();
+        let v = inode.read_all();
+        TaskControlBlock::new(v.as_slice(), 1 as usize)
+    });
+    let task7 = Arc::new({
+        let inode = open_file("7", OpenFlags::RDONLY).unwrap();
+        let v = inode.read_all();
+        TaskControlBlock::new(v.as_slice(), 1 as usize)
+    });
+    let task8 = Arc::new({
+        let inode = open_file("8", OpenFlags::RDONLY).unwrap();
+        let v = inode.read_all();
+        TaskControlBlock::new(v.as_slice(), 1 as usize)
+    });
+
+
+    add_task(task1.clone());    
+    add_task(task2.clone());    
+    add_task(task3.clone());    
+    add_task(task4.clone());    
+    add_task(task5.clone());    
+    add_task(task6.clone());    
+    add_task(task7.clone());    
+    add_task(task8.clone());    
 }

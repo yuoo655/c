@@ -36,11 +36,11 @@ lazy_static! {
 #[no_mangle]
 pub fn thread_main() {
 
-    // println!("thread_main-------------------");
+    println!("thread_main-------------");
     loop {
         let mut queue = USER_TASK_QUEUE.lock();
         let task = queue.peek_task();
-        // println!("running, queue len: {}, task: {:?}", queue.queue.len(), task.is_none());
+        println!("thread_main running, no task: {:?}", task.is_none());
 
         match task {
             // have any task
@@ -69,7 +69,7 @@ pub fn thread_main() {
                     let mut future = task.future.lock();
                     match future.as_mut().poll(&mut context) {
                         Poll::Ready(_) => {
-                            // // 任务完成
+                            // 任务完成
                             // println!("task completed");
                         }
                         Poll::Pending => {
@@ -79,11 +79,13 @@ pub fn thread_main() {
                 }
             }
             None => {
-                let mut queue = USER_TASK_QUEUE.lock();
-
-                if queue.is_all_empty(){
-                    crate::sys_exit(0);
-                }
+                println!("no task");
+                // let mut queue = USER_TASK_QUEUE.lock();
+                // if queue.is_all_empty(){
+                //     crate::sys_exit(0);
+                // }
+                crate::sys_exit(0);
+                break;
 
             }
                 

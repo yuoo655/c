@@ -1,7 +1,0 @@
-set confirm off
-set pagination off
-set arch riscv:rv64
-file ./target/riscv64gc-unknown-none-elf/release/os
-set disassemble-next-line auto
-set logging on 1.log
-target remote 127.0.0.1:1234

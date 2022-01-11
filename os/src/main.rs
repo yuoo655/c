@@ -59,8 +59,8 @@ pub fn rust_main(hart_id: usize) -> ! {
     
     if hart_id == 0{
         clear_bss();
-        println!("[kernel] Hello, world!");
         mm::init();
+        println!("[kernel] Hello, world!");
         mm::remap_test();
         trap::init();
         trap::enable_timer_interrupt();

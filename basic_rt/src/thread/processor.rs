@@ -64,9 +64,6 @@ impl Processor {
 
     pub fn idle_main(&self) -> ! {
         let inner = self.inner();
-        // 在 idle 线程刚进来时禁用异步中断
-        // disable_and_store();
-
         loop {
             // 如果从线程池中获取到一个可运行线程
             if let Some(thread) = inner.pool.acquire() {
@@ -93,21 +90,23 @@ impl Processor {
             }
             // 如果现在并无任何可运行线程.则检查协程队列是否为空
             else {
-                // let mut queue = USER_TASK_QUEUE.lock();
-                // if queue.is_empty() {
-                //     println!("finish task");
-                // } else {
 
-                //     //如果线程列表为空，但任务队列不空，创建一个线程
-                //     self.add_thread(        
-                //         {
-                //             let thread = Thread::new_box_thread(crate::task::thread_main as usize, 1);
-                //             thread
-                //         }
-                //     )
-                // }
-                // drop(queue);
-                crate::sys_exit(0);
+                let mut queue = USER_TASK_QUEUE.lock();
+
+                if queue.is_all_empty() {
+                    println!("finish task exit");
+                    crate::sys_exit(0);
+                } else {
+
+                    //如果线程列表为空，但任务队列不空，创建一个线程
+                    self.add_thread(        
+                        {
+                            let thread = Thread::new_box_thread(crate::task::thread_main as usize, 1);
+                            thread
+                        }
+                    )
+                }
+                drop(queue);
                 
             }
         }

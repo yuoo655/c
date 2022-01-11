@@ -5,7 +5,7 @@
 #![feature(linkage)]
 #![feature(alloc_error_handler)]
 #![allow(unused)]
-#![feature(const_generics)]
+// #![feature(const_generics)]
 
 pub mod thread;
 pub mod console;
@@ -43,14 +43,10 @@ pub extern "C" fn _start() -> ! {
 #[linkage = "weak"]
 #[no_mangle]
 fn main() -> i32 {
-    crate::thread::init();
     crate::thread::init_cpu_test();
     crate::thread::thread_init();
     panic!("Cannot find main!");
 }
-
-
-
 
 use syscall::*;
 

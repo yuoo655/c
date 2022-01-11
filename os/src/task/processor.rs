@@ -10,7 +10,7 @@ use core::cell::RefCell;
 use crate::trap::TrapContext;
 use crate::config::CPU_NUM;
 use lazy_static::*;
-use core::arch::asm;
+// use core::arch::asm;
 pub struct Processor {
     inner: RefCell<ProcessorInner>,
 }
@@ -75,11 +75,11 @@ impl Processor {
         unsafe {
             __switch(idle_task_cx_ptr, next_task_cx_ptr);
         }
-
-
     }
 
+    #[no_mangle]
     fn suspend_current(&self) {
+        
         if let Some(task) = take_current_task() {
             // ---- hold current PCB lock
             let mut task_inner = task.acquire_inner_lock();
@@ -94,13 +94,14 @@ impl Processor {
         }
     }
 
+    #[no_mangle]
     pub fn run(&self) {
         loop {
             if let Some(task) = fetch_task() {
                 info!("task pid: {} running", task.pid.0);
                 // unsafe { riscv::asm::sfence_vma_all()}
                 self.run_next(task);
-                println_hart!("idel", hart_id());
+                println_hart!("idel----", hart_id());
                 self.suspend_current();
             }
         }

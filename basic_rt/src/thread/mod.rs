@@ -70,7 +70,7 @@ pub fn add_to_thread_pool(addr: usize, space_id:usize) {
 
 #[no_mangle]
 pub fn init_cpu_test(){
-    println!("init_cpu_test");
+    // println!("init_cpu_test");
     let scheduler = RRScheduler::new(50);
     
     // 新建线程池
@@ -89,7 +89,7 @@ pub fn init_cpu_test(){
         }
     );
 
-    println!("add thread_main done");
+    // println!("add thread_main done");
 
 }
 
