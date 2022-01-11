@@ -94,6 +94,7 @@ pub fn trap_handler() -> ! {
         }
         Trap::Interrupt(Interrupt::SupervisorTimer) => {
             set_next_trigger();
+            // info!("[kernel] timer interrupt");
             suspend_current_and_run_next();
         }
         _ => {

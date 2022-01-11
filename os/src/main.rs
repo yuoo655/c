@@ -68,7 +68,8 @@ pub fn rust_main(hart_id: usize) -> ! {
         info!("loader list app");
         fs::list_apps();
         // test_for_kernel(0);
-        debug!("trying to add add user test");
+        debug!("trying to add user test");
+        // task::add_initproc();
         task::add_user_test();
 
         send_ipi();

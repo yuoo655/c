@@ -5284,3 +5284,119 @@ Thread 2 received signal SIGINT, Interrupt.
 Detaching from program: D:\z\2\new\c\os\target\riscv64gc-unknown-none-elf\release\os, process 1
 Ending remote debugging.
 [Inferior 1 (process 1) detached]
+0x0000000000001000 in ?? ()
+=> 0x0000000000001000:	97 02 00 00	auipc	t0,0x0
+Breakpoint 1 at 0x8020bbd4
+Continuing.
+[Switching to Thread 1.4]
+
+Thread 4 hit Breakpoint 1, 0x000000008020bbd4 in __switch ()
+=> 0x000000008020bbd4 <__switch+0>:	23 34 25 06	sd	sp,104(a0)
+=> 0x8020bbd4 <__switch>:	sd	sp,104(a0)
+   0x8020bbd8 <__switch+4>:	sd	ra,0(a0)
+   0x8020bbdc <__switch+8>:	sd	s0,16(sp)
+   0x8020bbde <__switch+10>:	sd	s1,24(sp)
+   0x8020bbe0 <__switch+12>:	sd	s2,32(sp)
+   0x8020bbe2 <__switch+14>:	sd	s3,40(sp)
+   0x8020bbe4 <__switch+16>:	sd	s4,48(sp)
+   0x8020bbe6 <__switch+18>:	sd	s5,56(sp)
+   0x8020bbe8 <__switch+20>:	sd	s6,64(sp)
+   0x8020bbea <__switch+22>:	sd	s7,72(sp)
+   0x8020bbec <__switch+24>:	sd	s8,80(sp)
+   0x8020bbee <__switch+26>:	sd	s9,88(sp)
+   0x8020bbf0 <__switch+28>:	sd	s10,96(sp)
+   0x8020bbf2 <__switch+30>:	sd	s11,104(sp)
+   0x8020bbf4 <__switch+32>:	ld	ra,0(a1)
+   0x8020bbf8 <__switch+36>:	ld	s0,16(sp)
+   0x8020bbfa <__switch+38>:	ld	s1,24(sp)
+   0x8020bbfc <__switch+40>:	ld	s2,32(sp)
+   0x8020bbfe <__switch+42>:	ld	s3,40(sp)
+   0x8020bc00 <__switch+44>:	ld	s4,48(sp)
+   0x8020bc02 <__switch+46>:	ld	s5,56(sp)
+   0x8020bc04 <__switch+48>:	ld	s6,64(sp)
+   0x8020bc06 <__switch+50>:	ld	s7,72(sp)
+   0x8020bc08 <__switch+52>:	ld	s8,80(sp)
+   0x8020bc0a <__switch+54>:	ld	s9,88(sp)
+   0x8020bc0c <__switch+56>:	ld	s10,96(sp)
+   0x8020bc0e <__switch+58>:	ld	s11,104(sp)
+   0x8020bc10 <__switch+60>:	ld	sp,104(a1)
+   0x8020bc14 <__switch+64>:	ret
+   0x8020bc16 <_ZN102_$LT$core..iter..adapters..map..Map$LT$I$C$F$GT$$u20$as$u20$core..iter..traits..iterator..Iterator$GT$4fold17hfcc7a1ad8a488c6fE>:	addi	sp,sp,-128
+   0x8020bc18 <_ZN102_$LT$core..iter..adapters..map..Map$LT$I$C$F$GT$$u20$as$u20$core..iter..traits..iterator..Iterator$GT$4fold17hfcc7a1ad8a488c6fE+2>:	sd	ra,120(sp)
+   0x8020bc1a <_ZN102_$LT$core..iter..adapters..map..Map$LT$I$C$F$GT$$u20$as$u20$core..iter..traits..iterator..Iterator$GT$4fold17hfcc7a1ad8a488c6fE+4>:	sd	s0,112(sp)
+   0x8020bc1c <_ZN102_$LT$core..iter..adapters..map..Map$LT$I$C$F$GT$$u20$as$u20$core..iter..traits..iterator..Iterator$GT$4fold17hfcc7a1ad8a488c6fE+6>:	sd	s1,104(sp)
+   0x8020bc1e <_ZN102_$LT$core..iter..adapters..map..Map$LT$I$C$F$GT$$u20$as$u20$core..iter..traits..iterator..Iterator$GT$4fold17hfcc7a1ad8a488c6fE+8>:	sd	s2,96(sp)
+   0x8020bc20 <_ZN102_$LT$core..iter..adapters..map..Map$LT$I$C$F$GT$$u20$as$u20$core..iter..traits..iterator..Iterator$GT$4fold17hfcc7a1ad8a488c6fE+10>:	sd	s3,88(sp)
+   0x8020bc22 <_ZN102_$LT$core..iter..adapters..map..Map$LT$I$C$F$GT$$u20$as$u20$core..iter..traits..iterator..Iterator$GT$4fold17hfcc7a1ad8a488c6fE+12>:	sd	s4,80(sp)
+   0x8020bc24 <_ZN102_$LT$core..iter..adapters..map..Map$LT$I$C$F$GT$$u20$as$u20$core..iter..traits..iterator..Iterator$GT$4fold17hfcc7a1ad8a488c6fE+14>:	sd	s5,72(sp)
+   0x8020bc26 <_ZN102_$LT$core..iter..adapters..map..Map$LT$I$C$F$GT$$u20$as$u20$core..iter..traits..iterator..Iterator$GT$4fold17hfcc7a1ad8a488c6fE+16>:	sd	s6,64(sp)
+   0x8020bc28 <_ZN102_$LT$core..iter..adapters..map..Map$LT$I$C$F$GT$$u20$as$u20$core..iter..traits..iterator..Iterator$GT$4fold17hfcc7a1ad8a488c6fE+18>:	sd	s7,56(sp)
+   0x8020bc2a <_ZN102_$LT$core..iter..adapters..map..Map$LT$I$C$F$GT$$u20$as$u20$core..iter..traits..iterator..Iterator$GT$4fold17hfcc7a1ad8a488c6fE+20>:	sd	s8,48(sp)
+   0x8020bc2c <_ZN102_$LT$core..iter..adapters..map..Map$LT$I$C$F$GT$$u20$as$u20$core..iter..traits..iterator..Iterator$GT$4fold17hfcc7a1ad8a488c6fE+22>:	sd	s9,40(sp)
+   0x8020bc2e <_ZN102_$LT$core..iter..adapters..map..Map$LT$I$C$F$GT$$u20$as$u20$core..iter..traits..iterator..Iterator$GT$4fold17hfcc7a1ad8a488c6fE+24>:	sd	s10,32(sp)
+   0x8020bc30 <_ZN102_$LT$core..iter..adapters..map..Map$LT$I$C$F$GT$$u20$as$u20$core..iter..traits..iterator..Iterator$GT$4fold17hfcc7a1ad8a488c6fE+26>:	sd	s11,24(sp)
+   0x8020bc32 <_ZN102_$LT$core..iter..adapters..map..Map$LT$I$C$F$GT$$u20$as$u20$core..iter..traits..iterator..Iterator$GT$4fold17hfcc7a1ad8a488c6fE+28>:	addi	s0,sp,128
+   0x8020bc34 <_ZN102_$LT$core..iter..adapters..map..Map$LT$I$C$F$GT$$u20$as$u20$core..iter..traits..iterator..Iterator$GT$4fold17hfcc7a1ad8a488c6fE+30>:	ld	s8,0(a0)
+   0x8020bc38 <_ZN102_$LT$core..iter..adapters..map..Map$LT$I$C$F$GT$$u20$as$u20$core..iter..traits..iterator..Iterator$GT$4fold17hfcc7a1ad8a488c6fE+34>:	lbu	a2,16(a0)
+   0x8020bc3c <_ZN102_$LT$core..iter..adapters..map..Map$LT$I$C$F$GT$$u20$as$u20$core..iter..traits..iterator..Iterator$GT$4fold17hfcc7a1ad8a488c6fE+38>:	ld	s6,8(a0)
+   0x8020bc40 <_ZN102_$LT$core..iter..adapters..map..Map$LT$I$C$F$GT$$u20$as$u20$core..iter..traits..iterator..Iterator$GT$4fold17hfcc7a1ad8a488c6fE+42>:	ld	s3,8(a1)
+   0x8020bc44 <_ZN102_$LT$core..iter..adapters..map..Map$LT$I$C$F$GT$$u20$as$u20$core..iter..traits..iterator..Iterator$GT$4fold17hfcc7a1ad8a488c6fE+46>:	ld	s1,16(a1)
+   0x8020bc46 <_ZN102_$LT$core..iter..adapters..map..Map$LT$I$C$F$GT$$u20$as$u20$core..iter..traits..iterator..Iterator$GT$4fold17hfcc7a1ad8a488c6fE+48>:	snez	a2,a2
+   0x8020bc4a <_ZN102_$LT$core..iter..adapters..map..Map$LT$I$C$F$GT$$u20$as$u20$core..iter..traits..iterator..Iterator$GT$4fold17hfcc7a1ad8a488c6fE+52>:	sltu	a3,s6,s8
+   0x8020bc4e <_ZN102_$LT$core..iter..adapters..map..Map$LT$I$C$F$GT$$u20$as$u20$core..iter..traits..iterator..Iterator$GT$4fold17hfcc7a1ad8a488c6fE+56>:	or	a2,a2,a3
+   0x8020bc50 <_ZN102_$LT$core..iter..adapters..map..Map$LT$I$C$F$GT$$u20$as$u20$core..iter..traits..iterator..Iterator$GT$4fold17hfcc7a1ad8a488c6fE+58>:	bnez	a2,0x8020bd0c <_ZN102_$LT$core..iter..adapters..map..Map$LT$I$C$F$GT$$u20$as$u20$core..iter..traits..iterator..Iterator$GT$4fold17hfcc7a1ad8a488c6fE+246>
+   0x8020bc52 <_ZN102_$LT$core..iter..adapters..map..Map$LT$I$C$F$GT$$u20$as$u20$core..iter..traits..iterator..Iterator$GT$4fold17hfcc7a1ad8a488c6fE+60>:	ld	s7,24(a0)
+   0x8020bc56 <_ZN102_$LT$core..iter..adapters..map..Map$LT$I$C$F$GT$$u20$as$u20$core..iter..traits..iterator..Iterator$GT$4fold17hfcc7a1ad8a488c6fE+64>:	ld	s9,32(a0)
+   0x8020bc5a <_ZN102_$LT$core..iter..adapters..map..Map$LT$I$C$F$GT$$u20$as$u20$core..iter..traits..iterator..Iterator$GT$4fold17hfcc7a1ad8a488c6fE+68>:	ld	s11,0(a1)
+   0x8020bc5e <_ZN102_$LT$core..iter..adapters..map..Map$LT$I$C$F$GT$$u20$as$u20$core..iter..traits..iterator..Iterator$GT$4fold17hfcc7a1ad8a488c6fE+72>:	li	a0,1
+   0x8020bc60 <_ZN102_$LT$core..iter..adapters..map..Map$LT$I$C$F$GT$$u20$as$u20$core..iter..traits..iterator..Iterator$GT$4fold17hfcc7a1ad8a488c6fE+74>:	slli	a0,a0,0x2c
+   0x8020bc62 <_ZN102_$LT$core..iter..adapters..map..Map$LT$I$C$F$GT$$u20$as$u20$core..iter..traits..iterator..Iterator$GT$4fold17hfcc7a1ad8a488c6fE+76>:	addi	s10,a0,-1
+   0x8020bc66 <_ZN102_$LT$core..iter..adapters..map..Map$LT$I$C$F$GT$$u20$as$u20$core..iter..traits..iterator..Iterator$GT$4fold17hfcc7a1ad8a488c6fE+80>:	slli	s4,s10,0xc
+   0x8020bc6a <_ZN102_$LT$core..iter..adapters..map..Map$LT$I$C$F$GT$$u20$as$u20$core..iter..traits..iterator..Iterator$GT$4fold17hfcc7a1ad8a488c6fE+84>:	lui	a0,0x1
+   0x8020bc6c <_ZN102_$LT$core..iter..adapters..map..Map$LT$I$C$F$GT$$u20$as$u20$core..iter..traits..iterator..Iterator$GT$4fold17hfcc7a1ad8a488c6fE+86>:	addiw	s5,a0,-1
+   0x8020bc70 <_ZN102_$LT$core..iter..adapters..map..Map$LT$I$C$F$GT$$u20$as$u20$core..iter..traits..iterator..Iterator$GT$4fold17hfcc7a1ad8a488c6fE+90>:	bgeu	s8,s6,0x8020bcd0 <_ZN102_$LT$core..iter..adapters..map..Map$LT$I$C$F$GT$$u20$as$u20$core..iter..traits..iterator..Iterator$GT$4fold17hfcc7a1ad8a488c6fE+186>
+   0x8020bc74 <_ZN102_$LT$core..iter..adapters..map..Map$LT$I$C$F$GT$$u20$as$u20$core..iter..traits..iterator..Iterator$GT$4fold17hfcc7a1ad8a488c6fE+94>:	sd	s1,-120(s0)
+   0x8020bc78 <_ZN102_$LT$core..iter..adapters..map..Map$LT$I$C$F$GT$$u20$as$u20$core..iter..traits..iterator..Iterator$GT$4fold17hfcc7a1ad8a488c6fE+98>:	sd	s3,-112(s0)
+   0x8020bc7c <_ZN102_$LT$core..iter..adapters..map..Map$LT$I$C$F$GT$$u20$as$u20$core..iter..traits..iterator..Iterator$GT$4fold17hfcc7a1ad8a488c6fE+102>:	slli	s1,s8,0x3
+   0x8020bc80 <_ZN102_$LT$core..iter..adapters..map..Map$LT$I$C$F$GT$$u20$as$u20$core..iter..traits..iterator..Iterator$GT$4fold17hfcc7a1ad8a488c6fE+106>:	sub	s2,s6,s8
+   0x8020bc84 <_ZN102_$LT$core..iter..adapters..map..Map$LT$I$C$F$GT$$u20$as$u20$core..iter..traits..iterator..Iterator$GT$4fold17hfcc7a1ad8a488c6fE+110>:	ld	a0,0(s9)
+   0x8020bc88 <_ZN102_$LT$core..iter..adapters..map..Map$LT$I$C$F$GT$$u20$as$u20$core..iter..traits..iterator..Iterator$GT$4fold17hfcc7a1ad8a488c6fE+114>:	ld	a1,0(s7)
+   0x8020bc8c <_ZN102_$LT$core..iter..adapters..map..Map$LT$I$C$F$GT$$u20$as$u20$core..iter..traits..iterator..Iterator$GT$4fold17hfcc7a1ad8a488c6fE+118>:	add	s3,s1,a0
+   0x8020bc90 <_ZN102_$LT$core..iter..adapters..map..Map$LT$I$C$F$GT$$u20$as$u20$core..iter..traits..iterator..Iterator$GT$4fold17hfcc7a1ad8a488c6fE+122>:	and	a0,a1,s10
+   0x8020bc94 <_ZN102_$LT$core..iter..adapters..map..Map$LT$I$C$F$GT$$u20$as$u20$core..iter..traits..iterator..Iterator$GT$4fold17hfcc7a1ad8a488c6fE+126>:	srli	a1,s3,0xc
+   0x8020bc98 <_ZN102_$LT$core..iter..adapters..map..Map$LT$I$C$F$GT$$u20$as$u20$core..iter..traits..iterator..Iterator$GT$4fold17hfcc7a1ad8a488c6fE+130>:	auipc	ra,0xfffff
+   0x8020bc9c <_ZN102_$LT$core..iter..adapters..map..Map$LT$I$C$F$GT$$u20$as$u20$core..iter..traits..iterator..Iterator$GT$4fold17hfcc7a1ad8a488c6fE+134>:	jalr	-1584(ra)
+   0x8020bca0 <_ZN102_$LT$core..iter..adapters..map..Map$LT$I$C$F$GT$$u20$as$u20$core..iter..traits..iterator..Iterator$GT$4fold17hfcc7a1ad8a488c6fE+138>:	beqz	a0,0x8020bd2e <_ZN102_$LT$core..iter..adapters..map..Map$LT$I$C$F$GT$$u20$as$u20$core..iter..traits..iterator..Iterator$GT$4fold17hfcc7a1ad8a488c6fE+280>
+   0x8020bca2 <_ZN102_$LT$core..iter..adapters..map..Map$LT$I$C$F$GT$$u20$as$u20$core..iter..traits..iterator..Iterator$GT$4fold17hfcc7a1ad8a488c6fE+140>:	ld	a0,0(a0)
+   0x8020bca4 <_ZN102_$LT$core..iter..adapters..map..Map$LT$I$C$F$GT$$u20$as$u20$core..iter..traits..iterator..Iterator$GT$4fold17hfcc7a1ad8a488c6fE+142>:	slli	a0,a0,0x2
+   0x8020bca6 <_ZN102_$LT$core..iter..adapters..map..Map$LT$I$C$F$GT$$u20$as$u20$core..iter..traits..iterator..Iterator$GT$4fold17hfcc7a1ad8a488c6fE+144>:	and	a0,a0,s4
+   0x8020bcaa <_ZN102_$LT$core..iter..adapters..map..Map$LT$I$C$F$GT$$u20$as$u20$core..iter..traits..iterator..Iterator$GT$4fold17hfcc7a1ad8a488c6fE+148>:	and	a1,s3,s5
+   0x8020bcae <_ZN102_$LT$core..iter..adapters..map..Map$LT$I$C$F$GT$$u20$as$u20$core..iter..traits..iterator..Iterator$GT$4fold17hfcc7a1ad8a488c6fE+152>:	or	a0,a0,a1
+   0x8020bcb0 <_ZN102_$LT$core..iter..adapters..map..Map$LT$I$C$F$GT$$u20$as$u20$core..iter..traits..iterator..Iterator$GT$4fold17hfcc7a1ad8a488c6fE+154>:	beqz	a0,0x8020bd40 <_ZN102_$LT$core..iter..adapters..map..Map$LT$I$C$F$GT$$u20$as$u20$core..iter..traits..iterator..Iterator$GT$4fold17hfcc7a1ad8a488c6fE+298>
+   0x8020bcb2 <_ZN102_$LT$core..iter..adapters..map..Map$LT$I$C$F$GT$$u20$as$u20$core..iter..traits..iterator..Iterator$GT$4fold17hfcc7a1ad8a488c6fE+156>:	sd	a0,0(s11)
+   0x8020bcb6 <_ZN102_$LT$core..iter..adapters..map..Map$LT$I$C$F$GT$$u20$as$u20$core..iter..traits..iterator..Iterator$GT$4fold17hfcc7a1ad8a488c6fE+160>:	addi	s11,s11,8
+   0x8020bcb8 <_ZN102_$LT$core..iter..adapters..map..Map$LT$I$C$F$GT$$u20$as$u20$core..iter..traits..iterator..Iterator$GT$4fold17hfcc7a1ad8a488c6fE+162>:	addi	s2,s2,-1
+   0x8020bcba <_ZN102_$LT$core..iter..adapters..map..Map$LT$I$C$F$GT$$u20$as$u20$core..iter..traits..iterator..Iterator$GT$4fold17hfcc7a1ad8a488c6fE+164>:	addi	s1,s1,8
+   0x8020bcbc <_ZN102_$LT$core..iter..adapters..map..Map$LT$I$C$F$GT$$u20$as$u20$core..iter..traits..iterator..Iterator$GT$4fold17hfcc7a1ad8a488c6fE+166>:	bnez	s2,0x8020bc84 <_ZN102_$LT$core..iter..adapters..map..Map$LT$I$C$F$GT$$u20$as$u20$core..iter..traits..iterator..Iterator$GT$4fold17hfcc7a1ad8a488c6fE+110>
+   0x8020bcc0 <_ZN102_$LT$core..iter..adapters..map..Map$LT$I$C$F$GT$$u20$as$u20$core..iter..traits..iterator..Iterator$GT$4fold17hfcc7a1ad8a488c6fE+170>:	sub	a0,s6,s8
+   0x8020bcc4 <_ZN102_$LT$core..iter..adapters..map..Map$LT$I$C$F$GT$$u20$as$u20$core..iter..traits..iterator..Iterator$GT$4fold17hfcc7a1ad8a488c6fE+174>:	ld	s1,-120(s0)
+   0x8020bcc8 <_ZN102_$LT$core..iter..adapters..map..Map$LT$I$C$F$GT$$u20$as$u20$core..iter..traits..iterator..Iterator$GT$4fold17hfcc7a1ad8a488c6fE+178>:	add	s1,s1,a0
+   0x8020bcca <_ZN102_$LT$core..iter..adapters..map..Map$LT$I$C$F$GT$$u20$as$u20$core..iter..traits..iterator..Iterator$GT$4fold17hfcc7a1ad8a488c6fE+180>:	ld	s3,-112(s0)
+   0x8020bcce <_ZN102_$LT$core..iter..adapters..map..Map$LT$I$C$F$GT$$u20$as$u20$core..iter..traits..iterator..Iterator$GT$4fold17hfcc7a1ad8a488c6fE+184>:	j	0x8020bcd4 <_ZN102_$LT$core..iter..adapters..map..Map$LT$I$C$F$GT$$u20$as$u20$core..iter..traits..iterator..Iterator$GT$4fold17hfcc7a1ad8a488c6fE+190>
+   0x8020bcd0 <_ZN102_$LT$core..iter..adapters..map..Map$LT$I$C$F$GT$$u20$as$u20$core..iter..traits..iterator..Iterator$GT$4fold17hfcc7a1ad8a488c6fE+186>:	bne	s6,s8,0x8020bd0c <_ZN102_$LT$core..iter..adapters..map..Map$LT$I$C$F$GT$$u20$as$u20$core..iter..traits..iterator..Iterator$GT$4fold17hfcc7a1ad8a488c6fE+246>
+   0x8020bcd4 <_ZN102_$LT$core..iter..adapters..map..Map$LT$I$C$F$GT$$u20$as$u20$core..iter..traits..iterator..Iterator$GT$4fold17hfcc7a1ad8a488c6fE+190>:	ld	a0,0(s9)
+   0x8020bcd8 <_ZN102_$LT$core..iter..adapters..map..Map$LT$I$C$F$GT$$u20$as$u20$core..iter..traits..iterator..Iterator$GT$4fold17hfcc7a1ad8a488c6fE+194>:	ld	a1,0(s7)
+   0x8020bcdc <_ZN102_$LT$core..iter..adapters..map..Map$LT$I$C$F$GT$$u20$as$u20$core..iter..traits..iterator..Iterator$GT$4fold17hfcc7a1ad8a488c6fE+198>:	slli	a2,s6,0x3
+   0x8020bce0 <_ZN102_$LT$core..iter..adapters..map..Map$LT$I$C$F$GT$$u20$as$u20$core..iter..traits..iterator..Iterator$GT$4fold17hfcc7a1ad8a488c6fE+202>:	add	s2,a0,a2
+   0x8020bce4 <_ZN102_$LT$core..iter..adapters..map..Map$LT$I$C$F$GT$$u20$as$u20$core..iter..traits..iterator..Iterator$GT$4fold17hfcc7a1ad8a488c6fE+206>:	and	a0,a1,s10
+   0x8020bce8 <_ZN102_$LT$core..iter..adapters..map..Map$LT$I$C$F$GT$$u20$as$u20$core..iter..traits..iterator..Iterator$GT$4fold17hfcc7a1ad8a488c6fE+210>:	srli	a1,s2,0xc
+   0x8020bcec <_ZN102_$LT$core..iter..adapters..map..Map$LT$I$C$F$GT$$u20$as$u20$core..iter..traits..iterator..Iterator$GT$4fold17hfcc7a1ad8a488c6fE+214>:	auipc	ra,0xfffff
+   0x8020bcf0 <_ZN102_$LT$core..iter..adapters..map..Map$LT$I$C$F$GT$$u20$as$u20$core..iter..traits..iterator..Iterator$GT$4fold17hfcc7a1ad8a488c6fE+218>:	jalr	-1668(ra)
+0x000000008020bbd8 in __switch ()
+=> 0x000000008020bbd8 <__switch+4>:	23 30 15 00	sd	ra,0(a0)
+0x000000008020bbdc in __switch ()
+=> 0x000000008020bbdc <__switch+8>:	22 e8	sd	s0,16(sp)
+0x000000008020bbde in __switch ()
+=> 0x000000008020bbde <__switch+10>:	26 ec	sd	s1,24(sp)
+0x000000008020bbe0 in __switch ()
+=> 0x000000008020bbe0 <__switch+12>:	4a f0	sd	s2,32(sp)

@@ -42,7 +42,7 @@ macro_rules! println {
 #[macro_export]
 macro_rules! info {
     () => ($crate::print!("\n"));
-    ($($arg:tt)*) => ($crate::print!("\x1b[31m{}\x1b[0m\n", format_args!($($arg)*)));
+    ($($arg:tt)*) => ($crate::print!("\x1b[33m{}\x1b[0m\n", format_args!($($arg)*)));
 }
 
 

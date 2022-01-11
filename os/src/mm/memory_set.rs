@@ -104,6 +104,7 @@ impl MemorySet {
             PhysAddr::from(strampoline as usize).into(),
             PTEFlags::R | PTEFlags::X,
         );
+        // info!("map_trampoline start:{:#x} end:{:#x}", TRAMPOLINE, strampoline as usize);
     }
 
     fn copy_from_kernel(&mut self, mut map_area: MapArea, data: &[u8]) {
@@ -213,12 +214,6 @@ impl MemorySet {
         let mut memory_set = Self::new_bare();
 
         let user_satp = memory_set.token();
-        // let mut space = SPACE_ID_SATP.unwrap();
-        // let mut x = SPACE_ID_SATP[space_id];
-        // x = user_satp as usize;
-
-        // &SPACE_ID_SATP[space_id] = user_satp;
-        // map trampoline
         memory_set.map_trampoline();
 
 

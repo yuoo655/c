@@ -50,46 +50,39 @@ pub fn suspend_current_and_run_next() {
 
 
 
-
-// pub fn switch_to_spaceid(space_id:usize){
-    
-//     let idle = 0 as usize;
-//     let target_context_ptr = SPACE.lock().get_context_ptr(space_id);
-
-//     unsafe {
-//         __switch(
-//             &idle  as *const usize,
-//             &target_context_ptr as *const usize,
-//         );
-//     }
-// }
-
 pub fn exit_current_and_run_next(exit_code: i32) {
     
+    // ++++++ hold initproc PCB lock here
+    let mut initproc_inner = INITPROC.acquire_inner_lock();
+
     // take from Processor
     let task = take_current_task().unwrap();
-
+    
     // **** hold current PCB lock
+    let wl = WAIT_LOCK.lock();
     let mut inner = task.acquire_inner_lock();
-
     // Change status to Zombie
     inner.task_status = TaskStatus::Zombie;
     // Record exit code
     inner.exit_code = exit_code;
+    // do not move to its parent but under initproc
 
-    // for child in inner.children.iter() {
-    //     child.acquire_inner_lock().parent = Some(Arc::downgrade(&INITPROC));
-    //     initproc_inner.children.push(child.clone());
-    // }
+    for child in inner.children.iter() {
+        child.acquire_inner_lock().parent = Some(Arc::downgrade(&INITPROC));
+        initproc_inner.children.push(child.clone());
+    }
+    drop(initproc_inner);
+    // ++++++ release parent PCB lock here
 
     inner.children.clear();
     // deallocate user space
     inner.memory_set.recycle_data_pages();
     drop(inner);
-    
     // **** release current PCB lock
     // drop task manually to maintain rc correctly
     drop(task);
+    drop(wl);
+
     // we do not have to save task context
     let mut _unused = TaskContext::zero_init();
 
@@ -110,66 +103,27 @@ pub fn add_initproc() {
 }
 
 
+
 pub fn add_user_test(){
 
-    // for i in 1..9 {
-    //     let task = Arc::new({
-    //         let inode = open_file(i.to_string().as_str(), OpenFlags::RDONLY).unwrap();
-    //         let v = inode.read_all();
-    //         TaskControlBlock::new(v.as_slice(), 0 as usize)
-    //     });
-    //     add_task(task.clone());
-    //     drop(task);
-    // }
+    for i in 1..9 {
+        let task = Arc::new({
+            let inode = open_file(i.to_string().as_str(), OpenFlags::RDONLY).unwrap();
+            let v = inode.read_all();
+            TaskControlBlock::new(v.as_slice(), 0 as usize)
+        });
+        add_task(task.clone());
+        drop(task);
+    }
 
-    let task1 = Arc::new({
-        let inode = open_file("1", OpenFlags::RDONLY).unwrap();
-        let v = inode.read_all();
-        TaskControlBlock::new(v.as_slice(), 1 as usize)
-    });
-    let task2 = Arc::new({
-        let inode = open_file("2", OpenFlags::RDONLY).unwrap();
-        let v = inode.read_all();
-        TaskControlBlock::new(v.as_slice(), 1 as usize)
-    });
-    let task3 = Arc::new({
-        let inode = open_file("3", OpenFlags::RDONLY).unwrap();
-        let v = inode.read_all();
-        TaskControlBlock::new(v.as_slice(), 1 as usize)
-    });
-    let task4 = Arc::new({
-        let inode = open_file("4", OpenFlags::RDONLY).unwrap();
-        let v = inode.read_all();
-        TaskControlBlock::new(v.as_slice(), 1 as usize)
-    });
-    let task5 = Arc::new({
-        let inode = open_file("5", OpenFlags::RDONLY).unwrap();
-        let v = inode.read_all();
-        TaskControlBlock::new(v.as_slice(), 1 as usize)
-    });
-    let task6 = Arc::new({
-        let inode = open_file("6", OpenFlags::RDONLY).unwrap();
-        let v = inode.read_all();
-        TaskControlBlock::new(v.as_slice(), 1 as usize)
-    });
-    let task7 = Arc::new({
-        let inode = open_file("7", OpenFlags::RDONLY).unwrap();
-        let v = inode.read_all();
-        TaskControlBlock::new(v.as_slice(), 1 as usize)
-    });
-    let task8 = Arc::new({
-        let inode = open_file("8", OpenFlags::RDONLY).unwrap();
-        let v = inode.read_all();
-        TaskControlBlock::new(v.as_slice(), 1 as usize)
-    });
+}
 
 
-    add_task(task1.clone());    
-    add_task(task2.clone());    
-    add_task(task3.clone());    
-    add_task(task4.clone());    
-    add_task(task5.clone());    
-    add_task(task6.clone());    
-    add_task(task7.clone());    
-    add_task(task8.clone());    
+pub fn add_user_shell() {
+    let task = Arc::new({
+        let inode = open_file("user_shell", OpenFlags::RDONLY).unwrap();
+        let v = inode.read_all();
+        TaskControlBlock::new(v.as_slice(), 1 as usize)
+    });
+    add_task(task.clone());
 }

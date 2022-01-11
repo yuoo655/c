@@ -8,7 +8,7 @@ os.system("cd easy-fs-fuse && cargo run --release -- -s ../user/src/bin/ -t ../u
 os.system("cd os && cargo build --release")
 os.system("cd os && cargo build")
 
-# debug
+# # debug
 # os.system("qemu-system-riscv64 \
 # -machine virt \
 # -nographic \

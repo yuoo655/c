@@ -146,6 +146,7 @@ impl TaskControlBlock {
             .translate(VirtAddr::from(TRAP_CONTEXT).into())
             .unwrap()
             .ppn();
+        
         // push arguments on user stack
         user_sp -= (args.len() + 1) * core::mem::size_of::<usize>();
         let argv_base = user_sp;
@@ -169,7 +170,7 @@ impl TaskControlBlock {
             *translated_refmut(memory_set.token(), p as *mut u8) = 0;
         }
         // make the user_sp aligned to 8B for k210 platform
-        user_sp -= user_sp % core::mem::size_of::<usize>();
+        // user_sp -= user_sp % core::mem::size_of::<usize>();
 
         // **** hold current PCB lock
         let mut inner = self.acquire_inner_lock();
@@ -178,17 +179,26 @@ impl TaskControlBlock {
         // update trap_cx ppn
         inner.trap_cx_ppn = trap_cx_ppn;
         // initialize trap_cx
-        let mut trap_cx = TrapContext::app_init_context(
+        // let mut trap_cx = TrapContext::app_init_context(
+        //     entry_point,
+        //     user_sp,
+        //     KERNEL_SPACE.lock().token(),
+        //     self.kernel_stack.get_top(),
+        //     trap_handler as usize,
+        //     // space_id,
+        // );
+        let trap_cx = inner.get_trap_cx();
+        *trap_cx = TrapContext::app_init_context(
             entry_point,
             user_sp,
             KERNEL_SPACE.lock().token(),
             self.kernel_stack.get_top(),
             trap_handler as usize,
-            // space_id,
         );
-        trap_cx.x[10] = args.len();
-        trap_cx.x[11] = argv_base;
-        *inner.get_trap_cx() = trap_cx;
+
+        // trap_cx.x[10] = args.len();
+        // trap_cx.x[11] = argv_base;
+        // *inner.get_trap_cx() = trap_cx;
         // **** release current PCB lock
     }
 
