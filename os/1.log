@@ -5400,3 +5400,320 @@ Thread 4 hit Breakpoint 1, 0x000000008020bbd4 in __switch ()
 => 0x000000008020bbde <__switch+10>:	26 ec	sd	s1,24(sp)
 0x000000008020bbe0 in __switch ()
 => 0x000000008020bbe0 <__switch+12>:	4a f0	sd	s2,32(sp)
+0x0000000000001000 in ?? ()
+=> 0x0000000000001000:	97 02 00 00	auipc	t0,0x0
+Breakpoint 1 at 0x8020bca0
+Continuing.
+[Switching to Thread 1.4]
+
+Thread 4 hit Breakpoint 1, 0x000000008020bca0 in os::task::exit_current_and_run_next ()
+=> 0x000000008020bca0 <_ZN2os4task25exit_current_and_run_next17h540d2a0d1176830cE+30>:	2a 89	mv	s2,a0
+zero           0x0	0
+ra             0x802093c4	0x802093c4 <os::syscall::process::sys_exit+126>
+sp             0xfffffffffffeccf0	0xfffffffffffeccf0
+gp             0x0	0x0
+tp             0x3	0x3
+t0             0x1c0000	1835008
+t1             0x110000	1114112
+t2             0xdf	223
+fp             0xfffffffffffece60	0xfffffffffffece60
+s1             0x0	0
+a0             0x0	0
+a1             0x8021bdea	2149694954
+a2             0x0	0
+a3             0x8021bdea	2149694954
+a4             0x1	1
+a5             0x8021bdea	2149694954
+a6             0xf0	240
+a7             0x1	1
+s2             0x0	0
+s3             0x0	0
+s4             0x0	0
+s5             0x0	0
+s6             0x0	0
+s7             0x0	0
+s8             0x0	0
+s9             0x0	0
+s10            0x0	0
+s11            0x0	0
+t3             0xffffffffffffffff	-1
+t4             0x4	4
+t5             0x0	0
+t6             0x0	0
+pc             0x8020bca0	0x8020bca0 <os::task::exit_current_and_run_next+30>
+ft0            {float = 0, double = 0}	(raw 0x0000000000000000)
+ft1            {float = 0, double = 0}	(raw 0x0000000000000000)
+ft2            {float = 0, double = 0}	(raw 0x0000000000000000)
+ft3            {float = 0, double = 0}	(raw 0x0000000000000000)
+ft4            {float = 0, double = 0}	(raw 0x0000000000000000)
+ft5            {float = 0, double = 0}	(raw 0x0000000000000000)
+ft6            {float = 0, double = 0}	(raw 0x0000000000000000)
+ft7            {float = 0, double = 0}	(raw 0x0000000000000000)
+fs0            {float = 0, double = 0}	(raw 0x0000000000000000)
+fs1            {float = 0, double = 0}	(raw 0x0000000000000000)
+fa0            {float = 0, double = 0}	(raw 0x0000000000000000)
+fa1            {float = 0, double = 0}	(raw 0x0000000000000000)
+fa2            {float = 0, double = 0}	(raw 0x0000000000000000)
+fa3            {float = 0, double = 0}	(raw 0x0000000000000000)
+fa4            {float = 0, double = 0}	(raw 0x0000000000000000)
+fa5            {float = 0, double = 0}	(raw 0x0000000000000000)
+fa6            {float = 0, double = 0}	(raw 0x0000000000000000)
+fa7            {float = 0, double = 0}	(raw 0x0000000000000000)
+fs2            {float = 0, double = 0}	(raw 0x0000000000000000)
+fs3            {float = 0, double = 0}	(raw 0x0000000000000000)
+fs4            {float = 0, double = 0}	(raw 0x0000000000000000)
+fs5            {float = 0, double = 0}	(raw 0x0000000000000000)
+fs6            {float = 0, double = 0}	(raw 0x0000000000000000)
+fs7            {float = 0, double = 0}	(raw 0x0000000000000000)
+fs8            {float = 0, double = 0}	(raw 0x0000000000000000)
+fs9            {float = 0, double = 0}	(raw 0x0000000000000000)
+fs10           {float = 0, double = 0}	(raw 0x0000000000000000)
+fs11           {float = 0, double = 0}	(raw 0x0000000000000000)
+ft8            {float = 0, double = 0}	(raw 0x0000000000000000)
+ft9            {float = 0, double = 0}	(raw 0x0000000000000000)
+ft10           {float = 0, double = 0}	(raw 0x0000000000000000)
+ft11           {float = 0, double = 0}	(raw 0x0000000000000000)
+ustatus        Could not fetch register "ustatus"; remote failure reply 'E14'
+fflags         0x0	RD:0 NV:0 DZ:0 OF:0 UF:0 NX:0
+frm            0x0	FRM:0 [RNE (round to nearest; ties to even)]
+fcsr           0x0	RD:0 NV:0 DZ:0 OF:0 UF:0 NX:0 FRM:0 [RNE (round to nearest; ties to even)]
+uie            Could not fetch register "uie"; remote failure reply 'E14'
+utvec          Could not fetch register "utvec"; remote failure reply 'E14'
+uscratch       Could not fetch register "uscratch"; remote failure reply 'E14'
+uepc           Could not fetch register "uepc"; remote failure reply 'E14'
+ucause         Could not fetch register "ucause"; remote failure reply 'E14'
+utval          Could not fetch register "utval"; remote failure reply 'E14'
+uip            Could not fetch register "uip"; remote failure reply 'E14'
+sstatus        0x0	0
+sedeleg        Could not fetch register "sedeleg"; remote failure reply 'E14'
+sideleg        Could not fetch register "sideleg"; remote failure reply 'E14'
+sie            0x20	32
+stvec          0x802046b4	2149598900
+scounteren     0x0	0
+sscratch       0x86147b88	2249489288
+sepc           0x8600f7da	2248210394
+scause         0x8	8
+stval          0x0	0
+sip            0x0	0
+satp           0x8000000000084263	-9223372036854234525
+hstatus        Could not fetch register "hstatus"; remote failure reply 'E14'
+hedeleg        Could not fetch register "hedeleg"; remote failure reply 'E14'
+hideleg        Could not fetch register "hideleg"; remote failure reply 'E14'
+hie            Could not fetch register "hie"; remote failure reply 'E14'
+htvec          Could not fetch register "htvec"; remote failure reply 'E14'
+hscratch       Could not fetch register "hscratch"; remote failure reply 'E14'
+hepc           Could not fetch register "hepc"; remote failure reply 'E14'
+hcause         Could not fetch register "hcause"; remote failure reply 'E14'
+hbadaddr       Could not fetch register "hbadaddr"; remote failure reply 'E14'
+hip            Could not fetch register "hip"; remote failure reply 'E14'
+mstatus        0x80	SD:0 VM:00 MXR:0 PUM:0 MPRV:0 XS:0 FS:0 MPP:0 HPP:0 SPP:0 MPIE:1 HPIE:0 SPIE:0 UPIE:0 MIE:0 HIE:0 SIE:0 UIE:0
+misa           0x800000000014112d	RV64ACDFIMSU
+medeleg        0xb1a3	45475
+mideleg        0x222	546
+mie            0x8a8	2216
+mtvec          0x800011ec	2147488236
+mcounteren     0x0	0
+mucounteren    Could not fetch register "mucounteren"; remote failure reply 'E14'
+mscounteren    Could not fetch register "mscounteren"; remote failure reply 'E14'
+mhcounteren    0x0	0
+mhpmevent3     Could not fetch register "mhpmevent3"; remote failure reply 'E14'
+mhpmevent4     Could not fetch register "mhpmevent4"; remote failure reply 'E14'
+mhpmevent5     0x0	0
+mhpmevent6     0x0	0
+mhpmevent7     0x0	0
+mhpmevent8     0x0	0
+mhpmevent9     0x0	0
+mhpmevent10    0x0	0
+mhpmevent11    0x0	0
+mhpmevent12    0x0	0
+mhpmevent13    0x0	0
+mhpmevent14    0x0	0
+mhpmevent15    0x0	0
+mhpmevent16    0x0	0
+mhpmevent17    0x0	0
+mhpmevent18    0x0	0
+mhpmevent19    0x0	0
+mhpmevent20    0x0	0
+mhpmevent21    0x0	0
+mhpmevent22    0x0	0
+mhpmevent23    0x0	0
+mhpmevent24    0x0	0
+mhpmevent25    0x0	0
+mhpmevent26    0x0	0
+mhpmevent27    0x0	0
+mhpmevent28    0x0	0
+mhpmevent29    0x0	0
+mhpmevent30    0x0	0
+mhpmevent31    0x0	0
+mscratch       0x8001ed98	2147610008
+mepc           0x80208f7a	2149617530
+mcause         0x9	9
+mtval          0x0	0
+mip            0x0	0
+mbase          Could not fetch register "mbase"; remote failure reply 'E14'
+mbound         Could not fetch register "mbound"; remote failure reply 'E14'
+mibase         Could not fetch register "mibase"; remote failure reply 'E14'
+mibound        Could not fetch register "mibound"; remote failure reply 'E14'
+mdbase         Could not fetch register "mdbase"; remote failure reply 'E14'
+mdbound        Could not fetch register "mdbound"; remote failure reply 'E14'
+pmpcfg0        Could not fetch register "pmpcfg0"; remote failure reply 'E14'
+pmpcfg1        Could not fetch register "pmpcfg1"; remote failure reply 'E14'
+pmpcfg2        0x1f	31
+pmpcfg3        0x0	0
+pmpaddr0       0x0	0
+pmpaddr1       0x0	0
+pmpaddr2       0xffffffffffffffff	-1
+pmpaddr3       0x23ffffff	603979775
+pmpaddr4       0x0	0
+pmpaddr5       0x0	0
+pmpaddr6       0x0	0
+pmpaddr7       0x0	0
+pmpaddr8       0x0	0
+pmpaddr9       0x0	0
+pmpaddr10      0x0	0
+pmpaddr11      0x0	0
+pmpaddr12      0x0	0
+pmpaddr13      0x0	0
+pmpaddr14      0x0	0
+pmpaddr15      0x0	0
+tselect        0x0	0
+tdata1         0x0	0
+tdata2         Could not fetch register "tdata2"; remote failure reply 'E14'
+tdata3         Could not fetch register "tdata3"; remote failure reply 'E14'
+dcsr           Could not fetch register "dcsr"; remote failure reply 'E14'
+dpc            Could not fetch register "dpc"; remote failure reply 'E14'
+dscratch       Could not fetch register "dscratch"; remote failure reply 'E14'
+mcycle         0x0	0
+minstret       0x0	0
+mhpmcounter3   0x41000e0bac25	71468491451429
+mhpmcounter4   0x41000e70f279	71468498088569
+mhpmcounter5   0x0	0
+mhpmcounter6   0x0	0
+mhpmcounter7   0x0	0
+mhpmcounter8   0x0	0
+mhpmcounter9   0x0	0
+mhpmcounter10  0x0	0
+mhpmcounter11  0x0	0
+mhpmcounter12  0x0	0
+mhpmcounter13  0x0	0
+mhpmcounter14  0x0	0
+mhpmcounter15  0x0	0
+mhpmcounter16  0x0	0
+mhpmcounter17  0x0	0
+mhpmcounter18  0x0	0
+mhpmcounter19  0x0	0
+mhpmcounter20  0x0	0
+mhpmcounter21  0x0	0
+mhpmcounter22  0x0	0
+mhpmcounter23  0x0	0
+mhpmcounter24  0x0	0
+mhpmcounter25  0x0	0
+mhpmcounter26  0x0	0
+mhpmcounter27  0x0	0
+mhpmcounter28  0x0	0
+mhpmcounter29  0x0	0
+mhpmcounter30  0x0	0
+mhpmcounter31  0x0	0
+mcycleh        0x0	0
+minstreth      0x0	0
+mhpmcounter3h  Could not fetch register "mhpmcounter3h"; remote failure reply 'E14'
+mhpmcounter4h  Could not fetch register "mhpmcounter4h"; remote failure reply 'E14'
+mhpmcounter5h  Could not fetch register "mhpmcounter5h"; remote failure reply 'E14'
+mhpmcounter6h  Could not fetch register "mhpmcounter6h"; remote failure reply 'E14'
+mhpmcounter7h  Could not fetch register "mhpmcounter7h"; remote failure reply 'E14'
+mhpmcounter8h  Could not fetch register "mhpmcounter8h"; remote failure reply 'E14'
+mhpmcounter9h  Could not fetch register "mhpmcounter9h"; remote failure reply 'E14'
+mhpmcounter10h Could not fetch register "mhpmcounter10h"; remote failure reply 'E14'
+mhpmcounter11h Could not fetch register "mhpmcounter11h"; remote failure reply 'E14'
+mhpmcounter12h Could not fetch register "mhpmcounter12h"; remote failure reply 'E14'
+mhpmcounter13h Could not fetch register "mhpmcounter13h"; remote failure reply 'E14'
+mhpmcounter14h Could not fetch register "mhpmcounter14h"; remote failure reply 'E14'
+mhpmcounter15h Could not fetch register "mhpmcounter15h"; remote failure reply 'E14'
+mhpmcounter16h Could not fetch register "mhpmcounter16h"; remote failure reply 'E14'
+mhpmcounter17h Could not fetch register "mhpmcounter17h"; remote failure reply 'E14'
+mhpmcounter18h Could not fetch register "mhpmcounter18h"; remote failure reply 'E14'
+mhpmcounter19h Could not fetch register "mhpmcounter19h"; remote failure reply 'E14'
+mhpmcounter20h Could not fetch register "mhpmcounter20h"; remote failure reply 'E14'
+mhpmcounter21h Could not fetch register "mhpmcounter21h"; remote failure reply 'E14'
+mhpmcounter22h Could not fetch register "mhpmcounter22h"; remote failure reply 'E14'
+mhpmcounter23h Could not fetch register "mhpmcounter23h"; remote failure reply 'E14'
+mhpmcounter24h Could not fetch register "mhpmcounter24h"; remote failure reply 'E14'
+mhpmcounter25h Could not fetch register "mhpmcounter25h"; remote failure reply 'E14'
+mhpmcounter26h Could not fetch register "mhpmcounter26h"; remote failure reply 'E14'
+mhpmcounter27h Could not fetch register "mhpmcounter27h"; remote failure reply 'E14'
+mhpmcounter28h Could not fetch register "mhpmcounter28h"; remote failure reply 'E14'
+mhpmcounter29h Could not fetch register "mhpmcounter29h"; remote failure reply 'E14'
+mhpmcounter30h Could not fetch register "mhpmcounter30h"; remote failure reply 'E14'
+mhpmcounter31h Could not fetch register "mhpmcounter31h"; remote failure reply 'E14'
+cycle          0x41002951c0a9	71468949029033
+time           0x19f8d640	435738176
+instret        0x41002a0c2d45	71468961246533
+hpmcounter3    0x0	0
+hpmcounter4    0x0	0
+hpmcounter5    0x0	0
+hpmcounter6    0x0	0
+hpmcounter7    0x0	0
+hpmcounter8    0x0	0
+hpmcounter9    0x0	0
+hpmcounter10   0x0	0
+hpmcounter11   0x0	0
+hpmcounter12   0x0	0
+hpmcounter13   0x0	0
+hpmcounter14   0x0	0
+hpmcounter15   0x0	0
+hpmcounter16   0x0	0
+hpmcounter17   0x0	0
+hpmcounter18   0x0	0
+hpmcounter19   0x0	0
+hpmcounter20   0x0	0
+hpmcounter21   0x0	0
+hpmcounter22   0x0	0
+hpmcounter23   0x0	0
+hpmcounter24   0x0	0
+hpmcounter25   0x0	0
+hpmcounter26   0x0	0
+hpmcounter27   0x0	0
+hpmcounter28   0x0	0
+hpmcounter29   0x0	0
+hpmcounter30   0x0	0
+hpmcounter31   0x0	0
+cycleh         Could not fetch register "cycleh"; remote failure reply 'E14'
+timeh          Could not fetch register "timeh"; remote failure reply 'E14'
+instreth       Could not fetch register "instreth"; remote failure reply 'E14'
+hpmcounter3h   Could not fetch register "hpmcounter3h"; remote failure reply 'E14'
+hpmcounter4h   Could not fetch register "hpmcounter4h"; remote failure reply 'E14'
+hpmcounter5h   Could not fetch register "hpmcounter5h"; remote failure reply 'E14'
+hpmcounter6h   Could not fetch register "hpmcounter6h"; remote failure reply 'E14'
+hpmcounter7h   Could not fetch register "hpmcounter7h"; remote failure reply 'E14'
+hpmcounter8h   Could not fetch register "hpmcounter8h"; remote failure reply 'E14'
+hpmcounter9h   Could not fetch register "hpmcounter9h"; remote failure reply 'E14'
+hpmcounter10h  Could not fetch register "hpmcounter10h"; remote failure reply 'E14'
+hpmcounter11h  Could not fetch register "hpmcounter11h"; remote failure reply 'E14'
+hpmcounter12h  Could not fetch register "hpmcounter12h"; remote failure reply 'E14'
+hpmcounter13h  Could not fetch register "hpmcounter13h"; remote failure reply 'E14'
+hpmcounter14h  Could not fetch register "hpmcounter14h"; remote failure reply 'E14'
+hpmcounter15h  Could not fetch register "hpmcounter15h"; remote failure reply 'E14'
+hpmcounter16h  Could not fetch register "hpmcounter16h"; remote failure reply 'E14'
+hpmcounter17h  Could not fetch register "hpmcounter17h"; remote failure reply 'E14'
+hpmcounter18h  Could not fetch register "hpmcounter18h"; remote failure reply 'E14'
+hpmcounter19h  Could not fetch register "hpmcounter19h"; remote failure reply 'E14'
+hpmcounter20h  Could not fetch register "hpmcounter20h"; remote failure reply 'E14'
+hpmcounter21h  Could not fetch register "hpmcounter21h"; remote failure reply 'E14'
+hpmcounter22h  Could not fetch register "hpmcounter22h"; remote failure reply 'E14'
+hpmcounter23h  Could not fetch register "hpmcounter23h"; remote failure reply 'E14'
+hpmcounter24h  Could not fetch register "hpmcounter24h"; remote failure reply 'E14'
+hpmcounter25h  Could not fetch register "hpmcounter25h"; remote failure reply 'E14'
+hpmcounter26h  Could not fetch register "hpmcounter26h"; remote failure reply 'E14'
+hpmcounter27h  Could not fetch register "hpmcounter27h"; remote failure reply 'E14'
+hpmcounter28h  Could not fetch register "hpmcounter28h"; remote failure reply 'E14'
+hpmcounter29h  Could not fetch register "hpmcounter29h"; remote failure reply 'E14'
+hpmcounter30h  Could not fetch register "hpmcounter30h"; remote failure reply 'E14'
+hpmcounter31h  Could not fetch register "hpmcounter31h"; remote failure reply 'E14'
+mvendorid      0x0	0
+marchid        0x0	0
+mimpid         0x0	0
+mhartid        0x3	3
+priv           0x1	prv:1 [Supervisor]
+Detaching from program: D:\z\2\new\c\os\target\riscv64gc-unknown-none-elf\release\os, process 1
+Ending remote debugging.
+[Inferior 1 (process 1) detached]
