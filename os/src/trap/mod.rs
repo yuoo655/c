@@ -11,6 +11,7 @@ use riscv::{addr::BitField, register::{
     },
     stval,
     sie,
+    sstatus,
 }};
 use crate::syscall::syscall;
 use crate::task::{
@@ -18,6 +19,7 @@ use crate::task::{
     suspend_current_and_run_next,
     current_user_token,
     current_trap_cx,
+    current_task,
 };
 use crate::timer::set_next_trigger;
 use crate::config::{TRAP_CONTEXT, TRAMPOLINE};
@@ -25,6 +27,7 @@ use crate::config::{TRAP_CONTEXT, TRAMPOLINE};
 global_asm!(include_str!("trap.S"));
 
 pub fn init() {
+    
     set_kernel_trap_entry();
 }
 
@@ -91,7 +94,8 @@ pub fn trap_handler() -> ! {
         }
         Trap::Interrupt(Interrupt::SupervisorTimer) => {
             set_next_trigger();
-            // suspend_current_and_run_next();
+            // info!("[kernel] timer interrupt");
+            suspend_current_and_run_next();
         }
         _ => {
             panic!("Unsupported trap {:?}, stval = {:#x}!", scause.cause(), stval);
@@ -101,23 +105,33 @@ pub fn trap_handler() -> ! {
     trap_return();
 }
 
+
 #[no_mangle]
 pub fn trap_return() -> ! {
+    unsafe {
+        sstatus::clear_sie();
+    }
+
     set_user_trap_entry();
     let trap_cx_ptr = TRAP_CONTEXT;
     let user_satp = current_user_token();
+
     extern "C" {
         fn __alltraps();
         fn __restore();
     }
     let restore_va = __restore as usize - __alltraps as usize + TRAMPOLINE;
     unsafe {
-        llvm_asm!("fence.i" :::: "volatile");
-        llvm_asm!("jr $0" :: "r"(restore_va), "{a0}"(trap_cx_ptr), "{a1}"(user_satp) :: "volatile");
+        asm!(
+            "fence.i",
+            "jr {restore_va}",
+            restore_va = in(reg) restore_va,
+            in("a0") trap_cx_ptr,
+            in("a1") user_satp,
+            options(noreturn)
+        );
     }
-    panic!("Unreachable in back_to_user!");
 }
-
 
 
 #[no_mangle]
@@ -151,9 +165,16 @@ pub fn trap_return1(space_id:usize) -> ! {
 #[no_mangle]
 pub fn trap_from_kernel() -> !{
     let stval = stval::read();
-    panic!("a trap {:?}  stval = {:#x}! from kernel!", scause::read().cause(), stval);
+    let sepc = sepc_read();
+    panic!("a trap {:?}  stval = {:#x}! sepc = {:#x} from kernel!", scause::read().cause(), stval, sepc);
 }
 
+
+pub fn sepc_read() -> usize {
+    let ret: usize;
+    unsafe {llvm_asm!("csrr $0, sepc":"=r"(ret):::"volatile");}
+    ret
+}
 pub use context::{TrapContext};
 
 

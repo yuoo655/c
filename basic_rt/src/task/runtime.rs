@@ -4,6 +4,7 @@ use alloc::boxed::Box;
 use alloc::sync::Arc;
 use core::future::Future;
 use core::pin::Pin;
+use alloc::vec::Vec;
 use core::sync::atomic::{AtomicUsize, Ordering};
 use alloc::collections::btree_map::BTreeMap;
 use alloc::collections::VecDeque;
@@ -88,39 +89,65 @@ impl Future for UserTask {
                 Poll::Pending
             }
         }
-
+    
         }
     }
+}
+
+pub struct UserTaskQueue {
+    pub queue: Vec<VecDeque<Arc<UserTask>>>,
 }
 
 
 
 //用户协程队列
-pub struct UserTaskQueue {
-    pub queue: VecDeque<Arc<UserTask>>,
-}
-
 impl UserTaskQueue {
-    pub fn add_task(&mut self, task: UserTask) {
-        self.queue.push_front(Arc::new(task));
-        // println!("queue len:{:?}", self.queue.len());
+    pub fn new() -> Self {
+        let queue = (0..4).map(|_| VecDeque::new() ).collect::<Vec<VecDeque<Arc<UserTask>>>>();
+        UserTaskQueue {
+            queue,
+        }
     }
 
-    pub fn add_arc_task(&mut self, task: Arc<UserTask>) {
-        self.queue.push_back(task);
+    pub fn add_task(&mut self, task: UserTask, priority: Option<usize>) {
+        let p = priority.unwrap_or(0);
+        self.queue[p].push_front(Arc::new(task));
+    }
+
+    pub fn add_arc_task(&mut self, task: Arc<UserTask>, priority: usize) {
+        self.queue[priority].push_back(task);
     }
 
     pub fn peek_task(&mut self) -> Option<Arc<UserTask>> {
-        self.queue.pop_front()
+
+        let mut ret = None;
+
+        for i in 0..self.queue.len() {
+            if self.queue[i].len() !=0 {
+
+                let x =  self.queue[i].pop_front();
+
+                return x
+            }
+        }
+
+        return ret
     }
 
-    pub fn delete_task(&mut self, id: TaskId) {
-        let index = self.queue.iter().position(|task| task.id == id).unwrap();
-        self.queue.remove(index);
-    }
+
+    // pub fn delete_task(&mut self, id: TaskId, priority: usize) {
+    //     let index = self.queue[priority].iter().position(|task| task.id == id).unwrap();
+    //     self.queue.remove(index);
+    // }
     
-    pub fn is_empty(&self) -> bool {
-        self.queue.is_empty()
+    pub fn is_all_empty(&self) -> bool {
+
+        for i in 0..self.queue.len() {
+            if !self.queue[i].is_empty() {
+                return false
+            }
+        }
+        return  true;
     }
 
 }

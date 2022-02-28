@@ -13,6 +13,7 @@ const SYSCALL_EXEC: usize = 221;
 const SYSCALL_WAITPID: usize = 260;
 const SYSCALL_DO_YIELD: usize = 270;
 const SYSCALL_V1: usize = 300;
+const SYSCALL_GET_SYMBOL_ADDR: usize = 301;
 
 mod fs;
 pub mod process;
@@ -38,7 +39,7 @@ pub fn syscall(syscall_id: usize, args: [usize; 3]) -> isize {
         SYSCALL_WAITPID => sys_waitpid(args[0] as isize, args[1] as *mut i32),
 
         SYSCALL_DO_YIELD => sys_do_yield(args[0]),
-        // SYSCALL_V1=> sys_exec_v1(),
+        SYSCALL_GET_SYMBOL_ADDR=> sys_get_symbol_addr(args[0] as *const u8),
         _ => panic!("Unsupported syscall_id: {}", syscall_id),
     }
 }

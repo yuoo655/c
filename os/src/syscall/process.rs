@@ -4,7 +4,7 @@ use crate::task::{
     current_task,
     current_user_token,
     add_task,
-    switch_to_spaceid,
+    // switch_to_spaceid,
 };
 use crate::timer::get_time_ms;
 use crate::mm::{
@@ -21,6 +21,7 @@ use alloc::vec::Vec;
 use alloc::string::{String, ToString};
 
 pub fn sys_exit(exit_code: i32) -> ! {
+    crate::info!("user exit");
     exit_current_and_run_next(exit_code);
     panic!("Unreachable in sys_exit!");
 }
@@ -31,7 +32,7 @@ pub fn sys_yield() -> isize {
 }
 
 pub fn sys_do_yield(space_id:usize) -> isize {
-    switch_to_spaceid(space_id);
+    // switch_to_spaceid(space_id);
     0
 }
 
@@ -152,6 +153,18 @@ pub fn sys_waitpid(pid: isize, exit_code_ptr: *mut i32) -> isize {
     // ---- release current PCB lock automatically
 }
 
+
+
+pub fn sys_get_symbol_addr(symbol_name: *const u8) -> isize{
+    // println!("sys_get_symbol_addr {:?}", symbol_name);
+    let token = current_user_token();
+    let name = translated_str(token, symbol_name);
+    let name = name.as_str();
+    let addr = crate::lkm::get_symbol_addr_from_elf("basic_rt", name);
+
+    addr as isize
+
+}
 
 // use crate::loader::get_app_data_by_name;
 

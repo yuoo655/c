@@ -31,6 +31,7 @@ use crate::config::swap_contex_va;
 pub struct TaskControlBlockInner {
     pub trap_cx_ppn: PhysPageNum,
     pub base_size: usize,
+    pub task_cx: TaskContext,
     pub task_cx_ptr: usize,
     pub task_status: TaskStatus,
     pub memory_set: MemorySet,
@@ -41,6 +42,10 @@ pub struct TaskControlBlockInner {
 }
 
 impl TaskControlBlockInner {
+    pub fn get_task_cx_ptr(&mut self) -> *mut TaskContext {
+        &mut self.task_cx as *mut TaskContext
+    }
+
     pub fn get_task_cx_ptr2(&self) -> *const usize {
         &self.task_cx_ptr as *const usize
     }
@@ -68,9 +73,11 @@ impl TaskControlBlockInner {
 }
 
 impl TaskControlBlock {
+    
     pub fn acquire_inner_lock(&self) -> MutexGuard<TaskControlBlockInner> {
         self.inner.lock()
     }
+
     pub fn new(elf_data: &[u8], space_id:usize) -> Self {
 
         // memory_set with elf program headers/trampoline/trap context/user stack
@@ -87,13 +94,15 @@ impl TaskControlBlock {
         let kernel_stack = KernelStack::new(&pid_handle);
         let kernel_stack_top = kernel_stack.get_top();
         // push a task context which goes to trap_return to the top of kernel stack
-        let task_cx_ptr = kernel_stack.push_on_top(TaskContext::goto_trap_return());
+        let task_cx = TaskContext::goto_trap_return(kernel_stack_top);
+        let task_cx_ptr = kernel_stack.push_on_top(TaskContext::goto_trap_return(kernel_stack_top));
         let task_control_block = Self {
             pid: pid_handle,
             kernel_stack,
             inner: Mutex::new(TaskControlBlockInner {
                 trap_cx_ppn,
                 base_size: user_sp,
+                task_cx,
                 task_cx_ptr: task_cx_ptr as usize,
                 task_status: TaskStatus::Ready,
                 memory_set,
@@ -112,7 +121,7 @@ impl TaskControlBlock {
         };
 
         // let mut q = SPACE.lock();
-        SPACE.lock().push_context(space_id, task_cx_ptr as usize);
+        // SPACE.lock().push_context(space_id, task_cx_ptr as usize);
 
         let trap_cx = task_control_block.acquire_inner_lock().get_trap_cx();
         *trap_cx = TrapContext::app_init_context(
@@ -121,7 +130,7 @@ impl TaskControlBlock {
             KERNEL_SPACE.lock().token(),
             kernel_stack_top,
             trap_handler as usize,
-            space_id,
+            // space_id,
         );
         task_control_block
     }
@@ -137,6 +146,7 @@ impl TaskControlBlock {
             .translate(VirtAddr::from(TRAP_CONTEXT).into())
             .unwrap()
             .ppn();
+        
         // push arguments on user stack
         user_sp -= (args.len() + 1) * core::mem::size_of::<usize>();
         let argv_base = user_sp;
@@ -160,7 +170,7 @@ impl TaskControlBlock {
             *translated_refmut(memory_set.token(), p as *mut u8) = 0;
         }
         // make the user_sp aligned to 8B for k210 platform
-        user_sp -= user_sp % core::mem::size_of::<usize>();
+        // user_sp -= user_sp % core::mem::size_of::<usize>();
 
         // **** hold current PCB lock
         let mut inner = self.acquire_inner_lock();
@@ -169,17 +179,26 @@ impl TaskControlBlock {
         // update trap_cx ppn
         inner.trap_cx_ppn = trap_cx_ppn;
         // initialize trap_cx
-        let mut trap_cx = TrapContext::app_init_context(
+        // let mut trap_cx = TrapContext::app_init_context(
+        //     entry_point,
+        //     user_sp,
+        //     KERNEL_SPACE.lock().token(),
+        //     self.kernel_stack.get_top(),
+        //     trap_handler as usize,
+        //     // space_id,
+        // );
+        let trap_cx = inner.get_trap_cx();
+        *trap_cx = TrapContext::app_init_context(
             entry_point,
             user_sp,
             KERNEL_SPACE.lock().token(),
             self.kernel_stack.get_top(),
             trap_handler as usize,
-            space_id,
         );
-        trap_cx.x[10] = args.len();
-        trap_cx.x[11] = argv_base;
-        *inner.get_trap_cx() = trap_cx;
+
+        // trap_cx.x[10] = args.len();
+        // trap_cx.x[11] = argv_base;
+        // *inner.get_trap_cx() = trap_cx;
         // **** release current PCB lock
     }
 
@@ -199,8 +218,10 @@ impl TaskControlBlock {
         let pid_handle = pid_alloc();
         let kernel_stack = KernelStack::new(&pid_handle);
         let kernel_stack_top = kernel_stack.get_top();
+
+        let task_cx = TaskContext::goto_trap_return(kernel_stack_top);
         // push a goto_trap_return task_cx on the top of kernel stack
-        let task_cx_ptr = kernel_stack.push_on_top(TaskContext::goto_trap_return());
+        let task_cx_ptr = kernel_stack.push_on_top(TaskContext::goto_trap_return(kernel_stack_top));
         // copy fd table
         let mut new_fd_table: Vec<Option<Arc<dyn File + Send + Sync>>> = Vec::new();
         for fd in parent_inner.fd_table.iter() {
@@ -216,6 +237,7 @@ impl TaskControlBlock {
             inner: Mutex::new(TaskControlBlockInner {
                 trap_cx_ppn,
                 base_size: parent_inner.base_size,
+                task_cx,
                 task_cx_ptr: task_cx_ptr as usize,
                 task_status: TaskStatus::Ready,
                 memory_set,
@@ -242,42 +264,65 @@ impl TaskControlBlock {
 
 }
 
+
+impl PartialEq for TaskControlBlock {
+    fn eq(&self, other: &Self) -> bool {
+        self.pid == other.pid
+    }
+}
+
+impl Eq for TaskControlBlock {}
+
+impl PartialOrd for TaskControlBlock {
+    fn partial_cmp(&self, other: &Self) -> Option<core::cmp::Ordering> {
+        Some(self.cmp(other))
+    }
+}
+
+impl Ord for TaskControlBlock {
+    fn cmp(&self, other: &Self) -> core::cmp::Ordering {
+        self.pid.cmp(&other.pid)
+    }
+}
+
+
+
 #[derive(Copy, Clone, PartialEq)]
 pub enum TaskStatus {
     Ready,
-    Running,
+    Running(usize),
     Zombie,
 }
 
 
-pub struct SpaceidContext{
-    info: Vec<usize>
-}
+// pub struct SpaceidContext{
+//     info: Vec<usize>
+// }
 
 
-impl SpaceidContext{
-    pub fn new() -> Self {
+// impl SpaceidContext{
+//     pub fn new() -> Self {
 
-        let mut zero_vec: Vec<usize> = Vec::with_capacity(100);
-        for i in 0..100 {
-            zero_vec.push(0);
-        }
-        // let mut v:Vec<usize> = Vec::new();
-        Self {
-            info: zero_vec
-        }
-    }
+//         let mut zero_vec: Vec<usize> = Vec::with_capacity(100);
+//         for i in 0..100 {
+//             zero_vec.push(0);
+//         }
+//         // let mut v:Vec<usize> = Vec::new();
+//         Self {
+//             info: zero_vec
+//         }
+//     }
 
-    pub fn push_context(&mut self,space_id:usize, value:usize) {
-        self.info[space_id] = value;
-    }
+//     pub fn push_context(&mut self,space_id:usize, value:usize) {
+//         self.info[space_id] = value;
+//     }
 
-    pub fn get_context_ptr(&self, space_id:usize) -> usize{
-        self.info[space_id]
-    }
-}
+//     pub fn get_context_ptr(&self, space_id:usize) -> usize{
+//         self.info[space_id]
+//     }
+// }
 
 
-lazy_static! {
-    pub static ref SPACE: Mutex<SpaceidContext> = Mutex::new(SpaceidContext::new());
-}
+// lazy_static! {
+//     pub static ref SPACE: Mutex<SpaceidContext> = Mutex::new(SpaceidContext::new());
+// }

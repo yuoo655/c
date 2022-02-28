@@ -1,5 +1,0 @@
->>riscv64-unknown-elf-readelf.exe -s .\target\riscv64gc-unknown-none-elf\debug\basic_rt > 1
-
-
-
->>riscv64-unknown-elf-objdump.exe -S .\target\riscv64gc-unknown-none-elf\debug\basic_rt > 2

@@ -28,9 +28,6 @@ pub fn init(){
     let mut queue = USER_TASK_QUEUE.lock();
     for i in 0..100 {
         queue.add_task(UserTask::spawn(Mutex::new(Box::pin( foo(i) ))) );
-        // if i % 10_000_000 == 0 {
-        //     println!("count {:?}", i);
-        // }
     }
     drop(queue);
     task::run();
@@ -38,11 +35,25 @@ pub fn init(){
 
 
 pub fn thread_init() {
+    // // 使用 Fifo Scheduler
+    // let scheduler = FifoScheduler::new();
+    // // 新建线程池
+    // let thread_pool = ThreadPool::new(100, Box::new(scheduler));
+
+    // // 新建idle ，其入口为 Processor::idle_main
+    // let idle = Thread::new_box_thread(Processor::idle_main as usize, &CPU as *const Processor as usize);
+
+    // // 初始化 CPU
+    // CPU.init(idle, Box::new(thread_pool));
+
 
     println!("scheduler init");
 
     // 使用 Fifo Scheduler
-    let scheduler = crate::scheduler::thread::scheduler::FifoScheduler::new();
+    // let scheduler = FifoScheduler::new();
+    let scheduler = RRScheduler::new(50);
+
+    
     // 新建线程池
     let thread_pool = ThreadPool::new(100, Box::new(scheduler));
 
@@ -66,11 +77,12 @@ pub fn thread_init() {
 
 
     let mut queue = crate::scheduler::task::USER_TASK_QUEUE.lock();
-    for i in 0..10 {
-        queue.add_task(crate::scheduler::task::runtime::UserTask::spawn(Mutex::new(Box::pin( foo(i) ))) );
+    for i in 0..100 {
+        queue.add_task(crate::scheduler::task::runtime::UserTask::spawn(Mutex::new(Box::pin( foo(i)))) );
     }
-    drop(queue);
 
+    drop(queue);
+    
     println!("scheduler cpu run");
     CPU.run();
 }

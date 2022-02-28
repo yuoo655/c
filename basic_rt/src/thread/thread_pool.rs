@@ -51,7 +51,6 @@ impl ThreadPool {
         ThreadPool {
             threads: new_vec_default(size),
             scheduler: Box::new(scheduler),
-            // timer: Mutex::new(Timer::new()),
         }
     }
 

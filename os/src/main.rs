@@ -1,12 +1,15 @@
 #![no_std]
 #![no_main]
 #![feature(global_asm)]
+#![feature(asm)]
 #![feature(llvm_asm)]
 #![feature(panic_info_message)]
 #![feature(naked_functions)]
 // #![feature(const_in_array_repeat_expressions)]
 #![feature(alloc_error_handler)]
 #![allow(unused)]
+
+use alloc::alloc::dealloc;
 // use std::println;
 
 extern crate alloc;
@@ -35,6 +38,8 @@ global_asm!(include_str!("entry.asm"));
 global_asm!(include_str!("link_app.S"));
 
 
+use core::sync::atomic::{AtomicBool, Ordering};
+use core::hint::{spin_loop, self};
 
 
 fn clear_bss() {
@@ -47,102 +52,91 @@ fn clear_bss() {
     });
 }
 
+static AP_CAN_INIT: AtomicBool = AtomicBool::new(false);
+
 #[no_mangle]
-pub fn rust_main() -> ! {
-    clear_bss();
-    println!("[kernel] Hello, world!");
+pub fn rust_main(hart_id: usize) -> ! {
     
-    mm::init();
-    mm::remap_test();
-    trap::init();
-    trap::enable_timer_interrupt();
-    timer::set_next_trigger();
+    if hart_id == 0{
+        clear_bss();
+        mm::init();
+        println!("[kernel] Hello, world!");
+        mm::remap_test();
+        trap::init();
+        trap::enable_timer_interrupt();
+        timer::set_next_trigger();
+        info!("loader list app");
+        fs::list_apps();
+        // test_for_kernel(0);
+        debug!("trying to add user test");
+        // task::add_initproc();
+        task::add_user_test();
 
+        send_ipi();
+        AP_CAN_INIT.store(true, Ordering::Relaxed);
 
-    info!("loader list app");
-    fs::list_apps();
+    }else{
+        init_other_cpu();
+    }
+
+    println_hart!("Hello", hart_id);
     
-
-    // scheduler::init();
-    // scheduler::thread::init();        
-    lkm::init();
-
-
-    test2();
     
-    // task::run_tasks();
+    println_hart!("run user task", hart_id);
+    task::run_tasks();
+    
     panic!("Unreachable in rust_main!");
 }
 
+pub fn init_other_cpu(){
 
+    let hart_id = hart_id();
 
-pub fn test1(){
-    let init_environment_addr = lkm::get_symbol_addr_from_elf("basic_rt", "init_environment");
-    println!("init_environment at {:#x?}", init_environment_addr);
-    
+    if hart_id != 0 {
 
-    let init_cpu_addr = lkm::get_symbol_addr_from_elf("basic_rt", "init_cpu_test");
-    println!("init_cpu at {:#x?}", init_cpu_addr);
-
-    let cpu_run_addr = lkm::get_symbol_addr_from_elf("basic_rt", "cpu_run");
-    println!("cpu_run at {:#x?}", cpu_run_addr);
-
-    let add_user_task_addr = lkm::get_symbol_addr_from_elf("basic_rt", "add_user_task");
-    println!("add_user_task at {:#x?}", add_user_task_addr);
-
-
-    // unsafe{
-    //     let init_environment: fn() = core::mem::transmute(init_environment_addr as usize + 0x86000000);
-    // }
-
-    use spin::Mutex;
-    use woke::waker_ref;
-    use core::future::Future;
-    use core::pin::Pin;
-    use alloc::boxed::Box;
-
-
-    unsafe{
-        
-        let init_environment: fn() = core::mem::transmute(init_environment_addr as usize + 0x86000000);
-        
-        let init_cpu: fn()= core::mem::transmute(init_cpu_addr as usize + 0x86000000);
-        
-        // let add_user_task: fn() = core::mem::transmute(add_user_task_addr as usize + 0x86000000);
-        let cpu_run: fn() = core::mem::transmute(cpu_run_addr as usize + 0x86000000);
-
-        let add_task: fn(future: Mutex<Pin<Box<dyn Future<Output=()> + 'static + Send + Sync>>>) -> () = unsafe {
-            core::mem::transmute(add_user_task_addr as usize + 0x86000000)
-        };
-
-        init_environment();
-        println!("init_environment done");
-
-
-
-        async fn test(x: i32) {
-            crate::println!("{}", x);
+        while !AP_CAN_INIT.load(Ordering::Relaxed) {
+            hint::spin_loop();
         }
-        println!("test addr :{:#x?}", test as usize);
 
-        println!("add_task");
-        add_task(Mutex::new(Box::pin(test(2))));
-        println!("add_task done");
-
+        others_main();
         
-        println!("init_cpu");
-        init_cpu();
-        println!("init_cpu done");
-
-
-        // println!("cpu_run");
-        // cpu_run();
+        unsafe {
+            let satp: usize;
+            let sp: usize;
+            asm!("csrr {}, satp", out(reg) satp);
+            println_hart!("init done satp: {:#x}", hart_id, satp);
+        }
     }
+}
+
+pub fn others_main(){
+    mm::init_kernel_space();
+    trap::init();
+    trap::enable_timer_interrupt();
+    timer::set_next_trigger();
 }
 
 
 
-pub fn test2(){
+pub fn send_ipi(){
+    let hart_id = hart_id();
+    for i in 1..4 {
+        debug!("[hart {}] Start {}", hart_id, i);
+        let mask: usize = 1 << i;
+        sbi::send_ipi(&mask as *const _ as usize);
+    }
+}
+
+
+pub fn hart_id() -> usize {
+    let hart_id: usize;
+    unsafe {
+        asm!("mv {}, tp", out(reg) hart_id);
+    }
+    hart_id
+}
+
+pub fn test_for_kernel(base: usize){
     let init_environment_addr = lkm::get_symbol_addr_from_elf("basic_rt", "init_environment");
     println!("init_environment at {:#x?}", init_environment_addr);
     
@@ -153,9 +147,10 @@ pub fn test2(){
     let cpu_run_addr = lkm::get_symbol_addr_from_elf("basic_rt", "cpu_run");
     println!("cpu_run at {:#x?}", cpu_run_addr);
 
-    let add_user_task_addr = lkm::get_symbol_addr_from_elf("basic_rt", "add_user_task");
-    println!("add_user_task at {:#x?}", add_user_task_addr);
-
+    
+    let add_user_task_with_priority_addr = lkm::get_symbol_addr_from_elf("basic_rt", "add_user_task_with_priority");
+    println!("add_user_task at {:#x?}", add_user_task_with_priority_addr);
+    
     use spin::Mutex;
     use woke::waker_ref;
     use core::future::Future;
@@ -165,65 +160,42 @@ pub fn test2(){
 
     unsafe{
         
-        let init_environment: fn() = core::mem::transmute(init_environment_addr as usize + 0x87000000);
+        let init_environment: fn() = core::mem::transmute(init_environment_addr as usize + base);
         
-        let init_cpu: fn()= core::mem::transmute(init_cpu_addr as usize + 0x87000000);
+        let init_cpu: fn()= core::mem::transmute(init_cpu_addr as usize + base);
         
         // let add_user_task: fn() = core::mem::transmute(add_user_task_addr as usize + 0x87);
-        let cpu_run: fn() = core::mem::transmute(cpu_run_addr as usize + 0x87000000);
+        let cpu_run: fn() = core::mem::transmute(cpu_run_addr as usize + base);
 
-        let add_task: fn(future: Mutex<Pin<Box<dyn Future<Output=()> + 'static + Send + Sync>>>) -> () = unsafe {
-            core::mem::transmute(add_user_task_addr as usize + 0x87000000)
-        };
 
+
+        println!("init_environment");
         init_environment();
-        println!("init_environment done");
-
-
+        
+        
+        println!("init_cpu");
+        init_cpu();
 
         async fn test(x: i32) {
             crate::println!("{}", x);
         }
-        println!("test addr :{:#x?}", test as usize);
+        println!("test task addr :{:#x?}", test as usize);
 
         println!("add_task");
-        add_task(Mutex::new(Box::pin(test(2))));
-        println!("add_task done");
+        let add_task_with_priority : fn(future: Pin<Box<dyn Future<Output=()> + 'static + Send + Sync>> , Option<usize>) -> () = unsafe {
+            core::mem::transmute(add_user_task_with_priority_addr as usize + base)
+        };
 
-        
-        println!("init_cpu");
-        init_cpu();
-        println!("init_cpu done");
+        add_task_with_priority(Box::pin(test(666)), Some(0));
 
+
+        let cpu_run_addr = lkm::get_symbol_addr_from_elf("basic_rt", "cpu_run");
+        unsafe{
+            let cpu_run: fn() = core::mem::transmute(cpu_run_addr as usize);
+            println!("cpu_run");
+            cpu_run();
+        }
     }
+
 }
 
-
-
-
-// pub unsafe fn add_task(
-//     &self,
-//     hart_id: usize,
-//     address_space_id: AddressSpaceId,
-//     task_repr: usize,
-// ) -> bool {
-//     let f = self.shared_add_task;
-//     f(self.shared_scheduler, hart_id, address_space_id, task_repr)
-// }
-
-
-
-// pub fn spawn(future: impl Future<Output = ()> + Send + Sync + 'static) {
-//     let shared_payload = unsafe { task::shared::SharedPayload::new(SHARED_PAYLOAD_BASE) };
-//     let asid = unsafe { task::shared::AddressSpaceId::from_raw(ADDRESS_SPACE_ID) };
-
-//     let task = task::new_user(
-//         future,
-//         shared_payload.shared_scheduler,
-//         shared_payload.shared_set_task_state,
-//     );
-
-//     unsafe {
-//         shared_payload.add_task(0 /* todo */, asid, task.task_repr());
-//     }
-// }

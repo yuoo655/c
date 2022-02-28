@@ -91,16 +91,6 @@ impl FifoScheduler {
 }
 
 
-
-
-
-
-
-
-
-
-
-
 #[derive(Default)]
 struct RRInfo {
     valid: bool,
