@@ -2,7 +2,8 @@
 python ./lkm.py
 
 # doc
-[doc.md](./doc.md)
+[scheduler_doc.md](./scheduler_doc.md)
+
 [kernel_module_doc.md](./kernel_module_doc.md)
 
 
