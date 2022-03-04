@@ -1,8 +1,9 @@
 # run 
 python ./lkm.py
 
-# usage
+# doc
 [doc.md](./doc.md)
+[kernel_module_doc.md](./kernel_module_doc.md)
 
 
 # requirements
