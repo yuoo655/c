@@ -121,7 +121,7 @@ pub fn others_main(){
 pub fn send_ipi(){
     let hart_id = hart_id();
     for i in 1..4 {
-        debug!("[hart {}] Start {}", hart_id, i);
+        debug!("[hart {}] Start hart[{}]", hart_id, i);
         let mask: usize = 1 << i;
         sbi::send_ipi(&mask as *const _ as usize);
     }

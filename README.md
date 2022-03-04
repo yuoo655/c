@@ -53,12 +53,12 @@ export PATH=$PATH:$HOME/qemu-5.2.0/build/riscv64-linux-user
 [rustsbi] mideleg: ssoft, stimer, sext (0x222)
 [rustsbi] medeleg: ima, ia, la, sa, uecall, ipage, lpage, spage (0xb1a3)
 [rustsbi] enter supervisor 0x80200000
-last 15773 Physical Frames.
-.text [0x80200000, 0x8021a000)
-.rodata [0x8021a000, 0x80221000)
-.data [0x80221000, 0x80222000)
-.bss [0x80222000, 0x84263000)
-ekernel  MEMORY_END [0x84263000, 0x88000000)
+last 15772 Physical Frames.
+.text [0x80200000, 0x8021b000)
+.rodata [0x8021b000, 0x80222000)
+.data [0x80222000, 0x80223000)
+.bss [0x80223000, 0x84264000)
+ekernel  MEMORY_END [0x84264000, 0x88000000)
 mapping .text section
 mapping .rodata section
 mapping .data section
@@ -83,89 +83,102 @@ user_shell
 basic_rt
 **************/
 trying to add user test
-[hart 0] Start 1
-[hart 0] Start 2
-[hart 0] Start 3
+[hart 0] Start hart[1]
+[hart 0] Start hart[2]
+[hart 0] Start hart[3]
 [hart 0]Hello
-[hart 3]init done satp: 0x8000000000084263
-[hart 1]init done satp: 0x8000000000084263
-[hart 2]init done satp: 0x8000000000084263
-[hart 1]Hello
+[hart 3]init done satp: 0x8000000000084264
+[hart 2]init done satp: 0x8000000000084264
+[hart 1]init done satp: 0x8000000000084264
 [hart 2]Hello
-[hart 1]run user task
+[hart 1]Hello
 [hart 3]Hello
-[hart 2]run user task
 [hart 3]run user task
-run_tasks
+[hart 2]run user task
+[hart 1]run user task
 [hart 0]run user task
 run_tasks
 run_tasks
 run_tasks
-[user6] Hello world from user mode program!
+run_tasks
 [user5] Hello world from user mode program!
-[user4] Hello world from user mode program!
 [user8] Hello world from user mode program!
-[user2] Hello world from user mode program!
-[user3] Hello world from user mode program!
-[user1] Hello world from user mode program!
 [user7] Hello world from user mode program!
+[user6] Hello world from user mode program!
+[user3] Hello world from user mode program!
+[user4] Hello world from user mode program!
+[user2] Hello world from user mode program!
+[user1] Hello world from user mode program!
 
 >>>> will switch_to thread 0 in idle_main!
 thread_main-------------
-thread_main running, no task:
+thread_main running, no task: 
 >>>> will switch_to thread 0 in idle_main!
 thread_main-------------
-thread_main running, no task: false
-[hart 3] [user6] 666
+thread_main running, no task: false       
+[hart 
+>>>> will switch_to thread 0 in idle_main!
+thread_main-------------
+thread_main running, no task: false       
 
 >>>> will switch_to thread 0 in idle_main!
 thread_main-------------
-thread_main running, no task: false
-[hart false
-[hart 3] [user4] 666
-thread_main running, no task: false
-[hart 3] [user4] 9
-thread_main running, no task: false
-[hart 3] [user4] 8
-thread_main running, no task:
+thread_main running, no task: false       
+false
+[hart 3] [user7] 666
+thread_main running, no task: false       
+[hart 3] [user7] 9
+thread_main running, no task: false       
+[hart 3] [user7] 8
+thread_main running, no task: false       
 >>>> will switch_to thread 0 in idle_main!
 thread_main-------------
+thread_main running, no task: false        
+3] [user5] 666
+thread_main running, no task: false        
+[hart 3] [user5] 9
+thread_main running, no task: false        
+[hart 3] [user5] 8
+thread_main running, no task: false        
+[hart 3] [user5] 7
+thread_main running, no task: false[hart 3] [user6] 666
 thread_main running, no task: false
-
->>>> will switch_to thread 0 in idle_main!
-thread_main-------------
-thread_main running, no task: false
-[hart 3] [user2] 666thread_main running, no task: false
 [hart 3] [user6] 9
 thread_main running, no task: false
 [hart 3] [user6] 8
 thread_main running, no task: false
 [hart 3] [user6] 7
-thread_main running, no task: false3] [user5] 666
-thread_main running, no task: false
-[hart 3] [user5] 9
-thread_main running, no task: false
-[hart 3] [user5] 8
-thread_main running, no task: false
-[hart 3] [user5] false
-[hart 3] [user4] 7
-thread_main running, no task: false
-[hart 3] [user4] 6
-thread_main running, no task: false
-[hart 3] [user4] 5
-thread_main running, no task: false
-[hart 3] [user4] 4
-thread_main running, no task: [hart 3] [user8] 666
+thread_main running, no task: false[hart 3] [user8] 666
 thread_main running, no task: false
 [hart 3] [user8] 9
 thread_main running, no task: false
 [hart 3] [user8] 8
+thread_main running, no task: false
+[hart 3] [user8]
+[hart 3] [user7] 7
+thread_main running, no task: false
+[hart 3] [user7] 6
+thread_main running, no task: false
+[hart 3] [user7] 5
+thread_main running, no task: false
+[hart 3] [user7] 4
+thread_main running, no task: false
+[hart 3] [user3] 666
+thread_main running, no task: false
+[hart 3] [user3] 9
+thread_main running, no task: false
+[hart 3] [user3] 8
+thread_main running, no task: false
+[hart
+[hart 3] [user5] 6
+thread_main running, no task: false
+[hart 3] [user5] 5
+thread_main running, no task: false
+[hart 3] [user5] 4
+thread_main running, no task: false
+[hart 3] [user5] 3
+thread_main running, no task: false
 
-thread_main running, no task: false
-[hart 3] [user2] 9
-thread_main running, no task: false
-[hart 3] [user2] 8
-thread_main running, no task:
 [hart 3] [user6] 6
 thread_main running, no task: false
 [hart 3] [user6] 5
@@ -173,173 +186,165 @@ thread_main running, no task: false
 [hart 3] [user6] 4
 thread_main running, no task: false
 [hart 3] [user6] 3
-thread_main running, no task: false7
 thread_main running, no task: false
-[hart 3] [user5] 6
-thread_main running, no task: false
-[hart 3] [user5] 5
-thread_main running, no task: false
-[hart 3] [user5] 4
-thread_main running, no task: false
-[hart false
-[hart 3] [user4] 3
-thread_main running, no task: false
-[hart 3] [user4] 2
-thread_main running, no task: false
-[hart 3] [user4] 1
-thread_main running, no task: false
-[hart 3] [user4] 0
-thread_main running, no task: false
-[hart 3] [user8] 7
+7
 thread_main running, no task: false
 [hart 3] [user8] 6
 thread_main running, no task: false
 [hart 3] [user8] 5
 thread_main running, no task: false
 [hart 3] [user8] 4
-false
-[hart 3] [user2] 7
 thread_main running, no task: false
-[hart 3] [user2] 6
+[hart 3] [user8] [hart 3] [user7] 3
 thread_main running, no task: false
-[hart 3] [user2] 5
+[hart 3] [user7] 2
 thread_main running, no task: false
-[hart 3] [user2] 4
+[hart 3] [user7] 1
 thread_main running, no task: false
+[hart 3] [user7] 0
+thread_main running, no task: true3] [user3] 7
+thread_main running, no task: false
+[hart 3] [user3] 6
+thread_main running, no task: false
+[hart 3] [user3] 5
+thread_main running, no task: false
+[hart 3] [user3] 4
+thread_main running, no task: false
+[hart 3] [user3] [hart 3] [user5] 2
+thread_main running, no task: false
+[hart 3] [user5] 1
+thread_main running, no task: false
+[hart 3] [user5] 0
+thread_main running, no task: true
+no task
+user exit
 [hart 3] [user6] 2
 thread_main running, no task: false
-[hart 3] [user6] 1
+[hart 0] [user6] 1
 thread_main running, no task: false
-[hart 3] [user6] 0
+[hart 0] [user6] 0
 thread_main running, no task: true
 no task
 user exit
-3] [user5] 3
+3
 thread_main running, no task: false
-[hart 2] [user5] 2
+[hart 1] [user8] 2
 thread_main running, no task: false
-[hart 2] [user5] 1
+[hart 1] [user8] 1
 thread_main running, no task: false
-[hart 2] [user5] 0
-thread_main running, no task: true
-no task
+[hart 1] [user8] 0
 thread_main running, no task: true
 no task
 user exit
-thread_main running, no task: false
-[hart 0] [user8] 3
-thread_main running, no task: false
-[hart 0] [user8] 2
-thread_main running, no task: false
-[hart 0] [user8] 1
-thread_main running, no task: false
-[hart 0] [user8] 0
-
-[hart 0] [user2] 3
-thread_main running, no task: false
-[hart 0] [user2] 2
-thread_main running, no task: false
-[hart 0] [user2] 1
-thread_main running, no task: false
-[hart 0] [user2] 0
-thread_main running, no task: trueuser exit
 exit_current_and_run_next schedule
-thread_main running, no task: true
-no task
-exit_current_and_run_next schedule
-user exit
-exit_current_and_run_next schedule
-exit_current_and_run_next schedule
-
-no task
-user exit
-
->>>> will switch_to thread exit_current_and_run_next schedule
-0 in idle_main!
-thread_main-------------
+3
 thread_main running, no task: false
-[hart 2] [user3] 666
+exit_current_and_run_next schedule
+[hart 3] [user3] 2
 thread_main running, no task: false
-[hart 2] [user3] 9
-thread_main running, no task: false
-[hart 2] [user3]
->>>> will switch_to thread 8
-0 in idle_main!
-thread_main running, no task: thread_main-------------
+[hart 3] [user3] 1
+thread_main running, no task: exit_current_and_run_next schedule
 false
-[hart 2] [user3] 7thread_main running, no task: 
+[hart 3] [user3] 0
+thread_main running, no task: true
+
+no task
+user exit
+exit_current_and_run_next schedule
+no task
+user exit
+exit_current_and_run_next schedule
+all user process finished!
+
+>>>> will switch_to thread 0 in idle_main!
+thread_main-------------
+
+>>>> will switch_to thread thread_main running, no task: 0false in idle_main!
+
+thread_main-------------
+[hart 1] [user4] thread_main running, no task: 666false
+
+[hart 0] [user2] thread_main running, no task: 666false
+
+[hart 1] [user4] 9
+thread_main running, no task: thread_main running, no task: falsefalse
+
+[hart [hart 10] [user4] 8] [user2]
+9thread_main running, no task:
+false
+thread_main running, no task: [hart false1
+] [user4] [hart 07
+] [user2] thread_main running, no task: 8false
+
+thread_main running, no task: [hart false1] [user4]
+6
+[hart thread_main running, no task: 0false] [user2]
+7[hart
+1] [user4] 5
+thread_main running, no task: thread_main running, no task: falsefalse
+
+[hart [hart 10] [user4] ] [user2] 46
+
+thread_main running, no task: thread_main running, no task: falsefalse
+
+[hart [hart 1] [user4] 03] [user2]
+5thread_main running, no task:
+falsethread_main running, no task:
+[hart false
+1[hart ] [user4] 02] [user2]
+4thread_main running, no task:
 falsethread_main running, no task:
 false
-[hart 2] [user3] [hart 6
-3thread_main running, no task: ] [user1] false666
-
-[hart 2] [user3] 5
+[hart [hart 1] [user4] 01] [user2]
+3
 thread_main running, no task: thread_main running, no task: falsefalse
 
-[hart [hart 23] [user3] ] [user1] 49
-
-thread_main running, no task: thread_main running, no task: falsefalse
-
-[hart [hart 03] [user1] ] [user3] 83
-
-thread_main running, no task: thread_main running, no task: falsefalse
-
-[hart [hart 23] [user3] ] [user1] 27
-
-thread_main running, no task: thread_main running, no task: falsefalse
-
-[hart [hart 32] [user3] ] [user1] 16
-
-thread_main running, no task: thread_main running, no task: false
-false[hart
-0] [user3] [hart 03
-] [user1] thread_main running, no task: 5
-truethread_main running, no task:
+[hart [hart 1] [user4] 00] [user2]
+2
+thread_main running, no task: thread_main running, no task: true
 falseno task
 
 user exit
-[hart 3] [user1] 4
+[hart 0] [user2] 1
+thread_main running, no task: false
+[hart 0] [user2] 0
 thread_main running, no task: exit_current_and_run_next schedule
-false
-[hart 3] [user1] 3
-thread_main running, no task: false
-[hart 3] [user1] 2
-thread_main running, no task: false
-[hart 3] [user1] 1
-thread_main running, no task: false
-[hart 3] [user1] 0
-thread_main running, no task: true
+trueall user process finished!
+
 no task
 user exit
 exit_current_and_run_next schedule
+all user process finished!
 
 >>>> will switch_to thread 0 in idle_main!
 thread_main-------------
 thread_main running, no task: false
-[hart 2] [user7] 666
+[hart 2] [user1] 666
 thread_main running, no task: false
-[hart 2] [user7] 9
+[hart 2] [user1] 9
 thread_main running, no task: false
-[hart 2] [user7] 8
+[hart 2] [user1] 8
 thread_main running, no task: false
-[hart 2] [user7] 7
+[hart 2] [user1] 7
 thread_main running, no task: false
-[hart 2] [user7] 6
+[hart 2] [user1] 6
 thread_main running, no task: false
-[hart 2] [user7] 5
+[hart 2] [user1] 5
 thread_main running, no task: false
-[hart 2] [user7] 4
+[hart 2] [user1] 4
 thread_main running, no task: false
-[hart 2] [user7] 3
+[hart 2] [user1] 3
 thread_main running, no task: false
-[hart 2] [user7] 2
+[hart 2] [user1] 2
 thread_main running, no task: false
-[hart 2] [user7] 1
+[hart 2] [user1] 1
 thread_main running, no task: false
-[hart 2] [user7] 0
+[hart 2] [user1] 0
 thread_main running, no task: true
 no task
 user exit
 exit_current_and_run_next schedule
-
+all user process finished!
+Rust user shell
+>>
 ```
