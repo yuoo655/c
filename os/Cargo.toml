@@ -22,6 +22,12 @@ spin = "0.9"
 futures = { version = "0.3", default-features = false }
 bit_field = "0.10.1"
 
+device_tree = { git = "https://github.com/rcore-os/device_tree-rs", rev = "2fa8411" }
+
+smoltcp = { git = "https://github.com/rcore-os/smoltcp", rev = "5bd87c7c", default-features = false, features = ["alloc", "log", "ethernet", "proto-ipv4", "proto-igmp", "socket-icmp", "socket-udp", "socket-tcp", "socket-raw"] }
+volatile = "0.2"
+
+
 [features]
 board_qemu = []
 board_k210 = []

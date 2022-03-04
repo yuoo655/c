@@ -1,5 +1,5 @@
-mod heap_allocator;
-mod address;
+pub mod heap_allocator;
+pub mod address;
 mod frame_allocator;
 mod page_table;
 mod memory_set;
@@ -33,3 +33,12 @@ pub fn init() {
 pub fn init_kernel_space(){
     KERNEL_SPACE.lock().activate();
 }
+
+
+pub fn map_virtio_page(from: usize, to: usize) {
+    let mut memory_set = KERNEL_SPACE.lock();
+    println!("mapping virtio_page from:{:#x}  to:{:#x}", from, to);
+    memory_set.map_virtio_page(from, to);
+    KERNEL_SPACE.lock().activate();
+}
+

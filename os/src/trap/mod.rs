@@ -23,6 +23,8 @@ use crate::task::{
 };
 use crate::timer::set_next_trigger;
 use crate::config::{TRAP_CONTEXT, TRAMPOLINE};
+use crate::timer::TICKS;
+
 
 global_asm!(include_str!("trap.S"));
 
@@ -93,6 +95,16 @@ pub fn trap_handler() -> ! {
             exit_current_and_run_next(-3);
         }
         Trap::Interrupt(Interrupt::SupervisorTimer) => {
+
+
+            unsafe {
+                TICKS += 1;
+                if TICKS / 100 == 0 {
+                    TICKS = 0;
+                    println!("* 100 ticks *");
+                }
+            }
+
             set_next_trigger();
             // info!("[kernel] timer interrupt");
             suspend_current_and_run_next();

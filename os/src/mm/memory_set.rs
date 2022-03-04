@@ -43,6 +43,8 @@ lazy_static! {
 
 
 
+
+
 // lazy_static! {
 //     pub static ref SPACE_ID_SATP : Vec<usize> = {
 //         let mut v = Vec::new();
@@ -204,9 +206,59 @@ impl MemorySet {
                 MapType::Identical,
                 MapPermission::R | MapPermission::W | MapPermission::X,
             ), None);
-        }
+        };
+
+        println!("mapping MMIO");
+
+        memory_set.push(MapArea::new(
+                (0x10002000).into(),
+                (0x10010000).into(),
+                MapType::Identical,
+                MapPermission::R | MapPermission::W | MapPermission::X,
+        ), None);
+
+
+
+
+
+
+        println!("mapping device tree");
+        memory_set.push(MapArea::new(
+            (0x87e00000).into(),
+            (0x87e00000 + 0x1000 * 128).into(),
+            MapType::Identical,
+            MapPermission::R | MapPermission::W | MapPermission::X,
+        ), None);
+
+
+
         memory_set
     }
+
+    pub fn map_virtio_page(&mut self, from: usize, to:usize){
+        self.page_table.map(
+            VirtAddr::from(from).into(),  
+            PhysAddr::from(to).into(),  
+            PTEFlags::R | PTEFlags::X | PTEFlags::W 
+        );
+    }
+
+    /// When 'vaddr' is not mapped, map it to 'paddr'.
+    /// map_if_not_exists(self.header as usize, self.header as usize);
+    pub fn map_if_not_exists(&mut self, vaddr: VirtAddr, paddr: usize) -> bool {
+
+        if let None = self.page_table.find_pte(vaddr.into()) {
+            self.page_table.map(
+                vaddr.into(),  
+                paddr.into(),  
+                PTEFlags::R | PTEFlags::X | PTEFlags::W 
+            );
+            return true;
+        }else {
+            return false;
+        }
+    }
+
     /// Include sections in elf and trampoline and TrapContext and user stack,
     /// also returns user_sp and entry point.
     pub fn from_elf(elf_data: &[u8], space_id: usize) -> (Self, usize, usize) {

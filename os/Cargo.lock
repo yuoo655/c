@@ -42,10 +42,21 @@ dependencies = [
 ]
 
 [[package]]
+name = "byteorder"
+version = "1.4.3"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "14c189c53d098945499cdfa7ecc63567cf3886b3332b312a5b4585d8d3a6a610"
+
+[[package]]
 name = "cfg-if"
 version = "1.0.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "baf1de4339761588bc0619e3cbc0120ee582ebb74b53b4efbf79117bd2da40fd"
+
+[[package]]
+name = "device_tree"
+version = "1.0.3"
+source = "git+https://github.com/rcore-os/device_tree-rs?rev=2fa8411#2fa8411c421c6b4761992fd3d1a9b2427bf0cfc4"
 
 [[package]]
 name = "easy-fs"
@@ -184,6 +195,12 @@ dependencies = [
 ]
 
 [[package]]
+name = "managed"
+version = "0.7.2"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "c75de51135344a4f8ed3cfe2720dc27736f7711989703a0b43aadf3753c55577"
+
+[[package]]
 name = "memchr"
 version = "2.4.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -211,6 +228,7 @@ dependencies = [
  "bit_field",
  "bitflags",
  "buddy_system_allocator",
+ "device_tree",
  "easy-fs",
  "futures",
  "k210-hal",
@@ -218,8 +236,10 @@ dependencies = [
  "k210-soc",
  "lazy_static",
  "riscv 0.6.0 (git+https://github.com/rcore-os/riscv)",
+ "smoltcp",
  "spin 0.9.2",
  "virtio-drivers",
+ "volatile",
  "woke",
  "xmas-elf",
 ]
@@ -315,6 +335,17 @@ name = "semver-parser"
 version = "0.7.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "388a1df253eca08550bef6c72392cfe7c30914bf41df5269b68cbd6ff8f570a3"
+
+[[package]]
+name = "smoltcp"
+version = "0.5.0"
+source = "git+https://github.com/rcore-os/smoltcp?rev=5bd87c7c#5bd87c7cf01e0a36eb92102e4b52876a9e0ba889"
+dependencies = [
+ "bitflags",
+ "byteorder",
+ "log",
+ "managed",
+]
 
 [[package]]
 name = "spin"

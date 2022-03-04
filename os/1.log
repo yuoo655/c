@@ -5717,3 +5717,1140 @@ priv           0x1	prv:1 [Supervisor]
 Detaching from program: D:\z\2\new\c\os\target\riscv64gc-unknown-none-elf\release\os, process 1
 Ending remote debugging.
 [Inferior 1 (process 1) detached]
+0x0000000000001000 in ?? ()
+=> 0x0000000000001000:	97 02 00 00	auipc	t0,0x0
+Breakpoint 1 at 0x8023162a: file src\main.rs, line 63.
+Breakpoint 2 at 0x80202970: file src\net/mod.rs, line 214.
+Continuing.
+
+Thread 1 hit Breakpoint 1, os::rust_main (hart_id=0, device_tree_paddr=2279604224) at src\main.rs:63
+63	    if hart_id == 0{
+Continuing.
+
+Thread 1 received signal SIGINT, Interrupt.
+core::ptr::write_volatile (dst=0x8187e093 <os::mm::heap_allocator::HEAP_SPACE+22630387> <error reading variable>, src=0) at /rustc/6d820866a27b1949e237be79b9c8c0145fe728b7/library/core/src/ptr/mod.rs:1116
+1116	/rustc/6d820866a27b1949e237be79b9c8c0145fe728b7/library/core/src/ptr/mod.rs: No such file or directory.
+Detaching from program: D:\z\2\c\os\target\riscv64gc-unknown-none-elf\debug\os, process 1
+Remote communication error.  Target disconnected.: No such file or directory.
+0x0000000000001000 in ?? ()
+=> 0x0000000000001000:	97 02 00 00	auipc	t0,0x0
+Breakpoint 1 at 0x80202970: file src\net/mod.rs, line 214.
+Continuing.
+
+Thread 1 hit Breakpoint 1, os::net::net_test (dtb=2279604224) at src\net/mod.rs:214
+214	    device_tree_init(dtb);
+Breakpoint 2 at 0x802029a4: file src\net/mod.rs, line 259.
+Continuing.
+
+Thread 1 hit Breakpoint 2, os::net::server (_arg=1) at src\net/mod.rs:259
+259	    info!("server");
+260	    if NET_DRIVERS.lock().len() < 1 {
+#0  os::net::server (_arg=1) at src\net/mod.rs:260
+#1  0x0000000080202984 in os::net::net_test (dtb=2279604224) at src\net/mod.rs:215
+#2  0x0000000080231872 in os::rust_main (hart_id=0, device_tree_paddr=2279604224) at src\main.rs:76
+#3  0x000000008020001a in stext ()
+Backtrace stopped: frame did not save the PC
+#0  os::net::server (_arg=1) at src\net/mod.rs:260
+#1  0x0000000080202984 in os::net::net_test (dtb=2279604224) at src\net/mod.rs:215
+#2  0x0000000080231872 in os::rust_main (hart_id=0, device_tree_paddr=2279604224) at src\main.rs:76
+#3  0x000000008020001a in stext ()
+Backtrace stopped: frame did not save the PC
+267	        let ref_driver = (&*(NET_DRIVERS.lock())[0]);
+#0  os::net::server (_arg=1) at src\net/mod.rs:267
+#1  0x0000000080202984 in os::net::net_test (dtb=2279604224) at src\net/mod.rs:215
+#2  0x0000000080231872 in os::rust_main (hart_id=0, device_tree_paddr=2279604224) at src\main.rs:76
+#3  0x000000008020001a in stext ()
+Backtrace stopped: frame did not save the PC
+#0  os::net::server (_arg=1) at src\net/mod.rs:267
+#1  0x0000000080202984 in os::net::net_test (dtb=2279604224) at src\net/mod.rs:215
+#2  0x0000000080231872 in os::rust_main (hart_id=0, device_tree_paddr=2279604224) at src\main.rs:76
+#3  0x000000008020001a in stext ()
+Backtrace stopped: frame did not save the PC
+267	        let ref_driver = (&*(NET_DRIVERS.lock())[0]);
+268	        ref_driver.as_any().downcast_ref::<VirtIONetDriver>().unwrap().clone()
+269	    };
+271	    let ethernet_addr = driver.get_mac();
+272	    info!("ethernet_addr {:x?}", ethernet_addr);
+273	    let ip_addrs = [IpCidr::new(IpAddress::v4(10,0,0,66), 24)];
+274	    info!("set ip_addrs {:?}", ip_addrs);
+275	    let neighbor_cache = NeighborCache::new(BTreeMap::new());
+276	    let mut iface = EthernetInterfaceBuilder::new(driver.clone())
+277	        .ethernet_addr(ethernet_addr)
+276	    let mut iface = EthernetInterfaceBuilder::new(driver.clone())
+278	        .ip_addrs(ip_addrs)
+276	    let mut iface = EthernetInterfaceBuilder::new(driver.clone())
+279	        .neighbor_cache(neighbor_cache)
+276	    let mut iface = EthernetInterfaceBuilder::new(driver.clone())
+282	    let udp_rx_buffer = UdpSocketBuffer::new(vec![UdpPacketMetadata::EMPTY], vec![0; 64]);
+283	    let udp_tx_buffer = UdpSocketBuffer::new(vec![UdpPacketMetadata::EMPTY], vec![0; 128]);
+284	    let udp_socket = UdpSocket::new(udp_rx_buffer, udp_tx_buffer);
+286	    let tcp_rx_buffer = TcpSocketBuffer::new(vec![0; 1024]);
+287	    let tcp_tx_buffer = TcpSocketBuffer::new(vec![0; 1024]);
+Stack level 0, frame at 0x802b8e60:
+ pc = 0x80203482 in os::net::server (src\net/mod.rs:287); saved pc = 0x80202984
+ called by frame at 0x802b8e80
+ source language rust.
+ Arglist at 0x802b8e60, args: _arg=1
+ Locals at 0x802b8e60, Previous frame's sp is 0x802b8e60
+ Saved registers:
+  ra at 0x802b8e58, fp at 0x802b8e50, pc at 0x802b8e58Could not fetch register "ustatus"; remote failure reply 'E14'
+tcp_rx_buffer = smoltcp::storage::ring_buffer::RingBuffer<u8> {storage: managed::slice::ManagedSlice<u8>::Owned(alloc::vec::Vec<u8, alloc::alloc::Global> {buf: alloc::raw_vec::RawVec<u8, alloc::alloc::Global> {ptr: core::ptr::unique::Unique<u8> {pointer: 0x802e9800 <os::mm::heap_allocator::HEAP_SPACE+1888> <error reading variable>, _marker: core::marker::PhantomData<u8>}, cap: 1024, alloc: alloc::alloc::Global}, len: 1024}), read_at: 0, length: 0}
+udp_socket = smoltcp::socket::udp::UdpSocket {meta: smoltcp::socket::meta::Meta {handle: smoltcp::socket::set::Handle (0), neighbor_state: smoltcp::socket::meta::NeighborState::Active}, endpoint: smoltcp::wire::ip::Endpoint {addr: smoltcp::wire::ip::Address::Unspecified, port: 0}, rx_buffer: smoltcp::storage::packet_buffer::PacketBuffer<smoltcp::wire::ip::Endpoint> {metadata_ring: smoltcp::storage::ring_buffer::RingBuffer<smoltcp::storage::packet_buffer::PacketMetadata<smoltcp::wire::ip::Endpoint>> {storage: managed::slice::ManagedSlice<smoltcp::storage::packet_buffer::PacketMetadata<smoltcp::wire::ip::Endpoint>>::Borrowed(&mut [smoltcp::storage::packet_buffer::PacketMetadata<smoltcp::wire::ip::Endpoint>] {data_ptr: 0x802ed9c0 <os::mm::heap_allocator::HEAP_SPACE+18720>, length: 1}), read_at: 0, length: 0}, payload_ring: smoltcp::storage::ring_buffer::RingBuffer<u8> {storage: managed::slice::ManagedSlice<u8>::Borrowed(&mut [u8] {data_ptr: 0x802ed980 <os::mm::heap_allocator::HEAP_SPACE+18656> <error reading variable>, length: 64}), read_at: 0, length: 0}}, tx_buffer: smoltcp::storage::packet_buffer::PacketBuffer<smoltcp::wire::ip::Endpoint> {metadata_ring: smoltcp::storage::ring_buffer::RingBuffer<smoltcp::storage::packet_buffer::PacketMetadata<smoltcp::wire::ip::Endpoint>> {storage: managed::slice::ManagedSlice<smoltcp::storage::packet_buffer::PacketMetadata<smoltcp::wire::ip::Endpoint>>::Borrowed(&mut [smoltcp::storage::packet_buffer::PacketMetadata<smoltcp::wire::ip::Endpoint>] {data_ptr: 0x802ed9f0 <os::mm::heap_allocator::HEAP_SPACE+18768>, length: 1}), read_at: 0, length: 0}, payload_ring: smoltcp::storage::ring_buffer::RingBuffer<u8> {storage: managed::slice::ManagedSlice<u8>::Borrowed(&mut [u8] {data_ptr: 0x802ed900 <os::mm::heap_allocator::HEAP_SPACE+18528> <error reading variable>, length: 128}), read_at: 0, length: 0}}, hop_limit: core::option::Option<u8>::None}
+udp_tx_buffer = smoltcp::storage::packet_buffer::PacketBuffer<smoltcp::wire::ip::Endpoint> {metadata_ring: smoltcp::storage::ring_buffer::RingBuffer<smoltcp::storage::packet_buffer::PacketMetadata<smoltcp::wire::ip::Endpoint>> {storage: managed::slice::ManagedSlice<smoltcp::storage::packet_buffer::PacketMetadata<smoltcp::wire::ip::Endpoint>>::Owned(alloc::vec::Vec<smoltcp::storage::packet_buffer::PacketMetadata<smoltcp::wire::ip::Endpoint>, alloc::alloc::Global> {buf: alloc::raw_vec::RawVec<smoltcp::storage::packet_buffer::PacketMetadata<smoltcp::wire::ip::Endpoint>, alloc::alloc::Global> {ptr: core::ptr::unique::Unique<smoltcp::storage::packet_buffer::PacketMetadata<smoltcp::wire::ip::Endpoint>> {pointer: 0x802ed9f0 <os::mm::heap_allocator::HEAP_SPACE+18768>, _marker: core::marker::PhantomData<smoltcp::storage::packet_buffer::PacketMetadata<smoltcp::wire::ip::Endpoint>>}, cap: 1, alloc: alloc::alloc::Global}, len: 1}), read_at: 0, length: 0}, payload_ring: smoltcp::storage::ring_buffer::RingBuffer<u8> {storage: managed::slice::ManagedSlice<u8>::Owned(alloc::vec::Vec<u8, alloc::alloc::Global> {buf: alloc::raw_vec::RawVec<u8, alloc::alloc::Global> {ptr: core::ptr::unique::Unique<u8> {pointer: 0x802ed900 <os::mm::heap_allocator::HEAP_SPACE+18528> <error reading variable>, _marker: core::marker::PhantomData<u8>}, cap: 128, alloc: alloc::alloc::Global}, len: 128}), read_at: 0, length: 0}}
+udp_rx_buffer = smoltcp::storage::packet_buffer::PacketBuffer<smoltcp::wire::ip::Endpoint> {metadata_ring: smoltcp::storage::ring_buffer::RingBuffer<smoltcp::storage::packet_buffer::PacketMetadata<smoltcp::wire::ip::Endpoint>> {storage: managed::slice::ManagedSlice<smoltcp::storage::packet_buffer::PacketMetadata<smoltcp::wire::ip::Endpoint>>::Owned(alloc::vec::Vec<smoltcp::storage::packet_buffer::PacketMetadata<smoltcp::wire::ip::Endpoint>, alloc::alloc::Global> {buf: alloc::raw_vec::RawVec<smoltcp::storage::packet_buffer::PacketMetadata<smoltcp::wire::ip::Endpoint>, alloc::alloc::Global> {ptr: core::ptr::unique::Unique<smoltcp::storage::packet_buffer::PacketMetadata<smoltcp::wire::ip::Endpoint>> {pointer: 0x802ed9c0 <os::mm::heap_allocator::HEAP_SPACE+18720>, _marker: core::marker::PhantomData<smoltcp::storage::packet_buffer::PacketMetadata<smoltcp::wire::ip::Endpoint>>}, cap: 1, alloc: alloc::alloc::Global}, len: 1}), read_at: 0, length: 0}, payload_ring: smoltcp::storage::ring_buffer::RingBuffer<u8> {storage: managed::slice::ManagedSlice<u8>::Owned(alloc::vec::Vec<u8, alloc::alloc::Global> {buf: alloc::raw_vec::RawVec<u8, alloc::alloc::Global> {ptr: core::ptr::unique::Unique<u8> {pointer: 0x802ed980 <os::mm::heap_allocator::HEAP_SPACE+18656> <error reading variable>, _marker: core::marker::PhantomData<u8>}, cap: 64, alloc: alloc::alloc::Global}, len: 64}), read_at: 0, length: 0}}
+iface = smoltcp::iface::ethernet::Interface<os::net::virtio_net::VirtIONetDriver> {device: os::net::virtio_net::VirtIONetDriver (alloc::sync::Arc<spin::mutex::Mutex<os::net::virtio_net::VirtIONet, spin::relax::Spin>> {ptr: core::ptr::non_null::NonNull<alloc::sync::ArcInner<spin::mutex::Mutex<os::net::virtio_net::VirtIONet, spin::relax::Spin>>> {pointer: 0x802edd00 <os::mm::heap_allocator::HEAP_SPACE+19552>}, phantom: core::marker::PhantomData<alloc::sync::ArcInner<spin::mutex::Mutex<os::net::virtio_net::VirtIONet, spin::relax::Spin>>>}), inner: smoltcp::iface::ethernet::InterfaceInner {neighbor_cache: smoltcp::iface::neighbor::Cache {storage: <error reading variable>, silent_until: smoltcp::time::Instant {millis: 0}, gc_threshold: 1024}, ethernet_addr: smoltcp::wire::ethernet::Address ([238, 187, 170, 238, 170, 170]), ip_addrs: <error reading variable>, any_ip: false, routes: smoltcp::iface::route::Routes {storage: <error reading variable>}, ipv4_multicast_groups: <error reading variable>, igmp_report_state: smoltcp::iface::ethernet::IgmpReportState::Inactive, device_capabilities: smoltcp::phy::DeviceCapabilities {max_transmission_unit: 1536, max_burst_size: <error reading variable>, checksum: smoltcp::phy::ChecksumCapabilities {ipv4: smoltcp::phy::Checksum::Both, udp: smoltcp::phy::Checksum::Both, tcp: smoltcp::phy::Checksum::Both, icmpv4: smoltcp::phy::Checksum::Both, dummy: ()}, dummy: ()}}}
+neighbor_cache = smoltcp::iface::neighbor::Cache {storage: managed::map::ManagedMap<smoltcp::wire::ip::Address, smoltcp::iface::neighbor::Neighbor>::Owned(alloc::collections::btree::map::BTreeMap<smoltcp::wire::ip::Address, smoltcp::iface::neighbor::Neighbor> {root: core::option::Option<alloc::collections::btree::node::NodeRef<alloc::collections::btree::node::marker::Owned, smoltcp::wire::ip::Address, smoltcp::iface::neighbor::Neighbor, alloc::collections::btree::node::marker::LeafOrInternal>>::Some(alloc::collections::btree::node::NodeRef<alloc::collections::btree::node::marker::Owned, smoltcp::wire::ip::Address, smoltcp::iface::neighbor::Neighbor, alloc::collections::btree::node::marker::LeafOrInternal> {height: 2150195688, node: core::ptr::non_null::NonNull<alloc::collections::btree::node::LeafNode<smoltcp::wire::ip::Address, smoltcp::iface::neighbor::Neighbor>> {pointer: 0x0}, _marker: core::marker::PhantomData<(alloc::collections::btree::node::marker::Owned, alloc::collections::btree::node::marker::LeafOrInternal)>}), length: 0}), silent_until: smoltcp::time::Instant {millis: 0}, gc_threshold: 1024}
+ip_addrs = [smoltcp::wire::ip::Cidr::Ipv4(smoltcp::wire::ipv4::Cidr {address: smoltcp::wire::ipv4::Address ([10, 0, 0, 66]), prefix_len: 24})]
+ethernet_addr = smoltcp::wire::ethernet::Address ([238, 187, 170, 238, 170, 170])
+driver = os::net::virtio_net::VirtIONetDriver (alloc::sync::Arc<spin::mutex::Mutex<os::net::virtio_net::VirtIONet, spin::relax::Spin>> {ptr: core::ptr::non_null::NonNull<alloc::sync::ArcInner<spin::mutex::Mutex<os::net::virtio_net::VirtIONet, spin::relax::Spin>>> {pointer: 0x802edd00 <os::mm::heap_allocator::HEAP_SPACE+19552>}, phantom: core::marker::PhantomData<alloc::sync::ArcInner<spin::mutex::Mutex<os::net::virtio_net::VirtIONet, spin::relax::Spin>>>})
+288	    let tcp_socket = TcpSocket::new(tcp_rx_buffer, tcp_tx_buffer);
+290	    let mut sockets = SocketSet::new(vec![]);
+291	    let udp_handle = sockets.add(udp_socket);
+292	    let tcp_handle = sockets.add(tcp_socket);
+296	            let timestamp = Instant::from_millis(unsafe { crate::timer::TICKS as i64 });
+297	            match iface.poll(&mut sockets, timestamp) {
+298	                Ok(_) => {},
+306	                let mut socket = sockets.get::<UdpSocket>(udp_handle);
+307	                if !socket.is_open() {
+308	                    socket.bind(6969).unwrap();
+307	                if !socket.is_open() {
+311	                let client = match socket.recv() {
+312	                    Ok((data, endpoint)) => {
+315	                    Err(_) => None
+311	                let client = match socket.recv() {
+317	                if let Some(endpoint) = client {
+321	            }
+325	                let mut socket = sockets.get::<TcpSocket>(tcp_handle);
+326	                if !socket.is_open() {
+327	                    socket.listen(80).unwrap();
+326	                if !socket.is_open() {
+330	                if socket.can_send() {
+334	            }
+296	            let timestamp = Instant::from_millis(unsafe { crate::timer::TICKS as i64 });
+297	            match iface.poll(&mut sockets, timestamp) {
+298	                Ok(_) => {},
+306	                let mut socket = sockets.get::<UdpSocket>(udp_handle);
+307	                if !socket.is_open() {
+311	                let client = match socket.recv() {
+312	                    Ok((data, endpoint)) => {
+315	                    Err(_) => None
+311	                let client = match socket.recv() {
+317	                if let Some(endpoint) = client {
+321	            }
+325	                let mut socket = sockets.get::<TcpSocket>(tcp_handle);
+326	                if !socket.is_open() {
+330	                if socket.can_send() {
+334	            }
+296	            let timestamp = Instant::from_millis(unsafe { crate::timer::TICKS as i64 });
+297	            match iface.poll(&mut sockets, timestamp) {
+298	                Ok(_) => {},
+306	                let mut socket = sockets.get::<UdpSocket>(udp_handle);
+307	                if !socket.is_open() {
+311	                let client = match socket.recv() {
+312	                    Ok((data, endpoint)) => {
+315	                    Err(_) => None
+311	                let client = match socket.recv() {
+317	                if let Some(endpoint) = client {
+321	            }
+325	                let mut socket = sockets.get::<TcpSocket>(tcp_handle);
+326	                if !socket.is_open() {
+330	                if socket.can_send() {
+334	            }
+296	            let timestamp = Instant::from_millis(unsafe { crate::timer::TICKS as i64 });
+297	            match iface.poll(&mut sockets, timestamp) {
+298	                Ok(_) => {},
+306	                let mut socket = sockets.get::<UdpSocket>(udp_handle);
+307	                if !socket.is_open() {
+311	                let client = match socket.recv() {
+312	                    Ok((data, endpoint)) => {
+315	                    Err(_) => None
+311	                let client = match socket.recv() {
+317	                if let Some(endpoint) = client {
+321	            }
+325	                let mut socket = sockets.get::<TcpSocket>(tcp_handle);
+326	                if !socket.is_open() {
+330	                if socket.can_send() {
+334	            }
+296	            let timestamp = Instant::from_millis(unsafe { crate::timer::TICKS as i64 });
+297	            match iface.poll(&mut sockets, timestamp) {
+298	                Ok(_) => {},
+306	                let mut socket = sockets.get::<UdpSocket>(udp_handle);
+307	                if !socket.is_open() {
+311	                let client = match socket.recv() {
+312	                    Ok((data, endpoint)) => {
+315	                    Err(_) => None
+311	                let client = match socket.recv() {
+317	                if let Some(endpoint) = client {
+321	            }
+325	                let mut socket = sockets.get::<TcpSocket>(tcp_handle);
+326	                if !socket.is_open() {
+330	                if socket.can_send() {
+334	            }
+296	            let timestamp = Instant::from_millis(unsafe { crate::timer::TICKS as i64 });
+297	            match iface.poll(&mut sockets, timestamp) {
+298	                Ok(_) => {},
+306	                let mut socket = sockets.get::<UdpSocket>(udp_handle);
+307	                if !socket.is_open() {
+311	                let client = match socket.recv() {
+312	                    Ok((data, endpoint)) => {
+315	                    Err(_) => None
+311	                let client = match socket.recv() {
+317	                if let Some(endpoint) = client {
+321	            }
+325	                let mut socket = sockets.get::<TcpSocket>(tcp_handle);
+326	                if !socket.is_open() {
+330	                if socket.can_send() {
+334	            }
+296	            let timestamp = Instant::from_millis(unsafe { crate::timer::TICKS as i64 });
+297	            match iface.poll(&mut sockets, timestamp) {
+298	                Ok(_) => {},
+306	                let mut socket = sockets.get::<UdpSocket>(udp_handle);
+307	                if !socket.is_open() {
+311	                let client = match socket.recv() {
+312	                    Ok((data, endpoint)) => {
+315	                    Err(_) => None
+311	                let client = match socket.recv() {
+317	                if let Some(endpoint) = client {
+321	            }
+325	                let mut socket = sockets.get::<TcpSocket>(tcp_handle);
+326	                if !socket.is_open() {
+330	                if socket.can_send() {
+334	            }
+296	            let timestamp = Instant::from_millis(unsafe { crate::timer::TICKS as i64 });
+297	            match iface.poll(&mut sockets, timestamp) {
+298	                Ok(_) => {},
+306	                let mut socket = sockets.get::<UdpSocket>(udp_handle);
+307	                if !socket.is_open() {
+311	                let client = match socket.recv() {
+312	                    Ok((data, endpoint)) => {
+315	                    Err(_) => None
+311	                let client = match socket.recv() {
+317	                if let Some(endpoint) = client {
+321	            }
+325	                let mut socket = sockets.get::<TcpSocket>(tcp_handle);
+326	                if !socket.is_open() {
+330	                if socket.can_send() {
+334	            }
+296	            let timestamp = Instant::from_millis(unsafe { crate::timer::TICKS as i64 });
+297	            match iface.poll(&mut sockets, timestamp) {
+298	                Ok(_) => {},
+306	                let mut socket = sockets.get::<UdpSocket>(udp_handle);
+307	                if !socket.is_open() {
+311	                let client = match socket.recv() {
+312	                    Ok((data, endpoint)) => {
+315	                    Err(_) => None
+311	                let client = match socket.recv() {
+317	                if let Some(endpoint) = client {
+321	            }
+325	                let mut socket = sockets.get::<TcpSocket>(tcp_handle);
+326	                if !socket.is_open() {
+330	                if socket.can_send() {
+334	            }
+296	            let timestamp = Instant::from_millis(unsafe { crate::timer::TICKS as i64 });
+297	            match iface.poll(&mut sockets, timestamp) {
+298	                Ok(_) => {},
+306	                let mut socket = sockets.get::<UdpSocket>(udp_handle);
+307	                if !socket.is_open() {
+311	                let client = match socket.recv() {
+312	                    Ok((data, endpoint)) => {
+315	                    Err(_) => None
+311	                let client = match socket.recv() {
+317	                if let Some(endpoint) = client {
+321	            }
+325	                let mut socket = sockets.get::<TcpSocket>(tcp_handle);
+326	                if !socket.is_open() {
+330	                if socket.can_send() {
+334	            }
+296	            let timestamp = Instant::from_millis(unsafe { crate::timer::TICKS as i64 });
+297	            match iface.poll(&mut sockets, timestamp) {
+298	                Ok(_) => {},
+306	                let mut socket = sockets.get::<UdpSocket>(udp_handle);
+307	                if !socket.is_open() {
+311	                let client = match socket.recv() {
+312	                    Ok((data, endpoint)) => {
+315	                    Err(_) => None
+311	                let client = match socket.recv() {
+317	                if let Some(endpoint) = client {
+321	            }
+325	                let mut socket = sockets.get::<TcpSocket>(tcp_handle);
+326	                if !socket.is_open() {
+330	                if socket.can_send() {
+334	            }
+296	            let timestamp = Instant::from_millis(unsafe { crate::timer::TICKS as i64 });
+297	            match iface.poll(&mut sockets, timestamp) {
+298	                Ok(_) => {},
+306	                let mut socket = sockets.get::<UdpSocket>(udp_handle);
+307	                if !socket.is_open() {
+311	                let client = match socket.recv() {
+312	                    Ok((data, endpoint)) => {
+315	                    Err(_) => None
+311	                let client = match socket.recv() {
+317	                if let Some(endpoint) = client {
+321	            }
+325	                let mut socket = sockets.get::<TcpSocket>(tcp_handle);
+326	                if !socket.is_open() {
+330	                if socket.can_send() {
+334	            }
+296	            let timestamp = Instant::from_millis(unsafe { crate::timer::TICKS as i64 });
+297	            match iface.poll(&mut sockets, timestamp) {
+298	                Ok(_) => {},
+306	                let mut socket = sockets.get::<UdpSocket>(udp_handle);
+307	                if !socket.is_open() {
+311	                let client = match socket.recv() {
+312	                    Ok((data, endpoint)) => {
+315	                    Err(_) => None
+311	                let client = match socket.recv() {
+317	                if let Some(endpoint) = client {
+321	            }
+325	                let mut socket = sockets.get::<TcpSocket>(tcp_handle);
+326	                if !socket.is_open() {
+330	                if socket.can_send() {
+334	            }
+296	            let timestamp = Instant::from_millis(unsafe { crate::timer::TICKS as i64 });
+297	            match iface.poll(&mut sockets, timestamp) {
+298	                Ok(_) => {},
+306	                let mut socket = sockets.get::<UdpSocket>(udp_handle);
+307	                if !socket.is_open() {
+311	                let client = match socket.recv() {
+312	                    Ok((data, endpoint)) => {
+315	                    Err(_) => None
+311	                let client = match socket.recv() {
+317	                if let Some(endpoint) = client {
+321	            }
+325	                let mut socket = sockets.get::<TcpSocket>(tcp_handle);
+326	                if !socket.is_open() {
+330	                if socket.can_send() {
+334	            }
+296	            let timestamp = Instant::from_millis(unsafe { crate::timer::TICKS as i64 });
+297	            match iface.poll(&mut sockets, timestamp) {
+298	                Ok(_) => {},
+306	                let mut socket = sockets.get::<UdpSocket>(udp_handle);
+307	                if !socket.is_open() {
+311	                let client = match socket.recv() {
+312	                    Ok((data, endpoint)) => {
+315	                    Err(_) => None
+311	                let client = match socket.recv() {
+317	                if let Some(endpoint) = client {
+321	            }
+325	                let mut socket = sockets.get::<TcpSocket>(tcp_handle);
+326	                if !socket.is_open() {
+330	                if socket.can_send() {
+334	            }
+296	            let timestamp = Instant::from_millis(unsafe { crate::timer::TICKS as i64 });
+297	            match iface.poll(&mut sockets, timestamp) {
+298	                Ok(_) => {},
+306	                let mut socket = sockets.get::<UdpSocket>(udp_handle);
+307	                if !socket.is_open() {
+311	                let client = match socket.recv() {
+312	                    Ok((data, endpoint)) => {
+315	                    Err(_) => None
+311	                let client = match socket.recv() {
+317	                if let Some(endpoint) = client {
+321	            }
+325	                let mut socket = sockets.get::<TcpSocket>(tcp_handle);
+326	                if !socket.is_open() {
+330	                if socket.can_send() {
+334	            }
+296	            let timestamp = Instant::from_millis(unsafe { crate::timer::TICKS as i64 });
+297	            match iface.poll(&mut sockets, timestamp) {
+298	                Ok(_) => {},
+306	                let mut socket = sockets.get::<UdpSocket>(udp_handle);
+307	                if !socket.is_open() {
+311	                let client = match socket.recv() {
+312	                    Ok((data, endpoint)) => {
+315	                    Err(_) => None
+311	                let client = match socket.recv() {
+317	                if let Some(endpoint) = client {
+321	            }
+325	                let mut socket = sockets.get::<TcpSocket>(tcp_handle);
+326	                if !socket.is_open() {
+330	                if socket.can_send() {
+334	            }
+296	            let timestamp = Instant::from_millis(unsafe { crate::timer::TICKS as i64 });
+297	            match iface.poll(&mut sockets, timestamp) {
+298	                Ok(_) => {},
+306	                let mut socket = sockets.get::<UdpSocket>(udp_handle);
+307	                if !socket.is_open() {
+311	                let client = match socket.recv() {
+312	                    Ok((data, endpoint)) => {
+315	                    Err(_) => None
+311	                let client = match socket.recv() {
+317	                if let Some(endpoint) = client {
+321	            }
+325	                let mut socket = sockets.get::<TcpSocket>(tcp_handle);
+326	                if !socket.is_open() {
+330	                if socket.can_send() {
+334	            }
+296	            let timestamp = Instant::from_millis(unsafe { crate::timer::TICKS as i64 });
+297	            match iface.poll(&mut sockets, timestamp) {
+298	                Ok(_) => {},
+306	                let mut socket = sockets.get::<UdpSocket>(udp_handle);
+307	                if !socket.is_open() {
+311	                let client = match socket.recv() {
+312	                    Ok((data, endpoint)) => {
+315	                    Err(_) => None
+311	                let client = match socket.recv() {
+317	                if let Some(endpoint) = client {
+321	            }
+325	                let mut socket = sockets.get::<TcpSocket>(tcp_handle);
+326	                if !socket.is_open() {
+330	                if socket.can_send() {
+334	            }
+296	            let timestamp = Instant::from_millis(unsafe { crate::timer::TICKS as i64 });
+297	            match iface.poll(&mut sockets, timestamp) {
+298	                Ok(_) => {},
+306	                let mut socket = sockets.get::<UdpSocket>(udp_handle);
+307	                if !socket.is_open() {
+311	                let client = match socket.recv() {
+312	                    Ok((data, endpoint)) => {
+315	                    Err(_) => None
+311	                let client = match socket.recv() {
+317	                if let Some(endpoint) = client {
+321	            }
+325	                let mut socket = sockets.get::<TcpSocket>(tcp_handle);
+326	                if !socket.is_open() {
+330	                if socket.can_send() {
+334	            }
+296	            let timestamp = Instant::from_millis(unsafe { crate::timer::TICKS as i64 });
+297	            match iface.poll(&mut sockets, timestamp) {
+298	                Ok(_) => {},
+306	                let mut socket = sockets.get::<UdpSocket>(udp_handle);
+307	                if !socket.is_open() {
+311	                let client = match socket.recv() {
+312	                    Ok((data, endpoint)) => {
+315	                    Err(_) => None
+311	                let client = match socket.recv() {
+317	                if let Some(endpoint) = client {
+321	            }
+325	                let mut socket = sockets.get::<TcpSocket>(tcp_handle);
+326	                if !socket.is_open() {
+330	                if socket.can_send() {
+334	            }
+296	            let timestamp = Instant::from_millis(unsafe { crate::timer::TICKS as i64 });
+297	            match iface.poll(&mut sockets, timestamp) {
+298	                Ok(_) => {},
+306	                let mut socket = sockets.get::<UdpSocket>(udp_handle);
+307	                if !socket.is_open() {
+311	                let client = match socket.recv() {
+312	                    Ok((data, endpoint)) => {
+315	                    Err(_) => None
+311	                let client = match socket.recv() {
+Detaching from program: D:\z\2\c\os\target\riscv64gc-unknown-none-elf\debug\os, process 1
+Ending remote debugging.
+[Inferior 1 (process 1) detached]
+0x0000000000001000 in ?? ()
+=> 0x0000000000001000:	97 02 00 00	auipc	t0,0x0
+Breakpoint 1 at 0x80202970: file src\net/mod.rs, line 214.
+Continuing.
+
+Thread 1 hit Breakpoint 1, os::net::net_test (dtb=2279604224) at src\net/mod.rs:214
+214	    device_tree_init(dtb);
+Breakpoint 2 at 0x8021142c: file src\net/virtio_net.rs, line 329.
+No source file named os::net::virtio_net.rs.
+No source file named os::net::virtio_net.
+Function "os::net::virtio_net::395" not defined.
+Breakpoint 3 at 0x80208e08: virtio_net.rs:395. (7 locations)
+Continuing.
+
+Thread 1 hit Breakpoint 3, <os::net::virtio_net::VirtIONetTxToken as smoltcp::phy::TxToken>::consume (self=..., _timestamp=..., len=42, f=...) at src\net/virtio_net.rs:395
+395	        println!("transmit one packet");
+#0  <os::net::virtio_net::VirtIONetTxToken as smoltcp::phy::TxToken>::consume (self=..., _timestamp=..., len=42, f=...) at src\net/virtio_net.rs:395
+#1  0x000000008021ba90 in smoltcp::iface::ethernet::InterfaceInner::dispatch_ethernet (self=0x802b8190, tx_token=..., timestamp=..., buffer_len=28, f=...) at C:\Users\l\.cargo\git\checkouts\smoltcp-40eb31ddad590270\5bd87c7\src\iface/ethernet.rs:1519
+#2  0x000000008021d0c8 in smoltcp::iface::ethernet::InterfaceInner::dispatch (self=0x802b8190, tx_token=..., timestamp=..., packet=...) at C:\Users\l\.cargo\git\checkouts\smoltcp-40eb31ddad590270\5bd87c7\src\iface/ethernet.rs:1439
+#3  0x000000008021eadc in smoltcp::iface::ethernet::Interface<DeviceT>::socket_ingress::{{closure}}::{{closure}} (response=...) at C:\Users\l\.cargo\git\checkouts\smoltcp-40eb31ddad590270\5bd87c7\src\iface/ethernet.rs:573
+#4  0x00000000802232ba in core::result::Result<T,E>::and_then (self=..., op=...) at /rustc/6d820866a27b1949e237be79b9c8c0145fe728b7/library/core/src/result.rs:704
+#5  0x000000008021ea74 in smoltcp::iface::ethernet::Interface<DeviceT>::socket_ingress::{{closure}} (frame=...) at C:\Users\l\.cargo\git\checkouts\smoltcp-40eb31ddad590270\5bd87c7\src\iface/ethernet.rs:566
+#6  0x0000000080208dac in <os::net::virtio_net::VirtIONetRxToken as smoltcp::phy::RxToken>::consume (self=..., timestamp=..., f=...) at src\net/virtio_net.rs:385
+#7  0x000000008021e996 in smoltcp::iface::ethernet::Interface<DeviceT>::socket_ingress (self=0x802b8188, sockets=0x802b8a00, timestamp=...) at C:\Users\l\.cargo\git\checkouts\smoltcp-40eb31ddad590270\5bd87c7\src\iface/ethernet.rs:565
+#8  0x000000008021ee64 in smoltcp::iface::ethernet::Interface<DeviceT>::poll (self=0x802b8188, sockets=0x802b8a00, timestamp=...) at C:\Users\l\.cargo\git\checkouts\smoltcp-40eb31ddad590270\5bd87c7\src\iface/ethernet.rs:502
+#9  0x00000000802035f8 in os::net::server (_arg=1) at src\net/mod.rs:297
+#10 0x0000000080202984 in os::net::net_test (dtb=2279604224) at src\net/mod.rs:215
+#11 0x0000000080231872 in os::rust_main (hart_id=0, device_tree_paddr=2279604224) at src\main.rs:76
+#12 0x000000008020001a in stext ()
+Backtrace stopped: frame did not save the PC
+396	        let mut driver = (self.0).0.lock();
+401	        KERNEL_SPACE.lock().map_if_not_exists(VirtAddr(driver.header as usize), driver.header as usize);            KERNEL_SPACE.lock().activate();
+driver = spin::mutex::MutexGuard<os::net::virtio_net::VirtIONet> {inner: spin::mutex::spin::SpinMutexGuard<os::net::virtio_net::VirtIONet> {lock: 0x802edd10 <os::mm::heap_allocator::HEAP_SPACE+19568>, data: 0x802edd18 <os::mm::heap_allocator::HEAP_SPACE+19576>}}
+driver = spin::mutex::MutexGuard<os::net::virtio_net::VirtIONet> {inner: spin::mutex::spin::SpinMutexGuard<os::net::virtio_net::VirtIONet> {lock: 0x802edd10 <os::mm::heap_allocator::HEAP_SPACE+19568>, data: 0x802edd18 <os::mm::heap_allocator::HEAP_SPACE+19576>}}
+402	        KERNEL_SPACE.lock().activate();
+404	        let mut header = unsafe { &mut *(driver.header as *mut VirtIOHeader) };
+405	        let payload_target = unsafe { slice::from_raw_parts_mut((driver.queue_page[VIRTIO_QUEUE_TRANSMIT] + size_of::<VirtIONetHeader>()) as *mut u8, len)};
+406	        println!("payload_target: {:x?}", payload_target);
+407	        let result = f(payload_target);
+payload_target = &mut [u8] {data_ptr: 0x842e400a <os::mm::heap_allocator::HEAP_SPACE+67088234> <error reading variable>, length: 42}
+header = 0x10002000
+driver = spin::mutex::MutexGuard<os::net::virtio_net::VirtIONet> {inner: spin::mutex::spin::SpinMutexGuard<os::net::virtio_net::VirtIONet> {lock: 0x802edd10 <os::mm::heap_allocator::HEAP_SPACE+19568>, data: 0x802edd18 <os::mm::heap_allocator::HEAP_SPACE+19576>}}
+Stack level 0, frame at 0x802b70a0:
+ pc = 0x8020c2d4 in <os::net::virtio_net::VirtIONetTxToken as smoltcp::phy::TxToken>::consume (src\net/virtio_net.rs:407); saved pc = 0x8021ba90
+ called by frame at 0x802b7140
+ source language rust.
+ Arglist at 0x802b70a0, args: self=..., _timestamp=..., len=42, f=...
+ Locals at 0x802b70a0, Previous frame's sp is 0x802b70a0
+ Saved registers:
+  ra at 0x802b7098, fp at 0x802b7090, pc at 0x802b7098Could not fetch register "ustatus"; remote failure reply 'E14'
+#0  <os::net::virtio_net::VirtIONetTxToken as smoltcp::phy::TxToken>::consume (self=..., _timestamp=..., len=42, f=...) at src\net/virtio_net.rs:407
+#1  0x000000008021ba90 in smoltcp::iface::ethernet::InterfaceInner::dispatch_ethernet (self=0x802b8190, tx_token=..., timestamp=..., buffer_len=28, f=...) at C:\Users\l\.cargo\git\checkouts\smoltcp-40eb31ddad590270\5bd87c7\src\iface/ethernet.rs:1519
+#2  0x000000008021d0c8 in smoltcp::iface::ethernet::InterfaceInner::dispatch (self=0x802b8190, tx_token=..., timestamp=..., packet=...) at C:\Users\l\.cargo\git\checkouts\smoltcp-40eb31ddad590270\5bd87c7\src\iface/ethernet.rs:1439
+#3  0x000000008021eadc in smoltcp::iface::ethernet::Interface<DeviceT>::socket_ingress::{{closure}}::{{closure}} (response=...) at C:\Users\l\.cargo\git\checkouts\smoltcp-40eb31ddad590270\5bd87c7\src\iface/ethernet.rs:573
+#4  0x00000000802232ba in core::result::Result<T,E>::and_then (self=..., op=...) at /rustc/6d820866a27b1949e237be79b9c8c0145fe728b7/library/core/src/result.rs:704
+#5  0x000000008021ea74 in smoltcp::iface::ethernet::Interface<DeviceT>::socket_ingress::{{closure}} (frame=...) at C:\Users\l\.cargo\git\checkouts\smoltcp-40eb31ddad590270\5bd87c7\src\iface/ethernet.rs:566
+#6  0x0000000080208dac in <os::net::virtio_net::VirtIONetRxToken as smoltcp::phy::RxToken>::consume (self=..., timestamp=..., f=...) at src\net/virtio_net.rs:385
+#7  0x000000008021e996 in smoltcp::iface::ethernet::Interface<DeviceT>::socket_ingress (self=0x802b8188, sockets=0x802b8a00, timestamp=...) at C:\Users\l\.cargo\git\checkouts\smoltcp-40eb31ddad590270\5bd87c7\src\iface/ethernet.rs:565
+#8  0x000000008021ee64 in smoltcp::iface::ethernet::Interface<DeviceT>::poll (self=0x802b8188, sockets=0x802b8a00, timestamp=...) at C:\Users\l\.cargo\git\checkouts\smoltcp-40eb31ddad590270\5bd87c7\src\iface/ethernet.rs:502
+#9  0x00000000802035f8 in os::net::server (_arg=1) at src\net/mod.rs:297
+#10 0x0000000080202984 in os::net::net_test (dtb=2279604224) at src\net/mod.rs:215
+#11 0x0000000080231872 in os::rust_main (hart_id=0, device_tree_paddr=2279604224) at src\main.rs:76
+#12 0x000000008020001a in stext ()
+Backtrace stopped: frame did not save the PC
+408	        let mut net_header = unsafe { &mut *(driver.queue_page[VIRTIO_QUEUE_TRANSMIT] as *mut VirtIONetHeader) };
+410	        let mut header = unsafe { &mut *(driver.header as *mut VirtIOHeader) };
+412	            &mut *((driver.queue_address[VIRTIO_QUEUE_TRANSMIT] + size_of::<VirtIOVirtqueueDesc>() * driver.queue_num as usize) as *mut VirtIOVirtqueueAvailableRing) 
+416	        let mut desc = unsafe { &mut *(driver.queue_address[VIRTIO_QUEUE_TRANSMIT] as *mut VirtIOVirtqueueDesc) };
+417	        desc.addr.write(driver.queue_page[VIRTIO_QUEUE_TRANSMIT] as u64);
+418	        desc.len.write((len + size_of::<VirtIONetHeader>()) as u32);
+421	        fence();
+424	        ring.idx.write(ring.idx.read() + 1);
+425	        header.queue_notify.write(VIRTIO_QUEUE_TRANSMIT as u32);
+426	        info!("add desc to available ring");
+428	    }
+smoltcp::iface::ethernet::InterfaceInner::dispatch_ethernet (self=0x802b8190, tx_token=..., timestamp=..., buffer_len=28, f=...) at C:\Users\l\.cargo\git\checkouts\smoltcp-40eb31ddad590270\5bd87c7\src\iface/ethernet.rs:1528
+1528	    }
+#0  smoltcp::iface::ethernet::InterfaceInner::dispatch_ethernet (self=0x802b8190, tx_token=..., timestamp=..., buffer_len=28, f=...) at C:\Users\l\.cargo\git\checkouts\smoltcp-40eb31ddad590270\5bd87c7\src\iface/ethernet.rs:1528
+#1  0x000000008021d0c8 in smoltcp::iface::ethernet::InterfaceInner::dispatch (self=0x802b8190, tx_token=..., timestamp=..., packet=...) at C:\Users\l\.cargo\git\checkouts\smoltcp-40eb31ddad590270\5bd87c7\src\iface/ethernet.rs:1439
+#2  0x000000008021eadc in smoltcp::iface::ethernet::Interface<DeviceT>::socket_ingress::{{closure}}::{{closure}} (response=...) at C:\Users\l\.cargo\git\checkouts\smoltcp-40eb31ddad590270\5bd87c7\src\iface/ethernet.rs:573
+#3  0x00000000802232ba in core::result::Result<T,E>::and_then (self=..., op=...) at /rustc/6d820866a27b1949e237be79b9c8c0145fe728b7/library/core/src/result.rs:704
+#4  0x000000008021ea74 in smoltcp::iface::ethernet::Interface<DeviceT>::socket_ingress::{{closure}} (frame=...) at C:\Users\l\.cargo\git\checkouts\smoltcp-40eb31ddad590270\5bd87c7\src\iface/ethernet.rs:566
+#5  0x0000000080208dac in <os::net::virtio_net::VirtIONetRxToken as smoltcp::phy::RxToken>::consume (self=..., timestamp=..., f=...) at src\net/virtio_net.rs:385
+#6  0x000000008021e996 in smoltcp::iface::ethernet::Interface<DeviceT>::socket_ingress (self=0x802b8188, sockets=0x802b8a00, timestamp=...) at C:\Users\l\.cargo\git\checkouts\smoltcp-40eb31ddad590270\5bd87c7\src\iface/ethernet.rs:565
+#7  0x000000008021ee64 in smoltcp::iface::ethernet::Interface<DeviceT>::poll (self=0x802b8188, sockets=0x802b8a00, timestamp=...) at C:\Users\l\.cargo\git\checkouts\smoltcp-40eb31ddad590270\5bd87c7\src\iface/ethernet.rs:502
+#8  0x00000000802035f8 in os::net::server (_arg=1) at src\net/mod.rs:297
+#9  0x0000000080202984 in os::net::net_test (dtb=2279604224) at src\net/mod.rs:215
+#10 0x0000000080231872 in os::rust_main (hart_id=0, device_tree_paddr=2279604224) at src\main.rs:76
+#11 0x000000008020001a in stext ()
+Backtrace stopped: frame did not save the PC
+smoltcp::iface::ethernet::InterfaceInner::dispatch (self=0x802b8190, tx_token=..., timestamp=..., packet=...) at C:\Users\l\.cargo\git\checkouts\smoltcp-40eb31ddad590270\5bd87c7\src\iface/ethernet.rs:1512
+1512	    }
+smoltcp::iface::ethernet::Interface<DeviceT>::socket_ingress::{{closure}}::{{closure}} (response=...) at C:\Users\l\.cargo\git\checkouts\smoltcp-40eb31ddad590270\5bd87c7\src\iface/ethernet.rs:577
+577	                })
+core::result::Result<T,E>::and_then (self=..., op=...) at /rustc/6d820866a27b1949e237be79b9c8c0145fe728b7/library/core/src/result.rs:703
+703	/rustc/6d820866a27b1949e237be79b9c8c0145fe728b7/library/core/src/result.rs: No such file or directory.
+707	in /rustc/6d820866a27b1949e237be79b9c8c0145fe728b7/library/core/src/result.rs
+smoltcp::iface::ethernet::Interface<DeviceT>::socket_ingress::{{closure}} (frame=...) at C:\Users\l\.cargo\git\checkouts\smoltcp-40eb31ddad590270\5bd87c7\src\iface/ethernet.rs:578
+578	            })?;
+#0  smoltcp::iface::ethernet::Interface<DeviceT>::socket_ingress::{{closure}} (frame=...) at C:\Users\l\.cargo\git\checkouts\smoltcp-40eb31ddad590270\5bd87c7\src\iface/ethernet.rs:578
+#1  0x0000000080208dac in <os::net::virtio_net::VirtIONetRxToken as smoltcp::phy::RxToken>::consume (self=..., timestamp=..., f=...) at src\net/virtio_net.rs:385
+#2  0x000000008021e996 in smoltcp::iface::ethernet::Interface<DeviceT>::socket_ingress (self=0x802b8188, sockets=0x802b8a00, timestamp=...) at C:\Users\l\.cargo\git\checkouts\smoltcp-40eb31ddad590270\5bd87c7\src\iface/ethernet.rs:565
+#3  0x000000008021ee64 in smoltcp::iface::ethernet::Interface<DeviceT>::poll (self=0x802b8188, sockets=0x802b8a00, timestamp=...) at C:\Users\l\.cargo\git\checkouts\smoltcp-40eb31ddad590270\5bd87c7\src\iface/ethernet.rs:502
+#4  0x00000000802035f8 in os::net::server (_arg=1) at src\net/mod.rs:297
+#5  0x0000000080202984 in os::net::net_test (dtb=2279604224) at src\net/mod.rs:215
+#6  0x0000000080231872 in os::rust_main (hart_id=0, device_tree_paddr=2279604224) at src\main.rs:76
+#7  0x000000008020001a in stext ()
+Backtrace stopped: frame did not save the PC
+<os::net::virtio_net::VirtIONetRxToken as smoltcp::phy::RxToken>::consume (self=..., timestamp=..., f=...) at src\net/virtio_net.rs:386
+386	    }
+smoltcp::iface::ethernet::Interface<DeviceT>::socket_ingress (self=0x802b8188, sockets=0x802b8a00, timestamp=...) at C:\Users\l\.cargo\git\checkouts\smoltcp-40eb31ddad590270\5bd87c7\src\iface/ethernet.rs:578
+578	            })?;
+559	        loop {
+560	            let &mut Self { ref mut device, ref mut inner } = self;
+561	            let (rx_token, tx_token) = match device.receive() {
+562	                None => break,
+580	        Ok(processed_any)
+581	    }
+smoltcp::iface::ethernet::Interface<DeviceT>::poll (self=0x802b8188, sockets=0x802b8a00, timestamp=...) at C:\Users\l\.cargo\git\checkouts\smoltcp-40eb31ddad590270\5bd87c7\src\iface/ethernet.rs:503
+503	            let emitted_any   = self.socket_egress(sockets, timestamp)?;
+506	            self.igmp_egress(timestamp)?;
+508	            if processed_any || emitted_any {
+509	                readiness_may_have_changed = true;
+501	        loop {
+502	            let processed_any = self.socket_ingress(sockets, timestamp)?;
+503	            let emitted_any   = self.socket_egress(sockets, timestamp)?;
+506	            self.igmp_egress(timestamp)?;
+508	            if processed_any || emitted_any {
+514	        Ok(readiness_may_have_changed)
+515	    }
+os::net::server (_arg=1) at src\net/mod.rs:298
+298	                Ok(_) => {},
+306	                let mut socket = sockets.get::<UdpSocket>(udp_handle);
+307	                if !socket.is_open() {
+311	                let client = match socket.recv() {
+312	                    Ok((data, endpoint)) => {
+315	                    Err(_) => None
+311	                let client = match socket.recv() {
+317	                if let Some(endpoint) = client {
+321	            }
+325	                let mut socket = sockets.get::<TcpSocket>(tcp_handle);
+326	                if !socket.is_open() {
+330	                if socket.can_send() {
+334	            }
+296	            let timestamp = Instant::from_millis(unsafe { crate::timer::TICKS as i64 });
+297	            match iface.poll(&mut sockets, timestamp) {
+298	                Ok(_) => {},
+306	                let mut socket = sockets.get::<UdpSocket>(udp_handle);
+307	                if !socket.is_open() {
+311	                let client = match socket.recv() {
+312	                    Ok((data, endpoint)) => {
+315	                    Err(_) => None
+311	                let client = match socket.recv() {
+317	                if let Some(endpoint) = client {
+321	            }
+325	                let mut socket = sockets.get::<TcpSocket>(tcp_handle);
+326	                if !socket.is_open() {
+330	                if socket.can_send() {
+334	            }
+296	            let timestamp = Instant::from_millis(unsafe { crate::timer::TICKS as i64 });
+297	            match iface.poll(&mut sockets, timestamp) {
+298	                Ok(_) => {},
+306	                let mut socket = sockets.get::<UdpSocket>(udp_handle);
+307	                if !socket.is_open() {
+311	                let client = match socket.recv() {
+312	                    Ok((data, endpoint)) => {
+315	                    Err(_) => None
+311	                let client = match socket.recv() {
+317	                if let Some(endpoint) = client {
+321	            }
+325	                let mut socket = sockets.get::<TcpSocket>(tcp_handle);
+326	                if !socket.is_open() {
+330	                if socket.can_send() {
+334	            }
+296	            let timestamp = Instant::from_millis(unsafe { crate::timer::TICKS as i64 });
+297	            match iface.poll(&mut sockets, timestamp) {
+298	                Ok(_) => {},
+306	                let mut socket = sockets.get::<UdpSocket>(udp_handle);
+307	                if !socket.is_open() {
+311	                let client = match socket.recv() {
+312	                    Ok((data, endpoint)) => {
+315	                    Err(_) => None
+311	                let client = match socket.recv() {
+317	                if let Some(endpoint) = client {
+321	            }
+325	                let mut socket = sockets.get::<TcpSocket>(tcp_handle);
+326	                if !socket.is_open() {
+330	                if socket.can_send() {
+334	            }
+296	            let timestamp = Instant::from_millis(unsafe { crate::timer::TICKS as i64 });
+297	            match iface.poll(&mut sockets, timestamp) {
+298	                Ok(_) => {},
+306	                let mut socket = sockets.get::<UdpSocket>(udp_handle);
+307	                if !socket.is_open() {
+311	                let client = match socket.recv() {
+312	                    Ok((data, endpoint)) => {
+315	                    Err(_) => None
+311	                let client = match socket.recv() {
+317	                if let Some(endpoint) = client {
+321	            }
+325	                let mut socket = sockets.get::<TcpSocket>(tcp_handle);
+326	                if !socket.is_open() {
+330	                if socket.can_send() {
+334	            }
+296	            let timestamp = Instant::from_millis(unsafe { crate::timer::TICKS as i64 });
+297	            match iface.poll(&mut sockets, timestamp) {
+298	                Ok(_) => {},
+306	                let mut socket = sockets.get::<UdpSocket>(udp_handle);
+307	                if !socket.is_open() {
+311	                let client = match socket.recv() {
+312	                    Ok((data, endpoint)) => {
+315	                    Err(_) => None
+311	                let client = match socket.recv() {
+317	                if let Some(endpoint) = client {
+321	            }
+325	                let mut socket = sockets.get::<TcpSocket>(tcp_handle);
+326	                if !socket.is_open() {
+330	                if socket.can_send() {
+334	            }
+296	            let timestamp = Instant::from_millis(unsafe { crate::timer::TICKS as i64 });
+297	            match iface.poll(&mut sockets, timestamp) {
+298	                Ok(_) => {},
+306	                let mut socket = sockets.get::<UdpSocket>(udp_handle);
+307	                if !socket.is_open() {
+311	                let client = match socket.recv() {
+312	                    Ok((data, endpoint)) => {
+315	                    Err(_) => None
+311	                let client = match socket.recv() {
+317	                if let Some(endpoint) = client {
+321	            }
+325	                let mut socket = sockets.get::<TcpSocket>(tcp_handle);
+326	                if !socket.is_open() {
+330	                if socket.can_send() {
+334	            }
+296	            let timestamp = Instant::from_millis(unsafe { crate::timer::TICKS as i64 });
+297	            match iface.poll(&mut sockets, timestamp) {
+298	                Ok(_) => {},
+306	                let mut socket = sockets.get::<UdpSocket>(udp_handle);
+307	                if !socket.is_open() {
+311	                let client = match socket.recv() {
+312	                    Ok((data, endpoint)) => {
+315	                    Err(_) => None
+311	                let client = match socket.recv() {
+317	                if let Some(endpoint) = client {
+321	            }
+325	                let mut socket = sockets.get::<TcpSocket>(tcp_handle);
+326	                if !socket.is_open() {
+330	                if socket.can_send() {
+334	            }
+296	            let timestamp = Instant::from_millis(unsafe { crate::timer::TICKS as i64 });
+297	            match iface.poll(&mut sockets, timestamp) {
+298	                Ok(_) => {},
+306	                let mut socket = sockets.get::<UdpSocket>(udp_handle);
+307	                if !socket.is_open() {
+311	                let client = match socket.recv() {
+312	                    Ok((data, endpoint)) => {
+315	                    Err(_) => None
+311	                let client = match socket.recv() {
+317	                if let Some(endpoint) = client {
+321	            }
+325	                let mut socket = sockets.get::<TcpSocket>(tcp_handle);
+326	                if !socket.is_open() {
+330	                if socket.can_send() {
+334	            }
+296	            let timestamp = Instant::from_millis(unsafe { crate::timer::TICKS as i64 });
+297	            match iface.poll(&mut sockets, timestamp) {
+298	                Ok(_) => {},
+306	                let mut socket = sockets.get::<UdpSocket>(udp_handle);
+307	                if !socket.is_open() {
+311	                let client = match socket.recv() {
+312	                    Ok((data, endpoint)) => {
+315	                    Err(_) => None
+311	                let client = match socket.recv() {
+317	                if let Some(endpoint) = client {
+321	            }
+325	                let mut socket = sockets.get::<TcpSocket>(tcp_handle);
+326	                if !socket.is_open() {
+330	                if socket.can_send() {
+334	            }
+296	            let timestamp = Instant::from_millis(unsafe { crate::timer::TICKS as i64 });
+297	            match iface.poll(&mut sockets, timestamp) {
+298	                Ok(_) => {},
+306	                let mut socket = sockets.get::<UdpSocket>(udp_handle);
+307	                if !socket.is_open() {
+311	                let client = match socket.recv() {
+312	                    Ok((data, endpoint)) => {
+315	                    Err(_) => None
+311	                let client = match socket.recv() {
+317	                if let Some(endpoint) = client {
+321	            }
+325	                let mut socket = sockets.get::<TcpSocket>(tcp_handle);
+326	                if !socket.is_open() {
+330	                if socket.can_send() {
+334	            }
+296	            let timestamp = Instant::from_millis(unsafe { crate::timer::TICKS as i64 });
+297	            match iface.poll(&mut sockets, timestamp) {
+298	                Ok(_) => {},
+306	                let mut socket = sockets.get::<UdpSocket>(udp_handle);
+307	                if !socket.is_open() {
+311	                let client = match socket.recv() {
+312	                    Ok((data, endpoint)) => {
+315	                    Err(_) => None
+311	                let client = match socket.recv() {
+317	                if let Some(endpoint) = client {
+321	            }
+325	                let mut socket = sockets.get::<TcpSocket>(tcp_handle);
+326	                if !socket.is_open() {
+330	                if socket.can_send() {
+334	            }
+296	            let timestamp = Instant::from_millis(unsafe { crate::timer::TICKS as i64 });
+297	            match iface.poll(&mut sockets, timestamp) {
+298	                Ok(_) => {},
+306	                let mut socket = sockets.get::<UdpSocket>(udp_handle);
+307	                if !socket.is_open() {
+311	                let client = match socket.recv() {
+312	                    Ok((data, endpoint)) => {
+315	                    Err(_) => None
+311	                let client = match socket.recv() {
+317	                if let Some(endpoint) = client {
+321	            }
+325	                let mut socket = sockets.get::<TcpSocket>(tcp_handle);
+326	                if !socket.is_open() {
+330	                if socket.can_send() {
+334	            }
+296	            let timestamp = Instant::from_millis(unsafe { crate::timer::TICKS as i64 });
+297	            match iface.poll(&mut sockets, timestamp) {
+298	                Ok(_) => {},
+306	                let mut socket = sockets.get::<UdpSocket>(udp_handle);
+307	                if !socket.is_open() {
+311	                let client = match socket.recv() {
+312	                    Ok((data, endpoint)) => {
+315	                    Err(_) => None
+311	                let client = match socket.recv() {
+317	                if let Some(endpoint) = client {
+321	            }
+325	                let mut socket = sockets.get::<TcpSocket>(tcp_handle);
+326	                if !socket.is_open() {
+330	                if socket.can_send() {
+334	            }
+296	            let timestamp = Instant::from_millis(unsafe { crate::timer::TICKS as i64 });
+297	            match iface.poll(&mut sockets, timestamp) {
+298	                Ok(_) => {},
+306	                let mut socket = sockets.get::<UdpSocket>(udp_handle);
+Detaching from program: D:\z\2\c\os\target\riscv64gc-unknown-none-elf\debug\os, process 1
+Ending remote debugging.
+[Inferior 1 (process 1) detached]
+0x0000000000001000 in ?? ()
+=> 0x0000000000001000:	97 02 00 00	auipc	t0,0x0
+Continuing.
+
+Thread 1 received signal SIGINT, Interrupt.
+0x00000000800011ec in ?? ()
+=> 0x00000000800011ec:	73 11 01 34	csrrw	sp,mscratch,sp
+#0  0x00000000800011ec in ?? ()
+Detaching from program: D:\z\2\c\os\target\riscv64gc-unknown-none-elf\debug\os, process 1
+Remote communication error.  Target disconnected.: Success.
+0x0000000000001000 in ?? ()
+=> 0x0000000000001000:	97 02 00 00	auipc	t0,0x0
+Continuing.
+
+Thread 1 received signal SIGINT, Interrupt.
+0x0000000080001294 in ?? ()
+=> 0x0000000080001294:	2a e0	sd	a0,0(sp)
+Detaching from program: D:\z\2\c\os\target\riscv64gc-unknown-none-elf\debug\os, process 1
+Remote communication error.  Target disconnected.: Success.
+0x0000000000001000 in ?? ()
+=> 0x0000000000001000:	97 02 00 00	auipc	t0,0x0
+Continuing.
+
+Thread 1 received signal SIGINT, Interrupt.
+0x0000000080259c76 in <smoltcp::socket::ref_::Ref<T> as core::ops::drop::Drop>::drop (self=0x802b6be8) at C:\Users\l\.cargo\git\checkouts\smoltcp-40eb31ddad590270\5bd87c7\src\socket/ref_.rs:85
+85	        if let Some(socket) = self.socket.take() {
+#0  0x0000000080259c76 in <smoltcp::socket::ref_::Ref<T> as core::ops::drop::Drop>::drop (self=0x802b6be8) at C:\Users\l\.cargo\git\checkouts\smoltcp-40eb31ddad590270\5bd87c7\src\socket/ref_.rs:85
+#1  0x000000008027ad8e in core::ptr::drop_in_place<smoltcp::socket::ref_::Ref<smoltcp::socket::Socket>> () at /rustc/6d820866a27b1949e237be79b9c8c0145fe728b7/library/core/src/ptr/mod.rs:192
+#2  0x00000000802599bc in smoltcp::socket::ref_::Ref<T>::into_inner (ref_=...) at C:\Users\l\.cargo\git\checkouts\smoltcp-40eb31ddad590270\5bd87c7\src\socket/ref_.rs:65
+#3  0x0000000080289c2e in <smoltcp::socket::tcp::TcpSocket as smoltcp::socket::AnySocket>::downcast (ref_=...) at C:\Users\l\.cargo\git\checkouts\smoltcp-40eb31ddad590270\5bd87c7\src\socket/mod.rs:162
+#4  0x00000000802378f2 in smoltcp::socket::set::Set::get (self=0x802b7920, handle=...) at C:\Users\l\.cargo\git\checkouts\smoltcp-40eb31ddad590270\5bd87c7\src\socket/set.rs:91
+#5  0x0000000080203982 in os::net::server (_arg=1) at src\net/mod.rs:333
+#6  0x0000000080202984 in os::net::net_test (dtb=2279604224) at src\net/mod.rs:215
+#7  0x0000000080231602 in os::rust_main (hart_id=0, device_tree_paddr=2279604224) at src\main.rs:76
+#8  0x000000008020001a in stext ()
+Backtrace stopped: frame did not save the PC
+Continuing.
+
+Thread 1 received signal SIGINT, Interrupt.
+0x00000000802599de in <smoltcp::socket::ref_::Ref<T> as core::ops::deref::Deref>::deref (self=0x802b7ce0) at C:\Users\l\.cargo\git\checkouts\smoltcp-40eb31ddad590270\5bd87c7\src\socket/ref_.rs:73
+73	        self.socket.as_ref().unwrap()
+#0  0x00000000802599de in <smoltcp::socket::ref_::Ref<T> as core::ops::deref::Deref>::deref (self=0x802b7ce0) at C:\Users\l\.cargo\git\checkouts\smoltcp-40eb31ddad590270\5bd87c7\src\socket/ref_.rs:73
+#1  0x0000000080203994 in os::net::server (_arg=1) at src\net/mod.rs:334
+#2  0x0000000080202984 in os::net::net_test (dtb=2279604224) at src\net/mod.rs:215
+#3  0x0000000080231602 in os::rust_main (hart_id=0, device_tree_paddr=2279604224) at src\main.rs:76
+#4  0x000000008020001a in stext ()
+Backtrace stopped: frame did not save the PC
+Continuing.
+
+Thread 1 received signal SIGINT, Interrupt.
+core::mem::replace (dest=0x802b6a28, src=...) at /rustc/6d820866a27b1949e237be79b9c8c0145fe728b7/library/core/src/mem/mod.rs:817
+817	/rustc/6d820866a27b1949e237be79b9c8c0145fe728b7/library/core/src/mem/mod.rs: No such file or directory.
+#0  core::mem::replace (dest=0x802b6a28, src=...) at /rustc/6d820866a27b1949e237be79b9c8c0145fe728b7/library/core/src/mem/mod.rs:817
+#1  0x0000000080255bb6 in core::mem::take (dest=0x802b6a28) at /rustc/6d820866a27b1949e237be79b9c8c0145fe728b7/library/core/src/mem/mod.rs:752
+#2  0x0000000080243f6a in core::option::Option<T>::take (self=0x802b6a28) at /rustc/6d820866a27b1949e237be79b9c8c0145fe728b7/library/core/src/option.rs:968
+#3  0x0000000080259c76 in <smoltcp::socket::ref_::Ref<T> as core::ops::drop::Drop>::drop (self=0x802b6a28) at C:\Users\l\.cargo\git\checkouts\smoltcp-40eb31ddad590270\5bd87c7\src\socket/ref_.rs:85
+#4  0x000000008027ad8e in core::ptr::drop_in_place<smoltcp::socket::ref_::Ref<smoltcp::socket::Socket>> () at /rustc/6d820866a27b1949e237be79b9c8c0145fe728b7/library/core/src/ptr/mod.rs:192
+#5  0x000000008021dd2e in smoltcp::iface::ethernet::Interface<DeviceT>::socket_egress (self=0x802b70a8, sockets=0x802b7920, timestamp=...) at C:\Users\l\.cargo\git\checkouts\smoltcp-40eb31ddad590270\5bd87c7\src\iface/ethernet.rs:657
+#6  0x000000008021ec50 in smoltcp::iface::ethernet::Interface<DeviceT>::poll (self=0x802b70a8, sockets=0x802b7920, timestamp=...) at C:\Users\l\.cargo\git\checkouts\smoltcp-40eb31ddad590270\5bd87c7\src\iface/ethernet.rs:503
+#7  0x0000000080203616 in os::net::server (_arg=1) at src\net/mod.rs:302
+#8  0x0000000080202984 in os::net::net_test (dtb=2279604224) at src\net/mod.rs:215
+#9  0x0000000080231602 in os::rust_main (hart_id=0, device_tree_paddr=2279604224) at src\main.rs:76
+#10 0x000000008020001a in stext ()
+Backtrace stopped: frame did not save the PC
+822	in /rustc/6d820866a27b1949e237be79b9c8c0145fe728b7/library/core/src/mem/mod.rs
+823	in /rustc/6d820866a27b1949e237be79b9c8c0145fe728b7/library/core/src/mem/mod.rs
+826	in /rustc/6d820866a27b1949e237be79b9c8c0145fe728b7/library/core/src/mem/mod.rs
+core::mem::take (dest=0x802b6a28) at /rustc/6d820866a27b1949e237be79b9c8c0145fe728b7/library/core/src/mem/mod.rs:753
+753	in /rustc/6d820866a27b1949e237be79b9c8c0145fe728b7/library/core/src/mem/mod.rs
+core::option::Option<T>::take (self=0x802b6a28) at /rustc/6d820866a27b1949e237be79b9c8c0145fe728b7/library/core/src/option.rs:969
+969	/rustc/6d820866a27b1949e237be79b9c8c0145fe728b7/library/core/src/option.rs: No such file or directory.
+<smoltcp::socket::ref_::Ref<T> as core::ops::drop::Drop>::drop (self=0x802b6a28) at C:\Users\l\.cargo\git\checkouts\smoltcp-40eb31ddad590270\5bd87c7\src\socket/ref_.rs:86
+86	            Session::finish(socket);
+85	        if let Some(socket) = self.socket.take() {
+88	    }
+smoltcp::iface::ethernet::Interface<DeviceT>::socket_egress (self=0x802b70a8, sockets=0x802b7920, timestamp=...) at src\main.rs:1
+1	#![no_std]
+658	        Ok(emitted_any)
+659	    }
+smoltcp::iface::ethernet::Interface<DeviceT>::poll (self=0x802b70a8, sockets=0x802b7920, timestamp=...) at C:\Users\l\.cargo\git\checkouts\smoltcp-40eb31ddad590270\5bd87c7\src\iface/ethernet.rs:506
+506	            self.igmp_egress(timestamp)?;
+508	            if processed_any || emitted_any {
+514	        Ok(readiness_may_have_changed)
+515	    }
+os::net::server (_arg=1) at src\net/mod.rs:303
+303	                Ok(_) => {},
+312	                let mut socket = sockets.get::<UdpSocket>(udp_handle);
+313	                if !socket.is_open() {
+317	                let client = match socket.recv() {
+318	                    Ok((data, endpoint)) => {
+323	                    Err(_) => None
+317	                let client = match socket.recv() {
+325	                if let Some(endpoint) = client {
+329	            }
+333	                let mut socket = sockets.get::<TcpSocket>(tcp_handle);
+334	                if !socket.is_open() {
+338	                if socket.can_send() {
+342	            }
+301	            let timestamp = Instant::from_millis(unsafe { crate::timer::TICKS as i64 });
+302	            match iface.poll(&mut sockets, timestamp) {
+303	                Ok(_) => {},
+312	                let mut socket = sockets.get::<UdpSocket>(udp_handle);
+313	                if !socket.is_open() {
+317	                let client = match socket.recv() {
+318	                    Ok((data, endpoint)) => {
+323	                    Err(_) => None
+317	                let client = match socket.recv() {
+325	                if let Some(endpoint) = client {
+329	            }
+333	                let mut socket = sockets.get::<TcpSocket>(tcp_handle);
+334	                if !socket.is_open() {
+338	                if socket.can_send() {
+342	            }
+301	            let timestamp = Instant::from_millis(unsafe { crate::timer::TICKS as i64 });
+302	            match iface.poll(&mut sockets, timestamp) {
+303	                Ok(_) => {},
+312	                let mut socket = sockets.get::<UdpSocket>(udp_handle);
+313	                if !socket.is_open() {
+317	                let client = match socket.recv() {
+318	                    Ok((data, endpoint)) => {
+323	                    Err(_) => None
+317	                let client = match socket.recv() {
+325	                if let Some(endpoint) = client {
+329	            }
+333	                let mut socket = sockets.get::<TcpSocket>(tcp_handle);
+334	                if !socket.is_open() {
+338	                if socket.can_send() {
+342	            }
+301	            let timestamp = Instant::from_millis(unsafe { crate::timer::TICKS as i64 });
+302	            match iface.poll(&mut sockets, timestamp) {
+303	                Ok(_) => {},
+312	                let mut socket = sockets.get::<UdpSocket>(udp_handle);
+313	                if !socket.is_open() {
+317	                let client = match socket.recv() {
+318	                    Ok((data, endpoint)) => {
+323	                    Err(_) => None
+317	                let client = match socket.recv() {
+325	                if let Some(endpoint) = client {
+329	            }
+333	                let mut socket = sockets.get::<TcpSocket>(tcp_handle);
+334	                if !socket.is_open() {
+338	                if socket.can_send() {
+342	            }
+301	            let timestamp = Instant::from_millis(unsafe { crate::timer::TICKS as i64 });
+302	            match iface.poll(&mut sockets, timestamp) {
+303	                Ok(_) => {},
+312	                let mut socket = sockets.get::<UdpSocket>(udp_handle);
+313	                if !socket.is_open() {
+317	                let client = match socket.recv() {
+318	                    Ok((data, endpoint)) => {
+323	                    Err(_) => None
+317	                let client = match socket.recv() {
+325	                if let Some(endpoint) = client {
+329	            }
+333	                let mut socket = sockets.get::<TcpSocket>(tcp_handle);
+334	                if !socket.is_open() {
+338	                if socket.can_send() {
+342	            }
+301	            let timestamp = Instant::from_millis(unsafe { crate::timer::TICKS as i64 });
+302	            match iface.poll(&mut sockets, timestamp) {
+303	                Ok(_) => {},
+312	                let mut socket = sockets.get::<UdpSocket>(udp_handle);
+313	                if !socket.is_open() {
+317	                let client = match socket.recv() {
+318	                    Ok((data, endpoint)) => {
+323	                    Err(_) => None
+317	                let client = match socket.recv() {
+325	                if let Some(endpoint) = client {
+329	            }
+333	                let mut socket = sockets.get::<TcpSocket>(tcp_handle);
+334	                if !socket.is_open() {
+338	                if socket.can_send() {
+342	            }
+301	            let timestamp = Instant::from_millis(unsafe { crate::timer::TICKS as i64 });
+302	            match iface.poll(&mut sockets, timestamp) {
+303	                Ok(_) => {},
+312	                let mut socket = sockets.get::<UdpSocket>(udp_handle);
+313	                if !socket.is_open() {
+317	                let client = match socket.recv() {
+318	                    Ok((data, endpoint)) => {
+323	                    Err(_) => None
+317	                let client = match socket.recv() {
+325	                if let Some(endpoint) = client {
+329	            }
+333	                let mut socket = sockets.get::<TcpSocket>(tcp_handle);
+334	                if !socket.is_open() {
+338	                if socket.can_send() {
+342	            }
+301	            let timestamp = Instant::from_millis(unsafe { crate::timer::TICKS as i64 });
+302	            match iface.poll(&mut sockets, timestamp) {
+303	                Ok(_) => {},
+312	                let mut socket = sockets.get::<UdpSocket>(udp_handle);
+313	                if !socket.is_open() {
+317	                let client = match socket.recv() {
+318	                    Ok((data, endpoint)) => {
+323	                    Err(_) => None
+317	                let client = match socket.recv() {
+325	                if let Some(endpoint) = client {
+329	            }
+333	                let mut socket = sockets.get::<TcpSocket>(tcp_handle);
+334	                if !socket.is_open() {
+338	                if socket.can_send() {
+342	            }
+301	            let timestamp = Instant::from_millis(unsafe { crate::timer::TICKS as i64 });
+302	            match iface.poll(&mut sockets, timestamp) {
+303	                Ok(_) => {},
+312	                let mut socket = sockets.get::<UdpSocket>(udp_handle);
+313	                if !socket.is_open() {
+317	                let client = match socket.recv() {
+318	                    Ok((data, endpoint)) => {
+323	                    Err(_) => None
+317	                let client = match socket.recv() {
+325	                if let Some(endpoint) = client {
+329	            }
+333	                let mut socket = sockets.get::<TcpSocket>(tcp_handle);
+334	                if !socket.is_open() {
+338	                if socket.can_send() {
+342	            }
+301	            let timestamp = Instant::from_millis(unsafe { crate::timer::TICKS as i64 });
+302	            match iface.poll(&mut sockets, timestamp) {
+303	                Ok(_) => {},
+312	                let mut socket = sockets.get::<UdpSocket>(udp_handle);
+313	                if !socket.is_open() {
+317	                let client = match socket.recv() {
+318	                    Ok((data, endpoint)) => {
+323	                    Err(_) => None
+317	                let client = match socket.recv() {
+325	                if let Some(endpoint) = client {
+329	            }
+333	                let mut socket = sockets.get::<TcpSocket>(tcp_handle);
+334	                if !socket.is_open() {
+338	                if socket.can_send() {
+342	            }
+301	            let timestamp = Instant::from_millis(unsafe { crate::timer::TICKS as i64 });
+302	            match iface.poll(&mut sockets, timestamp) {
+303	                Ok(_) => {},
+312	                let mut socket = sockets.get::<UdpSocket>(udp_handle);
+313	                if !socket.is_open() {
+317	                let client = match socket.recv() {
+318	                    Ok((data, endpoint)) => {
+323	                    Err(_) => None
+317	                let client = match socket.recv() {
+325	                if let Some(endpoint) = client {
+329	            }
+333	                let mut socket = sockets.get::<TcpSocket>(tcp_handle);
+334	                if !socket.is_open() {
+338	                if socket.can_send() {
+342	            }
+301	            let timestamp = Instant::from_millis(unsafe { crate::timer::TICKS as i64 });
+302	            match iface.poll(&mut sockets, timestamp) {
+303	                Ok(_) => {},
+312	                let mut socket = sockets.get::<UdpSocket>(udp_handle);
+313	                if !socket.is_open() {
+317	                let client = match socket.recv() {
+318	                    Ok((data, endpoint)) => {
+323	                    Err(_) => None
+317	                let client = match socket.recv() {
+325	                if let Some(endpoint) = client {
+329	            }
+333	                let mut socket = sockets.get::<TcpSocket>(tcp_handle);
+334	                if !socket.is_open() {
+338	                if socket.can_send() {
+342	            }
+301	            let timestamp = Instant::from_millis(unsafe { crate::timer::TICKS as i64 });
+302	            match iface.poll(&mut sockets, timestamp) {
+303	                Ok(_) => {},
+312	                let mut socket = sockets.get::<UdpSocket>(udp_handle);
+313	                if !socket.is_open() {
+317	                let client = match socket.recv() {
+318	                    Ok((data, endpoint)) => {
+323	                    Err(_) => None
+317	                let client = match socket.recv() {
+325	                if let Some(endpoint) = client {
+329	            }
+333	                let mut socket = sockets.get::<TcpSocket>(tcp_handle);
+334	                if !socket.is_open() {
+338	                if socket.can_send() {
+342	            }
+301	            let timestamp = Instant::from_millis(unsafe { crate::timer::TICKS as i64 });
+302	            match iface.poll(&mut sockets, timestamp) {
+303	                Ok(_) => {},
+312	                let mut socket = sockets.get::<UdpSocket>(udp_handle);
+313	                if !socket.is_open() {
+317	                let client = match socket.recv() {
+318	                    Ok((data, endpoint)) => {
+323	                    Err(_) => None
+317	                let client = match socket.recv() {
+325	                if let Some(endpoint) = client {
+329	            }
+333	                let mut socket = sockets.get::<TcpSocket>(tcp_handle);
+334	                if !socket.is_open() {
+338	                if socket.can_send() {
+342	            }
+301	            let timestamp = Instant::from_millis(unsafe { crate::timer::TICKS as i64 });
+302	            match iface.poll(&mut sockets, timestamp) {
+303	                Ok(_) => {},
+312	                let mut socket = sockets.get::<UdpSocket>(udp_handle);
+313	                if !socket.is_open() {
+317	                let client = match socket.recv() {
+318	                    Ok((data, endpoint)) => {
+323	                    Err(_) => None
+317	                let client = match socket.recv() {
+325	                if let Some(endpoint) = client {
+329	            }
+333	                let mut socket = sockets.get::<TcpSocket>(tcp_handle);
+334	                if !socket.is_open() {
+338	                if socket.can_send() {
+342	            }
+301	            let timestamp = Instant::from_millis(unsafe { crate::timer::TICKS as i64 });
+302	            match iface.poll(&mut sockets, timestamp) {
+303	                Ok(_) => {},
+312	                let mut socket = sockets.get::<UdpSocket>(udp_handle);
+313	                if !socket.is_open() {
+317	                let client = match socket.recv() {
+318	                    Ok((data, endpoint)) => {
+323	                    Err(_) => None
+317	                let client = match socket.recv() {
+325	                if let Some(endpoint) = client {
+329	            }
+333	                let mut socket = sockets.get::<TcpSocket>(tcp_handle);
+334	                if !socket.is_open() {
+338	                if socket.can_send() {
+342	            }
+301	            let timestamp = Instant::from_millis(unsafe { crate::timer::TICKS as i64 });
+302	            match iface.poll(&mut sockets, timestamp) {
+303	                Ok(_) => {},
+312	                let mut socket = sockets.get::<UdpSocket>(udp_handle);
+313	                if !socket.is_open() {
+317	                let client = match socket.recv() {
+318	                    Ok((data, endpoint)) => {
+323	                    Err(_) => None
+317	                let client = match socket.recv() {
+325	                if let Some(endpoint) = client {
+329	            }
+333	                let mut socket = sockets.get::<TcpSocket>(tcp_handle);
+334	                if !socket.is_open() {
+338	                if socket.can_send() {
+342	            }
+301	            let timestamp = Instant::from_millis(unsafe { crate::timer::TICKS as i64 });
+302	            match iface.poll(&mut sockets, timestamp) {
+303	                Ok(_) => {},
+312	                let mut socket = sockets.get::<UdpSocket>(udp_handle);
+313	                if !socket.is_open() {
+317	                let client = match socket.recv() {
+318	                    Ok((data, endpoint)) => {
+323	                    Err(_) => None
+317	                let client = match socket.recv() {
+325	                if let Some(endpoint) = client {
+329	            }
+333	                let mut socket = sockets.get::<TcpSocket>(tcp_handle);
+334	                if !socket.is_open() {
+338	                if socket.can_send() {
+342	            }
+Continuing.
+
+Thread 1 received signal SIGINT, Interrupt.
+0x0000000080255f10 in core::mem::replace (dest=0x802b6a28, src=...) at /rustc/6d820866a27b1949e237be79b9c8c0145fe728b7/library/core/src/mem/mod.rs:822
+822	/rustc/6d820866a27b1949e237be79b9c8c0145fe728b7/library/core/src/mem/mod.rs: No such file or directory.
+#0  0x0000000080255f10 in core::mem::replace (dest=0x802b6a28, src=...) at /rustc/6d820866a27b1949e237be79b9c8c0145fe728b7/library/core/src/mem/mod.rs:822
+#1  0x0000000080255bb6 in core::mem::take (dest=0x802b6a28) at /rustc/6d820866a27b1949e237be79b9c8c0145fe728b7/library/core/src/mem/mod.rs:752
+#2  0x0000000080243f6a in core::option::Option<T>::take (self=0x802b6a28) at /rustc/6d820866a27b1949e237be79b9c8c0145fe728b7/library/core/src/option.rs:968
+#3  0x0000000080259c76 in <smoltcp::socket::ref_::Ref<T> as core::ops::drop::Drop>::drop (self=0x802b6a28) at C:\Users\l\.cargo\git\checkouts\smoltcp-40eb31ddad590270\5bd87c7\src\socket/ref_.rs:85
+#4  0x000000008027ad8e in core::ptr::drop_in_place<smoltcp::socket::ref_::Ref<smoltcp::socket::Socket>> () at /rustc/6d820866a27b1949e237be79b9c8c0145fe728b7/library/core/src/ptr/mod.rs:192
+#5  0x000000008021dd2e in smoltcp::iface::ethernet::Interface<DeviceT>::socket_egress (self=0x802b70a8, sockets=0x802b7920, timestamp=...) at C:\Users\l\.cargo\git\checkouts\smoltcp-40eb31ddad590270\5bd87c7\src\iface/ethernet.rs:657
+#6  0x000000008021ec50 in smoltcp::iface::ethernet::Interface<DeviceT>::poll (self=0x802b70a8, sockets=0x802b7920, timestamp=...) at C:\Users\l\.cargo\git\checkouts\smoltcp-40eb31ddad590270\5bd87c7\src\iface/ethernet.rs:503
+#7  0x0000000080203616 in os::net::server (_arg=1) at src\net/mod.rs:302
+#8  0x0000000080202984 in os::net::net_test (dtb=2279604224) at src\net/mod.rs:215
+#9  0x0000000080231602 in os::rust_main (hart_id=0, device_tree_paddr=2279604224) at src\main.rs:76
+#10 0x000000008020001a in stext ()
+Backtrace stopped: frame did not save the PC
