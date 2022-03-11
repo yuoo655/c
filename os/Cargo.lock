@@ -196,9 +196,9 @@ dependencies = [
 
 [[package]]
 name = "managed"
-version = "0.7.2"
+version = "0.8.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "c75de51135344a4f8ed3cfe2720dc27736f7711989703a0b43aadf3753c55577"
+checksum = "0ca88d725a0a943b096803bd34e73a4437208b6077654cc4ecb2947a5f91618d"
 
 [[package]]
 name = "memchr"
@@ -338,8 +338,8 @@ checksum = "388a1df253eca08550bef6c72392cfe7c30914bf41df5269b68cbd6ff8f570a3"
 
 [[package]]
 name = "smoltcp"
-version = "0.5.0"
-source = "git+https://github.com/rcore-os/smoltcp?rev=5bd87c7c#5bd87c7cf01e0a36eb92102e4b52876a9e0ba889"
+version = "0.8.0"
+source = "git+https://github.com/smoltcp-rs/smoltcp#d05ebdd88f7f2b87a2ffe3256a42f67809d2d7e4"
 dependencies = [
  "bitflags",
  "byteorder",

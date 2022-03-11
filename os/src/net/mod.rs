@@ -7,11 +7,11 @@ pub mod virtio_mmio;
 
 
 use core::slice;
-
+use core::str;
 use _core::borrow::BorrowMut;
 use device_tree::{DeviceTree, Node};
 
-
+use smoltcp::phy::{Device, Medium};
 
 
 // use super::bus::virtio_mmio::virtio_probe;
@@ -225,111 +225,148 @@ use core::any::*;
 
 use lazy_static::*;
 
-lazy_static! {
-/// Global SocketSet in smoltcp.
-///
-/// Because smoltcp is a single thread network stack,
-/// every socket operation needs to lock this.
-    pub static ref SOCKETS: Mutex<SocketSet<'static, 'static, 'static>> =
-        Mutex::new(SocketSet::new(vec![]));
-}
 
 
 pub extern fn server(_arg: usize) -> ! {
     info!("server");
-    let mut driver = {
+    let mut device = {
         let ref_driver = (&*(NET_DRIVERS.lock())[0]);
         ref_driver.as_any().downcast_ref::<VirtIONetDriver>().unwrap().clone()
     };
 
-    let ethernet_addr = driver.get_mac();
-    info!("ethernet_addr {:x?}", ethernet_addr);
-    let ip_addrs = [IpCidr::new(IpAddress::v4(10,0,0,66), 24)];
-    info!("set ip_addrs {:?}", ip_addrs);
+    // let ethernet_addr = driver.get_mac();
+    // info!("ethernet_addr {:x?}", ethernet_addr);
+    // info!("set ip_addrs {:?}", ip_addrs);
+    // let ip_addrs = [IpCidr::new(IpAddress::v4(10,0,0,66), 24)];
+
     let neighbor_cache = NeighborCache::new(BTreeMap::new());
-    let mut iface = EthernetInterfaceBuilder::new(driver.clone())
-        .ethernet_addr(ethernet_addr)
-        .ip_addrs(ip_addrs)
-        .neighbor_cache(neighbor_cache)
-        .finalize();
+    // let mut iface = EthernetInterfaceBuilder::new(driver.clone())
+    //     .ethernet_addr(ethernet_addr)
+    //     .ip_addrs(ip_addrs)
+    //     .neighbor_cache(neighbor_cache)
+    //     .finalize();
+
+    
+        // EE:BB:AA:EE:AA:AA
+    let ethernet_addr = EthernetAddress([0xEE, 0xBB, 0xAA, 0xEE, 0xAA, 0xAA]);        
+    let ip_addrs = [
+        IpCidr::new(IpAddress::v4(10, 0, 0, 66), 24),
+    ];
+    info!("ethernet_addr {:x?}", ethernet_addr);
+    info!("set ip_addrs {:?}", ip_addrs);
+
+    let medium = device.capabilities().medium;
+    let mut builder = InterfaceBuilder::new(device, vec![]).ip_addrs(ip_addrs);
+    if medium == Medium::Ethernet {
+        builder = builder
+            .hardware_addr(ethernet_addr.into())
+            .neighbor_cache(neighbor_cache);
+    }
+    let mut iface = builder.finalize();
 
     let udp_rx_buffer = UdpSocketBuffer::new(vec![UdpPacketMetadata::EMPTY], vec![0; 64]);
     let udp_tx_buffer = UdpSocketBuffer::new(vec![UdpPacketMetadata::EMPTY], vec![0; 128]);
     let udp_socket = UdpSocket::new(udp_rx_buffer, udp_tx_buffer);
 
-    let tcp_rx_buffer = TcpSocketBuffer::new(vec![0; 1024]);
-    let tcp_tx_buffer = TcpSocketBuffer::new(vec![0; 1024]);
-    let tcp_socket = TcpSocket::new(tcp_rx_buffer, tcp_tx_buffer);
+    let tcp1_rx_buffer = TcpSocketBuffer::new(vec![0; 64]);
+    let tcp1_tx_buffer = TcpSocketBuffer::new(vec![0; 128]);
+    let tcp1_socket = TcpSocket::new(tcp1_rx_buffer, tcp1_tx_buffer);
 
-
-    let tcp2_rx_buffer = TcpSocketBuffer::new(vec![0; 1024]);
-    let tcp2_tx_buffer = TcpSocketBuffer::new(vec![0; 1024]);
+    let tcp2_rx_buffer = TcpSocketBuffer::new(vec![0; 64]);
+    let tcp2_tx_buffer = TcpSocketBuffer::new(vec![0; 128]);
     let tcp2_socket = TcpSocket::new(tcp2_rx_buffer, tcp2_tx_buffer);
 
+    let tcp3_rx_buffer = TcpSocketBuffer::new(vec![0; 65535]);
+    let tcp3_tx_buffer = TcpSocketBuffer::new(vec![0; 65535]);
+    let tcp3_socket = TcpSocket::new(tcp3_rx_buffer, tcp3_tx_buffer);
 
-    // let mut sockets = SocketSet::new(vec![]);
+    let tcp4_rx_buffer = TcpSocketBuffer::new(vec![0; 65535]);
+    let tcp4_tx_buffer = TcpSocketBuffer::new(vec![0; 65535]);
+    let tcp4_socket = TcpSocket::new(tcp4_rx_buffer, tcp4_tx_buffer);
 
-    let mut sockets = SOCKETS.lock();
 
-    let udp_handle = sockets.add(udp_socket);
-    let tcp_handle = sockets.add(tcp_socket);
-    let tcp2_handle = sockets.add(tcp2_socket);
-    drop(sockets);
+    let udp_handle = iface.add_socket(udp_socket);
+    let tcp1_handle = iface.add_socket(tcp1_socket);
+    let tcp2_handle = iface.add_socket(tcp2_socket);
+    let tcp3_handle = iface.add_socket(tcp3_socket);
+    let tcp4_handle = iface.add_socket(tcp4_socket);
 
-    loop {
-            let mut sockets = SOCKETS.lock();
-            let timestamp = Instant::from_millis(unsafe { 0 as i64 });
-            match iface.poll(&mut sockets, timestamp) {
-                Ok(_) => {},
-                Err(e) => {
-                    println!("poll error: {}", e);
-                }
+
+
+    loop{
+
+        let timestamp = Instant::from_millis(unsafe { crate::timer::TICKS as i64 });
+
+        match iface.poll(timestamp) {
+            Ok(_) => {}
+            Err(e) => {
+                debug!("poll error: {}", e);
             }
-            // udp server
-            {
-                let mut socket = sockets.get::<UdpSocket>(udp_handle);
-                if !socket.is_open() {
-                    socket.bind(6969).unwrap();
-                }
+        }
+        // udp:6969: respond "hello"
+        let socket = iface.get_socket::<UdpSocket>(udp_handle);
+        if !socket.is_open() {
+            socket.bind(6969).unwrap()
+        }
 
-                let client = match socket.recv() {
-                    Ok((_, endpoint)) => Some(endpoint),
-                    Err(_) => None,
-                };
-                if let Some(endpoint) = client {
-                    let hello = b"hello\n";
-                    socket.send_slice(hello, endpoint).unwrap();
-                }
+        let client = match socket.recv() {
+            Ok((data, endpoint)) => {
+                debug!(
+                    "udp:6969 recv data: {:?} from {}",
+                    str::from_utf8(data).unwrap(),
+                    endpoint
+                );
+                Some(endpoint)
             }
+            Err(_) => None,
+        };
+        if let Some(endpoint) = client {
+            let data = b"hello\n";
+            debug!(
+                "udp:6969 send data: {:?}",
+                str::from_utf8(data.as_ref()).unwrap()
+            );
+            socket.send_slice(data, endpoint).unwrap();
+        }
 
-            // simple http server
-            {
-                let mut socket = sockets.get::<TcpSocket>(tcp_handle);
-                if !socket.is_open() {
-                    socket.listen(80).unwrap();
-                }
+        // tcp:6969: respond "hello"
+        let socket = iface.get_socket::<TcpSocket>(tcp1_handle);
+        if !socket.is_open() {
+            socket.listen(80).unwrap();
+        }
 
-                if socket.can_send() {
-                    write!(socket, "HTTP/1.1 200 OK\r\nServer: rCore\r\nContent-Length: 13\r\nContent-Type: text/html\r\nConnection: Closed\r\n\r\nHello, world!\r\n").unwrap();
-                    socket.close();
-                }
-            }
+        if socket.can_send() {
+            debug!("tcp:80 send greeting");
+            writeln!(socket, "HTTP/1.1 200 OK\r\nServer: rCore\r\nContent-Length: 13\r\nContent-Type: text/html\r\nConnection: Closed\r\n\r\nHello, world!\r\n").unwrap();
+            debug!("tcp:80 close");
+            socket.close();
+        }
 
-            // simple tcp server that just eats everything
-            {
-                let mut socket = sockets.get::<TcpSocket>(tcp2_handle);
-                if !socket.is_open() {
-                    socket.listen(2222).unwrap();
-                }
+            // // simple http server
+            // {
+            //     let mut socket = sockets.get::<TcpSocket>(tcp_handle);
+            //     if !socket.is_open() {
+            //         socket.listen(80).unwrap();
+            //     }
 
-                if socket.can_recv() {
-                    let mut data = [0u8; 2048];
-                    let size = socket.recv_slice(&mut data).unwrap();
-                }
-            }
-        
-        
+            //     if socket.can_send() {
+            //         write!(socket, "HTTP/1.1 200 OK\r\nServer: rCore\r\nContent-Length: 13\r\nContent-Type: text/html\r\nConnection: Closed\r\n\r\nHello, world!\r\n").unwrap();
+            //         socket.close();
+            //     }
+            // }
 
+            // // simple tcp server that just eats everything
+            // {
+            //     let mut socket = sockets.get::<TcpSocket>(tcp2_handle);
+            //     if !socket.is_open() {
+            //         socket.listen(2222).unwrap();
+            //     }
+
+            //     if socket.can_recv() {
+            //         let mut data = [0u8; 2048];
+            //         let size = socket.recv_slice(&mut data).unwrap();
+            //     }
+            // }
     }
 
 }

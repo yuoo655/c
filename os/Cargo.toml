@@ -24,7 +24,7 @@ bit_field = "0.10.1"
 
 device_tree = { git = "https://github.com/rcore-os/device_tree-rs", rev = "2fa8411" }
 
-smoltcp = { git = "https://github.com/rcore-os/smoltcp", rev = "5bd87c7c", default-features = false, features = ["alloc", "log", "ethernet", "proto-ipv4", "proto-igmp", "socket-icmp", "socket-udp", "socket-tcp", "socket-raw"] }
+smoltcp = { git = "https://github.com/smoltcp-rs/smoltcp",default-features = false, features = ["alloc", "log",  "proto-ipv4", "proto-igmp", "socket-icmp", "socket-udp", "socket-tcp", "socket-raw","medium-ethernet"] }
 volatile = "0.2"
 
 

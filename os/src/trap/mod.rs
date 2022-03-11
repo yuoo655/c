@@ -100,7 +100,7 @@ pub fn trap_handler() -> ! {
             unsafe {
                 TICKS += 1;
                 if TICKS / 100 == 0 {
-                    TICKS = 0;
+                    // TICKS = 0;
                     println!("* 100 ticks *");
                 }
             }
