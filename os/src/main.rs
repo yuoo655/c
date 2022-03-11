@@ -34,6 +34,7 @@ mod lkm;
 mod scheduler;
 mod sync;
 mod net;
+mod logging;
 
 
 
@@ -90,10 +91,10 @@ pub fn rust_main(hart_id: usize, device_tree_paddr: usize) -> ! {
         init_other_cpu();
     }
 
-    println_hart!("Hello", hart_id);
+    debug!("Hello");
     
     
-    println_hart!("run user task", hart_id);
+    debug!("run user task");
     task::run_tasks();
     
     panic!("Unreachable in rust_main!");
@@ -115,7 +116,7 @@ pub fn init_other_cpu(){
             let satp: usize;
             let sp: usize;
             asm!("csrr {}, satp", out(reg) satp);
-            println_hart!("init done satp: {:#x}", hart_id, satp);
+            debug!("init done satp: {:#x}",  satp);
         }
     }
 }
