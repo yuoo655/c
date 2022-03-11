@@ -13,11 +13,7 @@ os.system("cd user && rustup component add rust-src")
 os.system("cd user && cargo clean")
 os.system("cd user && cargo build --release")
 
-
-
-
 os.system("cd easy-fs-fuse && cargo run --release -- -s ../user/src/bin/ -t ../user/target/riscv64gc-unknown-none-elf/release/")
-
 
 os.system("cd os && rustup target add riscv64gc-unknown-none-elf")
 os.system("cd os && cargo install cargo-binutils")

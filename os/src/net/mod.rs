@@ -203,9 +203,7 @@ pub fn device_tree_init(dtb: usize) {
 
 pub fn net_test(dtb: usize){
     device_tree_init(dtb);
-    
     server(1);
-    
 }
 
 
@@ -227,14 +225,14 @@ use core::any::*;
 
 use lazy_static::*;
 
-    lazy_static! {
-    /// Global SocketSet in smoltcp.
-    ///
-    /// Because smoltcp is a single thread network stack,
-    /// every socket operation needs to lock this.
-        pub static ref SOCKETS: Mutex<SocketSet<'static, 'static, 'static>> =
-            Mutex::new(SocketSet::new(vec![]));
-    }
+lazy_static! {
+/// Global SocketSet in smoltcp.
+///
+/// Because smoltcp is a single thread network stack,
+/// every socket operation needs to lock this.
+    pub static ref SOCKETS: Mutex<SocketSet<'static, 'static, 'static>> =
+        Mutex::new(SocketSet::new(vec![]));
+}
 
 
 pub extern fn server(_arg: usize) -> ! {
@@ -264,7 +262,7 @@ pub extern fn server(_arg: usize) -> ! {
     let tcp_socket = TcpSocket::new(tcp_rx_buffer, tcp_tx_buffer);
 
 
-        let tcp2_rx_buffer = TcpSocketBuffer::new(vec![0; 1024]);
+    let tcp2_rx_buffer = TcpSocketBuffer::new(vec![0; 1024]);
     let tcp2_tx_buffer = TcpSocketBuffer::new(vec![0; 1024]);
     let tcp2_socket = TcpSocket::new(tcp2_rx_buffer, tcp2_tx_buffer);
 
@@ -278,14 +276,8 @@ pub extern fn server(_arg: usize) -> ! {
     let tcp2_handle = sockets.add(tcp2_socket);
     drop(sockets);
 
-
-
-
-
     loop {
-        
             let mut sockets = SOCKETS.lock();
-
             let timestamp = Instant::from_millis(unsafe { 0 as i64 });
             match iface.poll(&mut sockets, timestamp) {
                 Ok(_) => {},
@@ -293,8 +285,6 @@ pub extern fn server(_arg: usize) -> ! {
                     println!("poll error: {}", e);
                 }
             }
-
-
             // udp server
             {
                 let mut socket = sockets.get::<UdpSocket>(udp_handle);
@@ -341,44 +331,5 @@ pub extern fn server(_arg: usize) -> ! {
         
 
     }
-
-}
-
-
-pub fn pre(addr: IpAddress){
-        info!("server");
-    if NET_DRIVERS.lock().len() < 1 {
-        loop {
-            // thread::yield_now();
-        }
-    }
-
-    let mut driver = {
-        let ref_driver = (&*(NET_DRIVERS.lock())[0]);
-        ref_driver.as_any().downcast_ref::<VirtIONetDriver>().unwrap().clone()
-    };
-
-    let ethernet_addr = driver.get_mac();
-    info!("ethernet_addr {:x?}", ethernet_addr);
-    let ip_addrs = [IpCidr::new(addr, 24)];
-    info!("set ip_addrs {:?}", ip_addrs);
-    let neighbor_cache = NeighborCache::new(BTreeMap::new());
-    let mut iface = EthernetInterfaceBuilder::new(driver.clone())
-        .ethernet_addr(ethernet_addr)
-        .ip_addrs(ip_addrs)
-        .neighbor_cache(neighbor_cache)
-        .finalize();
-
-    let udp_rx_buffer = UdpSocketBuffer::new(vec![UdpPacketMetadata::EMPTY], vec![0; 64]);
-    let udp_tx_buffer = UdpSocketBuffer::new(vec![UdpPacketMetadata::EMPTY], vec![0; 128]);
-    let udp_socket = UdpSocket::new(udp_rx_buffer, udp_tx_buffer);
-
-    let tcp_rx_buffer = TcpSocketBuffer::new(vec![0; 1024]);
-    let tcp_tx_buffer = TcpSocketBuffer::new(vec![0; 1024]);
-    let tcp_socket = TcpSocket::new(tcp_rx_buffer, tcp_tx_buffer);
-
-    let mut sockets = SocketSet::new(vec![]);
-    let udp_handle = sockets.add(udp_socket);
-    let tcp_handle = sockets.add(tcp_socket);
 
 }

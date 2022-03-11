@@ -320,14 +320,6 @@ impl<'a> phy::Device<'a> for VirtIONetDriver {
 
         Some((VirtIONetRxToken(self.clone()),
                 VirtIONetTxToken(self.clone())))
-
-        // if driver.transmit_available() && driver.receive_available() {
-        //     // ugly borrow rules bypass
-        //     Some((VirtIONetRxToken(self.clone()),
-        //         VirtIONetTxToken(self.clone())))
-        // } else {
-        //     None
-        // }
     }
 
     fn transmit(&'a mut self) -> Option<Self::TxToken> {
