@@ -75,8 +75,7 @@ pub fn print_in_color(args: fmt::Arguments, color_code: u8) {
     putfmt(with_color!(args, color_code));
 }
 
-
-
+#[allow(dead_code)]
 pub fn print(args: fmt::Arguments) {
     putfmt(args);
 }

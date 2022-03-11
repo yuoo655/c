@@ -22,9 +22,9 @@ extern crate alloc;
 #[macro_use]
 extern crate bitflags;
 
-// #[macro_use]
+#[macro_use]
+pub mod logging;
 
-// mod console;
 
 mod lang_items;
 mod sbi;
@@ -41,8 +41,7 @@ mod lkm;
 mod scheduler;
 mod sync;
 mod net;
-#[macro_use]
-pub mod logging;
+
 
 
 
