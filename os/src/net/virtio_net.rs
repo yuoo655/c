@@ -317,13 +317,17 @@ impl<'a> phy::Device<'a> for VirtIONetDriver {
 
     fn receive(&'a mut self) -> Option<(Self::RxToken, Self::TxToken)> {
         let driver = self.0.lock();
-        if driver.transmit_available() && driver.receive_available() {
-            // ugly borrow rules bypass
-            Some((VirtIONetRxToken(self.clone()),
+
+        Some((VirtIONetRxToken(self.clone()),
                 VirtIONetTxToken(self.clone())))
-        } else {
-            None
-        }
+
+        // if driver.transmit_available() && driver.receive_available() {
+        //     // ugly borrow rules bypass
+        //     Some((VirtIONetRxToken(self.clone()),
+        //         VirtIONetTxToken(self.clone())))
+        // } else {
+        //     None
+        // }
     }
 
     fn transmit(&'a mut self) -> Option<Self::TxToken> {
@@ -369,11 +373,13 @@ impl RxToken for VirtIONetRxToken {
             let mut used_ring = unsafe { 
                 &mut *((driver.queue_address[VIRTIO_QUEUE_RECEIVE] + used_ring_offset) as *mut VirtIOVirtqueueUsedRing) 
             };
-            assert!(driver.last_used_idx[VIRTIO_QUEUE_RECEIVE] == used_ring.idx.read() - 1);
+
+            // assert!(driver.last_used_idx[VIRTIO_QUEUE_RECEIVE] == used_ring.idx.read() - 1);
+
             driver.last_used_idx[VIRTIO_QUEUE_RECEIVE] = used_ring.idx.read();
             let mut payload = unsafe { slice::from_raw_parts_mut((driver.queue_page[VIRTIO_QUEUE_RECEIVE] + size_of::<VirtIONetHeader>()) as *mut u8, PAGE_SIZE - 10)};
 
-            info!("receive packet {:x?}", payload);
+            // info!("receive packet {:x?}", payload);
             let mut buffer = payload.to_vec();
             for i in 0..(PAGE_SIZE - size_of::<VirtIONetHeader>()) {
                 payload[i] = 0;
@@ -396,7 +402,7 @@ impl phy::TxToken for VirtIONetTxToken {
         where F: FnOnce(&mut [u8]) -> Result<R>,
     {
 
-        println!("transmit one packet");
+        // println!("transmit one packet");
         let mut driver = (self.0).0.lock();
 
         // ensure header page is mapped
@@ -407,7 +413,7 @@ impl phy::TxToken for VirtIONetTxToken {
 
         let mut header = unsafe { &mut *(driver.header as *mut VirtIOHeader) };
         let payload_target = unsafe { slice::from_raw_parts_mut((driver.queue_page[VIRTIO_QUEUE_TRANSMIT] + size_of::<VirtIONetHeader>()) as *mut u8, len)};
-        println!("payload_target: {:x?}", payload_target);
+        // println!("payload_target: {:x?}", payload_target);
         let result = f(payload_target);
         // println!("result: {:x?}", result);
 

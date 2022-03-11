@@ -170,10 +170,6 @@ pub fn virtio_probe(node: &Node) {
     }
 }
 
-
-
-
-
 const DEVICE_TREE_MAGIC: u32 = 0xd00dfeed;
 
 fn walk_dt_node(dt: &Node) {
@@ -205,23 +201,12 @@ pub fn device_tree_init(dtb: usize) {
     }
 }
 
-
-
-
-
-
 pub fn net_test(dtb: usize){
     device_tree_init(dtb);
-    loop {
-        server(1);
-    }
+    
+    server(1);
+    
 }
-
-
-
-
-
-
 
 
 use smoltcp::wire::*;
@@ -236,35 +221,24 @@ use self::virtio_net::NET_DRIVERS;
 use self::virtio_net::AsAny;
 use self::virtio_net::VirtIONetDriver;
 use self::virtio_net::NetDriver;
+use spin::Mutex;
 
 use core::any::*;
 
+use lazy_static::*;
 
+    lazy_static! {
+    /// Global SocketSet in smoltcp.
+    ///
+    /// Because smoltcp is a single thread network stack,
+    /// every socket operation needs to lock this.
+        pub static ref SOCKETS: Mutex<SocketSet<'static, 'static, 'static>> =
+            Mutex::new(SocketSet::new(vec![]));
+    }
 
-    // pub fn new(device: DeviceT) -> Self {
-    //     InterfaceBuilder {
-    //         device:              device,
-    //         ethernet_addr:       None,
-    //         neighbor_cache:      None,
-    //         ip_addrs:            ManagedSlice::Borrowed(&mut []),
-    //         #[cfg(feature = "proto-ipv4")]
-    //         any_ip:              false,
-    //         routes:              Routes::new(ManagedMap::Borrowed(&mut [])),
-    //         #[cfg(feature = "proto-igmp")]
-    //         ipv4_multicast_groups:   ManagedMap::Borrowed(&mut []),
-    //         #[cfg(not(feature = "proto-igmp"))]
-    //         _ipv4_multicast_groups:  PhantomData,
-    //     }
-    // }
 
 pub extern fn server(_arg: usize) -> ! {
     info!("server");
-    if NET_DRIVERS.lock().len() < 1 {
-        loop {
-            // thread::yield_now();
-        }
-    }
-
     let mut driver = {
         let ref_driver = (&*(NET_DRIVERS.lock())[0]);
         ref_driver.as_any().downcast_ref::<VirtIONetDriver>().unwrap().clone()
@@ -289,18 +263,30 @@ pub extern fn server(_arg: usize) -> ! {
     let tcp_tx_buffer = TcpSocketBuffer::new(vec![0; 1024]);
     let tcp_socket = TcpSocket::new(tcp_rx_buffer, tcp_tx_buffer);
 
-    let mut sockets = SocketSet::new(vec![]);
+
+        let tcp2_rx_buffer = TcpSocketBuffer::new(vec![0; 1024]);
+    let tcp2_tx_buffer = TcpSocketBuffer::new(vec![0; 1024]);
+    let tcp2_socket = TcpSocket::new(tcp2_rx_buffer, tcp2_tx_buffer);
+
+
+    // let mut sockets = SocketSet::new(vec![]);
+
+    let mut sockets = SOCKETS.lock();
+
     let udp_handle = sockets.add(udp_socket);
     let tcp_handle = sockets.add(tcp_socket);
+    let tcp2_handle = sockets.add(tcp2_socket);
+    drop(sockets);
 
 
-    
-    let mut buf = [0u8; 64];
- 
+
+
 
     loop {
-        {
-            let timestamp = Instant::from_millis(unsafe { crate::timer::TICKS as i64 });
+        
+            let mut sockets = SOCKETS.lock();
+
+            let timestamp = Instant::from_millis(unsafe { 0 as i64 });
             match iface.poll(&mut sockets, timestamp) {
                 Ok(_) => {},
                 Err(e) => {
@@ -317,12 +303,8 @@ pub extern fn server(_arg: usize) -> ! {
                 }
 
                 let client = match socket.recv() {
-                    Ok((data, endpoint)) => {
-
-                        info!("recv udp {:?}", data);
-                        Some(endpoint)
-                    }
-                    Err(_) => None
+                    Ok((_, endpoint)) => Some(endpoint),
+                    Err(_) => None,
                 };
                 if let Some(endpoint) = client {
                     let hello = b"hello\n";
@@ -342,9 +324,22 @@ pub extern fn server(_arg: usize) -> ! {
                     socket.close();
                 }
             }
-        }
 
-        // thread::yield_now();
+            // simple tcp server that just eats everything
+            {
+                let mut socket = sockets.get::<TcpSocket>(tcp2_handle);
+                if !socket.is_open() {
+                    socket.listen(2222).unwrap();
+                }
+
+                if socket.can_recv() {
+                    let mut data = [0u8; 2048];
+                    let size = socket.recv_slice(&mut data).unwrap();
+                }
+            }
+        
+        
+
     }
 
 }

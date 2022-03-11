@@ -3,7 +3,6 @@
 2:build qemu-net
 
 build:
-	cd os && cargo build
 	cd os && cargo build --release
 
 qemu:
