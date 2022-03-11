@@ -1,6 +1,6 @@
-1:build qemu
+1:build qemu-net
 
-2:build qemu-net
+2:build qemu
 
 build:
 	cd os && cargo build --release
@@ -31,19 +31,9 @@ qemu-net:
 	-netdev tap,id=tap0,ifname=tap0,script=no,downscript=no \
 	-device virtio-net-device,netdev=tap0,mac=EE:BB:AA:EE:AA:AA,bus=virtio-mmio-bus.1 \
 
-
-
-
-
-
-
-
 xx:
 	-netdev tap,id=tap,ifname=tap,script=no,downscript=no \
 	-device virtio-net-device,netdev=tap,bus=virtio-mmio-bus.2
-
-
-
 
 debug:build qemu-debug
 
