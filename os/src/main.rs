@@ -34,7 +34,10 @@ mod lkm;
 mod scheduler;
 mod sync;
 mod net;
+
+#[macro_use]
 mod logging;
+
 
 
 
