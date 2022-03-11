@@ -6,7 +6,7 @@ use {
 use core::fmt::{Arguments, Result, Write};
 use crate::sbi::console_putchar;
 
-use core::arch::asm;
+// use core::arch::asm;
 
 use spin::Mutex;
 
@@ -71,11 +71,12 @@ macro_rules! with_color {
     }};
 }
 
-fn print_in_color(args: fmt::Arguments, color_code: u8) {
+pub fn print_in_color(args: fmt::Arguments, color_code: u8) {
     putfmt(with_color!(args, color_code));
 }
 
-#[allow(dead_code)]
+
+
 pub fn print(args: fmt::Arguments) {
     putfmt(args);
 }
@@ -91,18 +92,6 @@ impl Log for SimpleLogger {
             return;
         }
 
-        // if let Some(thread) = crate::task::PerCpu::from_current_cpu_id().thread() {
-        //     print_in_color(
-        //         format_args!(
-        //             "[{:>5}][{},{}] {}\n",
-        //             record.level(),
-        //             crate::arch::cpu::id(),
-        //             thread.id,
-        //             record.args()
-        //         ),
-        //         level_to_color_code(record.level()),
-        //     );
-        // } else {
             print_in_color(
                 format_args!(
                     "[{:>5}][{},-] {}\n",
@@ -128,6 +117,7 @@ fn level_to_color_code(level: Level) -> u8 {
 }
 
 
+
 pub fn hart_id() -> usize {
     let hart_id: usize;
     unsafe {
@@ -135,7 +125,6 @@ pub fn hart_id() -> usize {
     }
     hart_id
 }
-
 
 // pub fn print_colorized(args: fmt::Arguments, foreground_color: u8, background_color: u8) {
 //     CONSOLE.lock().write_fmt(colorize!(args, foreground_color, background_color)).unwrap();

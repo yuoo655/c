@@ -9,16 +9,23 @@
 #![feature(alloc_error_handler)]
 #![allow(unused)]
 
+
 use alloc::alloc::dealloc;
-// use std::println;
+
+#[macro_use]
+extern crate log;
+
+
 #[macro_use]
 extern crate alloc;
 
 #[macro_use]
 extern crate bitflags;
 
-#[macro_use]
-mod console;
+// #[macro_use]
+
+// mod console;
+
 mod lang_items;
 mod sbi;
 mod syscall;
@@ -34,9 +41,12 @@ mod lkm;
 mod scheduler;
 mod sync;
 mod net;
-
 #[macro_use]
-mod logging;
+pub mod logging;
+
+
+
+
 
 
 
