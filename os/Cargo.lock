@@ -340,7 +340,6 @@ checksum = "388a1df253eca08550bef6c72392cfe7c30914bf41df5269b68cbd6ff8f570a3"
 [[package]]
 name = "smoltcp"
 version = "0.8.0"
-source = "git+https://github.com/smoltcp-rs/smoltcp#d05ebdd88f7f2b87a2ffe3256a42f67809d2d7e4"
 dependencies = [
  "bitflags",
  "byteorder",
