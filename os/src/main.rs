@@ -76,6 +76,9 @@ pub fn rust_main(hart_id: usize, device_tree_paddr: usize) -> ! {
     if hart_id == 0{
         clear_bss();
         mm::init();
+
+        logging::init();
+    
         println!("[kernel] Hello, world!");
         println!("[kernel] device tree @ {:#x}", device_tree_paddr);
         
