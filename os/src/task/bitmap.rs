@@ -53,7 +53,7 @@ impl BitMap {
             self.0  = self.0 | user_bitmap.0;
         }
 
-        debug!("update bitmap ---------------------------");
+        debug!("hard [{}] update bitmap", hart_id());
     }
 }
 

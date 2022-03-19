@@ -162,6 +162,24 @@ impl MemorySet {
 
     }
 
+    pub fn bitmap_user(&mut self, space_id: usize) {
+        let start_addr = 0x87400000 as usize;
+        info!("pid:{:#x} bitmap pa:{:#x}", space_id, start_addr + PAGE_SIZE*space_id);
+        self.page_table.map(
+            VirtAddr::from(0x87400000).into(),  
+            PhysAddr::from(start_addr + PAGE_SIZE * space_id).into(),  
+            PTEFlags::R | PTEFlags::X  | PTEFlags::U |PTEFlags::W
+        );
+
+        self.page_table.map(
+            VirtAddr::from(0x87410000).into(),  
+            PhysAddr::from(0x87410000).into(),  
+            PTEFlags::R | PTEFlags::X  | PTEFlags::U |PTEFlags::W
+        );
+
+    }
+
+
     /// Without kernel stacks.
     pub fn new_kernel() -> Self {
         let mut memory_set = Self::new_bare();
@@ -212,7 +230,7 @@ impl MemorySet {
         ), None);
 
         memory_set.push_shared_kernel();
-        memory_set.bitmap_kernel();
+        // memory_set.bitmap_kernel();
 
         println!("mapping memory-mapped registers");
         for pair in MMIO {
@@ -363,27 +381,7 @@ impl MemorySet {
     }
 
 
-    pub fn bitmap_user(&mut self, space_id: usize) {
-        let start_addr = 0x8900_0000 as usize;
-        info!("pid:{:#x} bitmap pa:{:#x}", space_id, start_addr + PAGE_SIZE*space_id);
-        self.page_table.map(
-            VirtAddr::from(0x200_0000).into(),  
-            PhysAddr::from(start_addr + PAGE_SIZE * space_id).into(),  
-            PTEFlags::R | PTEFlags::X  | PTEFlags::U |PTEFlags::W
-        );
 
-        self.page_table.map(
-            VirtAddr::from(0x200_1000).into(),  
-            PhysAddr::from(0x88000000).into(),  
-            PTEFlags::R | PTEFlags::X  | PTEFlags::U |PTEFlags::W
-        );
-
-    }
-
-    
-    pub fn bitmap_kernel(&mut self) {
-//  
-    }
 
 
     pub fn from_elf_v1(elf_data: &[u8], space_id: usize) -> (Self, usize, usize) {
