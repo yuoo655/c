@@ -31,7 +31,6 @@ mod fs;
 mod drivers;
 mod loader;
 mod lkm;
-mod scheduler;
 
 
 global_asm!(include_str!("entry.asm"));

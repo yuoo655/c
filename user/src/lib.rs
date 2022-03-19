@@ -9,9 +9,6 @@
 
 #[macro_use]
 pub mod console;
-pub mod scheduler;
-
-// use scheduler::*;
 
 mod syscall;
 mod lang_items;
