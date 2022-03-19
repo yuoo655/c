@@ -13,10 +13,10 @@ os.system('cd basic_rt && rust-objcopy --binary-architecture=riscv64 target/risc
             --strip-all -O binary target/riscv64gc-unknown-none-elf/release/basic_rt.bin')
 
 
-os.system("cd user && rustup target add riscv64gc-unknown-none-elf")
-os.system("cd user && cargo install cargo-binutils")
-os.system("cd user && rustup component add llvm-tools-preview")
-os.system("cd user && rustup component add rust-src")
+# os.system("cd user && rustup target add riscv64gc-unknown-none-elf")
+# os.system("cd user && cargo install cargo-binutils")
+# os.system("cd user && rustup component add llvm-tools-preview")
+# os.system("cd user && rustup component add rust-src")
 os.system("cd user && cargo clean")
 os.system("cd user && cargo build --release")
 
@@ -26,10 +26,10 @@ os.system("cd user && cargo build --release")
 os.system("cd easy-fs-fuse && cargo run --release -- -s ../user/src/bin/ -t ../user/target/riscv64gc-unknown-none-elf/release/")
 
 
-os.system("cd os && rustup target add riscv64gc-unknown-none-elf")
-os.system("cd os && cargo install cargo-binutils")
-os.system("cd os && rustup component add llvm-tools-preview")
-os.system("cd os && rustup component add rust-src")
+# os.system("cd os && rustup target add riscv64gc-unknown-none-elf")
+# os.system("cd os && cargo install cargo-binutils")
+# os.system("cd os && rustup component add llvm-tools-preview")
+# os.system("cd os && rustup component add rust-src")
 os.system("cd os && cargo clean")
 os.system("cd os && cargo build --release")
 os.system("cd os && cargo build")

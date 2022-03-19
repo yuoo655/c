@@ -34,10 +34,10 @@ pub fn hart_id() -> usize {
 pub fn test_for_user(){
 
     // let base = 0x86000000 - 0x87000000;
-    let init_environment_addr = get_symbol_addr("init_environment\0") as usize - 0x87000000 + 0x86000000;
-    let init_cpu_addr = get_symbol_addr("init_cpu_test\0") as usize - 0x87000000 + 0x86000000;
-    let cpu_run_addr = get_symbol_addr("cpu_run\0") as usize    - 0x87000000 + 0x86000000;
-    let add_user_task_with_priority_addr = get_symbol_addr("add_user_task_with_priority\0") as usize   - 0x87000000 + 0x86000000;
+    let init_environment_addr = get_symbol_addr("init_environment\0") as usize - 0x1000000;
+    let init_cpu_addr = get_symbol_addr("init_cpu_test\0") as usize - 0x1000000;
+    let cpu_run_addr = get_symbol_addr("cpu_run\0") as usize    - 0x1000000;
+    let add_user_task_with_priority_addr = get_symbol_addr("add_user_task_with_priority\0") as usize   - 0x1000000;
     // println!("init_environment at {:#x?}", init_environment_addr);
     // println!("init_cpu at {:#x?}", init_cpu_addr);
     // println!("cpu_run at {:#x?}", cpu_run_addr);
