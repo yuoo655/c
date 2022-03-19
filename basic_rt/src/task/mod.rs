@@ -49,6 +49,8 @@ pub fn thread_main() {
 
     println!("thread_main-------------");
     loop {
+        let x = check_bitmap_should_yield();
+        
         let mut queue = USER_TASK_QUEUE.lock();
         let task = queue.peek_task();
         println!("thread_main running, have task {:?}", !task.is_none());

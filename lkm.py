@@ -9,6 +9,7 @@ os.system('cd basic_rt && cargo build')
 # os.system('cd basic_rt && cargo build --release')
 # os.system('cd basic_rt && rust-objcopy --binary-architecture=riscv64 target/riscv64gc-unknown-none-elf/release/basic_rt \
             # --strip-all -O binary target/riscv64gc-unknown-none-elf/release/basic_rt.bin')
+            
 os.system('cd basic_rt && rust-objcopy --binary-architecture=riscv64 target/riscv64gc-unknown-none-elf/debug/basic_rt \
             --strip-all -O binary target/riscv64gc-unknown-none-elf/debug/basic_rt.bin')
 
