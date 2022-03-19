@@ -103,7 +103,7 @@ pub fn init_other_cpu(){
             let satp: usize;
             let sp: usize;
             asm!("csrr {}, satp", out(reg) satp);
-            println_hart!("init done satp: {:#x}", hart_id, satp);
+            println_hart!("init done", hart_id);
         }
     }
 }

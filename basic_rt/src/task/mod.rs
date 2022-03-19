@@ -35,6 +35,14 @@ lazy_static! {
         );
 }
 
+pub fn hart_id() -> usize {
+    let hart_id: usize;
+    unsafe {
+        asm!("mv {}, tp", out(reg) hart_id);
+    }
+    hart_id
+}
+
 
 #[no_mangle]
 pub fn thread_main() {
@@ -43,7 +51,7 @@ pub fn thread_main() {
     loop {
         let mut queue = USER_TASK_QUEUE.lock();
         let task = queue.peek_task();
-        println!("thread_main running, no task: {:?}", task.is_none());
+        println!("thread_main running, have task {:?}", !task.is_none());
 
         match task {
             // have any task

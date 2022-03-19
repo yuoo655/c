@@ -69,7 +69,7 @@ pub fn test_for_user(){
         init_cpu();
 
         async fn test(x: i32) {
-            println!("[hart {}] [user5] {}", hart_id(),x);
+            println!("hart[{}] [user5] {}", hart_id(),x);
         }
         // println!("test task addr :{:#x?}", test as usize);
         // println!("add_task");
