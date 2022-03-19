@@ -5,6 +5,7 @@ mod manager;
 mod processor;
 mod pid;
 mod pool;
+mod bitmap;
 
 use crate::fs::{open_file, OpenFlags};
 use switch::__switch;
@@ -14,7 +15,8 @@ pub use pool::{add_task, fetch_task, prioritize_task};
 use lazy_static::*;
 pub use context::TaskContext;
 
-// pub use task::SPACE;
+pub use bitmap::KERNEL_BITMAP;
+
 
 pub use processor::{
     run_tasks,
@@ -106,7 +108,7 @@ pub fn add_initproc() {
 
 pub fn add_user_test(){
 
-    for i in 1..9 {
+    for i in 1..4 {
         info!("add user task {}", i);
         let task = Arc::new({
             let inode = open_file(i.to_string().as_str(), OpenFlags::RDONLY).unwrap();

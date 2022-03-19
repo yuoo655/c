@@ -94,6 +94,9 @@ pub fn trap_handler() -> ! {
         }
         Trap::Interrupt(Interrupt::SupervisorTimer) => {
             set_next_trigger();
+
+            crate::task::KERNEL_BITMAP.lock().update_bitmap();
+            
             // info!("[kernel] timer interrupt");
             suspend_current_and_run_next();
         }

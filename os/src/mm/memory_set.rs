@@ -127,21 +127,39 @@ impl MemorySet {
 
     pub fn push_shared_kernel(&mut self) {
         let start_addr = 0x87000000 as usize;
-        for i in 0..(1024+1024) {
+        for i in 0..(1024) {
             self.page_table.map(
                 VirtAddr::from(start_addr + PAGE_SIZE*i).into(),  
                 PhysAddr::from(start_addr + PAGE_SIZE*i).into(),  
                 PTEFlags::R | PTEFlags::X | PTEFlags::W 
             );
         }
-        for i in 0..(1024+1024) {
+        for i in 0..(1024) {
             self.page_table.map(
                 VirtAddr::from(0 + PAGE_SIZE*i).into(),  
                 PhysAddr::from(start_addr + PAGE_SIZE*i).into(),  
                 PTEFlags::R | PTEFlags::X | PTEFlags::W 
             );
         }
-        println!("start: {:#x} end: {:#x}", start_addr, start_addr + PAGE_SIZE*(1024+1024));
+        println!("start: {:#x} end: {:#x}", start_addr, start_addr + PAGE_SIZE*(1024));
+
+        
+        let start_addr = 0x87400000 as usize;
+
+        for i in 0..10{
+            info!("kernel pid:{:#x} bitmap pa:{:#x}", i, start_addr + PAGE_SIZE*i);
+            self.page_table.map(
+                VirtAddr::from(start_addr + PAGE_SIZE * i).into(),  
+                PhysAddr::from(start_addr + PAGE_SIZE * i).into(),  
+                PTEFlags::R | PTEFlags::X|PTEFlags::W
+            );
+        }
+        self.page_table.map(
+            VirtAddr::from(0x87410000).into(),  
+            PhysAddr::from(0x87410000).into(),  
+            PTEFlags::R | PTEFlags::X |PTEFlags::W
+        );
+
     }
 
     /// Without kernel stacks.
@@ -193,8 +211,8 @@ impl MemorySet {
             MapPermission::R | MapPermission::W | MapPermission::X,
         ), None);
 
-        
         memory_set.push_shared_kernel();
+        memory_set.bitmap_kernel();
 
         println!("mapping memory-mapped registers");
         for pair in MMIO {
@@ -326,17 +344,16 @@ impl MemorySet {
 
         memory_set.push_shared();
 
-        memory_set.bitmap(space_id);
-        memory_set.bitmap_kernel();
+        memory_set.bitmap_user(space_id);
+        
 
-        // memory_set.map_context(space_id);
         
         (memory_set, user_stack_top, elf.header.pt2.entry_point() as usize)
     }
 
     pub fn push_shared(&mut self) {
         let start_addr = 0x87000000 as usize;
-        for i in 0..2047 {
+        for i in 0..1024 {
             self.page_table.map(
                 VirtAddr::from(start_addr + PAGE_SIZE*i).into(),  
                 PhysAddr::from(start_addr + PAGE_SIZE*i).into(),  
@@ -346,25 +363,26 @@ impl MemorySet {
     }
 
 
-    pub fn bitmap_kernel(&mut self, space_id: usize) {
+    pub fn bitmap_user(&mut self, space_id: usize) {
         let start_addr = 0x8900_0000 as usize;
         info!("pid:{:#x} bitmap pa:{:#x}", space_id, start_addr + PAGE_SIZE*space_id);
         self.page_table.map(
             VirtAddr::from(0x200_0000).into(),  
-            PhysAddr::from(start_addr + PAGE_SIZE*space_id).into(),  
+            PhysAddr::from(start_addr + PAGE_SIZE * space_id).into(),  
             PTEFlags::R | PTEFlags::X  | PTEFlags::U |PTEFlags::W
         );
+
+        self.page_table.map(
+            VirtAddr::from(0x200_1000).into(),  
+            PhysAddr::from(0x88000000).into(),  
+            PTEFlags::R | PTEFlags::X  | PTEFlags::U |PTEFlags::W
+        );
+
     }
 
     
     pub fn bitmap_kernel(&mut self) {
-        let start_addr = 0x87800000 as usize;
-        // info!("pid:{:#x} bitmap pa:{:#x}", start_addr + PAGE_SIZE*space_id);
-        self.page_table.map(
-            VirtAddr::from(0x200_1000).into(),  
-            PhysAddr::from(start_addr + PAGE_SIZE).into(),  
-            PTEFlags::R | PTEFlags::X  | PTEFlags::U |PTEFlags::W
-        );
+//  
     }
 
 
@@ -374,11 +392,6 @@ impl MemorySet {
 
         let user_satp = memory_set.token();
 
-        // x = user_satp as usize;
-
-        //shared
-
-        
         // map program headers of elf, with U flag
         let elf = xmas_elf::ElfFile::new(elf_data).unwrap();
         let elf_header = elf.header;
