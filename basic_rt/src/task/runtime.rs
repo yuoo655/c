@@ -15,8 +15,51 @@ use spin::Mutex;
 use woke::waker_ref;
 use lazy_static::*;
 
+use bit_field::BitField;
+
+use crate::println;
 
 
+#[no_mangle]
+lazy_static! {
+    pub static ref BITMAP: Arc<Mutex<Box<BitMap>>> = Arc::new(Mutex::new(Box::new(BitMap::new())));
+}
+
+#[derive(Clone, Copy)]
+pub struct  BitMap(usize);
+
+impl BitMap {
+    pub fn new() -> BitMap{
+        let mut bitmap: &mut BitMap;
+        unsafe{
+            bitmap = &mut *(0x10000 as *mut BitMap);
+        }
+        bitmap.0 = 0;
+        *bitmap.deref()
+    }
+    pub fn set(&mut self, id: usize, value:bool) {
+        self.0.set_bit(id, value);
+    }
+    pub fn get(&mut self, id: usize) -> bool {
+        self.0.get_bit(id)
+    }
+
+    pub fn get_priority(&mut self, id: usize) -> usize {
+        for i in 0..4 {
+            if self.0.get_bit(i){
+                return i;
+            }
+        }
+        4
+    }
+    pub fn get_sys_bitmap() -> BitMap{
+        let mut bitmap: BitMap;
+        unsafe{
+            bitmap = *(0x20000 as *mut BitMap);
+        }
+        bitmap
+    }
+}
 
 #[no_mangle]
 lazy_static! {
@@ -133,12 +176,6 @@ impl UserTaskQueue {
 
         return ret
     }
-
-
-    // pub fn delete_task(&mut self, id: TaskId, priority: usize) {
-    //     let index = self.queue[priority].iter().position(|task| task.id == id).unwrap();
-    //     self.queue.remove(index);
-    // }
     
     pub fn is_all_empty(&self) -> bool {
 

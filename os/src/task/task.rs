@@ -81,7 +81,7 @@ impl TaskControlBlock {
     pub fn new(elf_data: &[u8], space_id:usize) -> Self {
 
         // memory_set with elf program headers/trampoline/trap context/user stack
-        let (memory_set, user_sp, entry_point) = MemorySet::from_elf(elf_data,space_id);
+        let (memory_set, user_sp, entry_point) = MemorySet::from_elf(elf_data, space_id);
 
 
         

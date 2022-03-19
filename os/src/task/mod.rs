@@ -107,10 +107,11 @@ pub fn add_initproc() {
 pub fn add_user_test(){
 
     for i in 1..9 {
+        info!("add user task {}", i);
         let task = Arc::new({
             let inode = open_file(i.to_string().as_str(), OpenFlags::RDONLY).unwrap();
             let v = inode.read_all();
-            TaskControlBlock::new(v.as_slice(), 0 as usize)
+            TaskControlBlock::new(v.as_slice(), i as usize)
         });
         add_task(task.clone());
         drop(task);
