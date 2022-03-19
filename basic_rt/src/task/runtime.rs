@@ -32,7 +32,7 @@ impl BitMap {
     pub fn new() -> BitMap{
         let mut bitmap: &mut BitMap;
         unsafe{
-            bitmap = &mut *(0x10000 as *mut BitMap);
+            bitmap = &mut *(0x200_0000 as *mut BitMap);
         }
         bitmap.0 = 0;
         *bitmap.deref()
@@ -44,13 +44,14 @@ impl BitMap {
         self.0.get_bit(id)
     }
 
-    pub fn get_priority(&mut self, id: usize) -> usize {
-        for i in 0..4 {
+    pub fn get_priority(&self) -> usize {
+        for i in 0..7 {
             if self.0.get_bit(i){
                 return i;
             }
         }
-        4
+        
+        7
     }
     pub fn get_sys_bitmap() -> BitMap{
         let mut bitmap: BitMap;
@@ -59,6 +60,25 @@ impl BitMap {
         }
         bitmap
     }
+}
+
+
+
+pub fn check_bitmap_should_yield() -> bool{
+    // user map addr 0x200_0000
+    // kernel bitmap 0x200_1000
+    unsafe{
+        let kernel_bitmap = *(0x200_1000 as *mut BitMap);
+
+        let kernel_highest_priority = kernel_bitmap.get_priority();
+
+        let user_highest_priority = BITMAP.lock().get_priority();
+
+        if kernel_highest_priority > user_highest_priority{
+            return true
+        }
+    }
+    false
 }
 
 #[no_mangle]
@@ -167,13 +187,11 @@ impl UserTaskQueue {
 
         for i in 0..self.queue.len() {
             if self.queue[i].len() !=0 {
-
+                BITMAP.lock().set(i, true);
                 let x =  self.queue[i].pop_front();
-
                 return x
             }
         }
-
         return ret
     }
     
@@ -188,6 +206,7 @@ impl UserTaskQueue {
     }
 
 }
+
 
 
 pub enum TaskState {
