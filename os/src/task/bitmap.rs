@@ -53,7 +53,7 @@ impl BitMap {
             self.0  = self.0 | user_bitmap.0;
         }
 
-        debug!("hard [{}] update bitmap", hart_id());
+        debug!("hard [{}] update bitmap", crate::hart_id());
     }
 }
 

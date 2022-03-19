@@ -146,7 +146,7 @@ impl MemorySet {
         
         let start_addr = 0x87400000 as usize;
 
-        for i in 0..10{
+        for i in 0..9{
             info!("kernel pid:{:#x} bitmap pa:{:#x}", i, start_addr + PAGE_SIZE*i);
             self.page_table.map(
                 VirtAddr::from(start_addr + PAGE_SIZE * i).into(),  
