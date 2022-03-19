@@ -125,6 +125,7 @@ impl MemorySet {
     //     );
     // }
 
+    //为内核模块设置空间,以及映射内核以及用户位图.
     pub fn push_shared_kernel(&mut self) {
         let start_addr = 0x87000000 as usize;
         for i in 0..(1024) {
@@ -162,6 +163,7 @@ impl MemorySet {
 
     }
 
+    //为用户映射位图
     pub fn bitmap_user(&mut self, space_id: usize) {
         let start_addr = 0x87400000 as usize;
         info!("pid:{:#x} bitmap pa:{:#x}", space_id, start_addr + PAGE_SIZE*space_id);
