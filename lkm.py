@@ -4,7 +4,14 @@ os.system("cd basic_rt && rustup target add riscv64gc-unknown-none-elf")
 os.system("cd basic_rt && cargo install cargo-binutils")
 os.system("cd basic_rt && rustup component add llvm-tools-preview")
 os.system("cd basic_rt && rustup component add rust-src")
-os.system("cd basic_rt && python build.py")
+os.system('cd basic_rt && cargo clean')
+os.system('cd basic_rt && cargo build')
+os.system('cd basic_rt && cargo build --release')
+os.system('cd basic_rt && rust-objcopy --binary-architecture=riscv64 target/riscv64gc-unknown-none-elf/debug/basic_rt \
+            --strip-all -O binary target/riscv64gc-unknown-none-elf/debug/basic_rt.bin')
+os.system('cd basic_rt && rust-objcopy --binary-architecture=riscv64 target/riscv64gc-unknown-none-elf/release/basic_rt \
+            --strip-all -O binary target/riscv64gc-unknown-none-elf/release/basic_rt.bin')
+
 
 os.system("cd user && rustup target add riscv64gc-unknown-none-elf")
 os.system("cd user && cargo install cargo-binutils")

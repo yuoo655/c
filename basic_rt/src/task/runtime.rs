@@ -134,12 +134,6 @@ impl UserTaskQueue {
         return ret
     }
 
-
-    // pub fn delete_task(&mut self, id: TaskId, priority: usize) {
-    //     let index = self.queue[priority].iter().position(|task| task.id == id).unwrap();
-    //     self.queue.remove(index);
-    // }
-    
     pub fn is_all_empty(&self) -> bool {
 
         for i in 0..self.queue.len() {
