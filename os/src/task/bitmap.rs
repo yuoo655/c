@@ -46,9 +46,12 @@ impl BitMap {
 
     pub fn update_bitmap(&mut self){
 
-        for i in 0..4 {
-            let start_addr = 0x87400000 as usize;
-            let user_bitmap = unsafe { &*( (0x87400000 + PAGE_SIZE *i) as *const BitMap) };
+        //kernel_bitmap va = pa = 0x87410000 
+        //user_bitmap  0x87400000 + PAGE_SIZE*pid  (pid start from 1)  0x87401000..0x87404000
+
+        for i in 1..5 {
+            // let start_addr = 0x87400000 as usize;
+            let user_bitmap = unsafe { &*( (0x87400000 + PAGE_SIZE*i) as *const BitMap) };
 
             self.0  = self.0 | user_bitmap.0;
         }

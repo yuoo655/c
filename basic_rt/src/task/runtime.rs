@@ -32,7 +32,7 @@ impl BitMap {
     pub fn new() -> BitMap{
         let mut bitmap: &mut BitMap;
         unsafe{
-            bitmap = &mut *(0x87410000 as *mut BitMap);
+            bitmap = &mut *(0x87420000 as *mut BitMap);
         }
         bitmap.0 = 0;
         *bitmap.deref()
@@ -56,7 +56,7 @@ impl BitMap {
     pub fn get_sys_bitmap() -> BitMap{
         let mut bitmap: BitMap;
         unsafe{
-            bitmap = *(0x20000 as *mut BitMap);
+            bitmap = *(0x87410000 as *mut BitMap);
         }
         bitmap
     }
@@ -65,10 +65,10 @@ impl BitMap {
 
 
 pub fn check_bitmap_should_yield() -> bool{
-    // user map addr 0x200_0000
-    // kernel bitmap 0x200_1000
+    // user bitmap  0x87420000
+    // kernel bitmap 0x87410000
     unsafe{
-        let kernel_bitmap = *(0x87420000 as *mut BitMap);
+        let kernel_bitmap = *(0x87410000 as *mut BitMap);
 
         let kernel_highest_priority = kernel_bitmap.get_priority();
 

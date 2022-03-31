@@ -33,7 +33,6 @@ pub fn hart_id() -> usize {
 
 pub fn test_for_user(){
 
-    // let base = 0x86000000 - 0x87000000;
     let init_environment_addr = get_symbol_addr("init_environment\0") as usize - 0x1000000;
     let init_cpu_addr = get_symbol_addr("init_cpu_test\0") as usize - 0x1000000;
     let cpu_run_addr = get_symbol_addr("cpu_run\0") as usize    - 0x1000000;

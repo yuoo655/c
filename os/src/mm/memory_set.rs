@@ -147,7 +147,9 @@ impl MemorySet {
         
         let start_addr = 0x87400000 as usize;
 
-        for i in 0..9{
+        
+        //user bitmap  kernel space  va = pa = 0x87400000 + page_size * pid 
+        for i in 1..9{
             info!("kernel pid:{:#x} user bitmap in pa:{:#x}", i, start_addr + PAGE_SIZE*i);
             self.page_table.map(
                 VirtAddr::from(start_addr + PAGE_SIZE * i).into(),  
@@ -155,6 +157,8 @@ impl MemorySet {
                 PTEFlags::R | PTEFlags::X|PTEFlags::W
             );
         }
+        
+        //kernel_bitmap  kernel space va = pa = 0x87410000 + page_size * pid 
         self.page_table.map(
             VirtAddr::from(0x87410000).into(),  
             PhysAddr::from(0x87410000).into(),  
@@ -165,20 +169,23 @@ impl MemorySet {
 
     //为用户映射位图
     pub fn bitmap_user(&mut self, space_id: usize) {
+        
         let start_addr = 0x87400000 as usize;
         info!("pid:{:#x} bitmap pa:{:#x}", space_id, start_addr + PAGE_SIZE*space_id);
+
+        //user bitmap user space  va = 0x87420000  pa = 0x87400000 + page_size * pid
         self.page_table.map(
-            VirtAddr::from(0x87400000).into(),  
+            VirtAddr::from(0x87420000).into(),  
             PhysAddr::from(start_addr + PAGE_SIZE * space_id).into(),  
             PTEFlags::R | PTEFlags::X  | PTEFlags::U |PTEFlags::W
         );
 
+        //kernel bitmap  user space va = 0x87410000 pa = 0x87410000
         self.page_table.map(
             VirtAddr::from(0x87410000).into(),  
             PhysAddr::from(0x87410000).into(),  
             PTEFlags::R | PTEFlags::X  | PTEFlags::U |PTEFlags::W
         );
-
     }
 
 

@@ -108,7 +108,7 @@ pub fn add_initproc() {
 
 pub fn add_user_test(){
 
-    for i in 1..6 {
+    for i in 1..7 {
         info!("add user task {}", i);
         let task = Arc::new({
             let inode = open_file(i.to_string().as_str(), OpenFlags::RDONLY).unwrap();
